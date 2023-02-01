@@ -35,6 +35,15 @@ To set MySQL locally run inside `api/`
 npm run start:docker
 ```
 
+## Database
+
+As for the database connection, we're using Prisma. Prisma is a ORM (Object-Relational Mapping) that will help ups to keep track on the schema changes and,
+make it easier to query data from MySQL.
+
+### How to create a table and handle data
+
+[Prisma Docs](https://www.prisma.io/docs/getting-started/quickstart)
+
 ## Tech stack
 
 - NodeJS
