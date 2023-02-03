@@ -19,28 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.EC2_SSH_KEY  }}" > ~/.ssh/prod.key
-          chmod 600 ~/.ssh/prod.key
-          cat >>~/.ssh/config <<END
-          Host prod
-            HostName ec2-35-155-214-56.us-west-2.compute.amazonaws.com
-            User ec2-user
-            IdentityFile ~/.ssh/prod.key
-            StrictHostKeyChecking no
-          END
-
       - uses: actions/checkout@v2 
-      - name: Deploy in EC2           
-            
-        run: |
-          ssh prod '          
-
-            cd ~/stylify &&
-            git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/main &&
-            git pull origin main &&
-          '
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /stylify
+          remote_host: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
+          remote_user: ec2-user
+          remote_key: "${{ secrets.EC2_SSH_KEY }}"
