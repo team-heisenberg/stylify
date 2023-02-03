@@ -28,7 +28,7 @@ jobs:
           echo "${PRIVATE_KEY}"
           mkdir .ssh
           echo "${PRIVATE_KEY}" > ./.ssh/stylify && chmod 600 ./.ssh/stylify
-          ssh -o StrictHostKeyChecking=no -i ./.ssh/stylify.pem ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
+          ssh -o StrictHostKeyChecking=no -i ./.ssh/stylify ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
           
             #Now we have got the access of EC2 and we will start the deploy .
             cd ~/stylify &&
