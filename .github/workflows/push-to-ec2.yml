@@ -25,8 +25,8 @@ jobs:
             PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
             
         run: |
-          echo "$PRIVATE_KEY" > private_key.cer && chmod 600 private_key.cer
-          ssh -o StrictHostKeyChecking=no -i private_key.cer ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
+          echo "$PRIVATE_KEY" > stylify.cer && chmod 600 stylify.cer
+          ssh -i ./stylify.cer ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
           
             #Now we have got the access of EC2 and we will start the deploy .
             cd ~/stylify &&
