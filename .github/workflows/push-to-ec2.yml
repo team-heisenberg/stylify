@@ -42,5 +42,5 @@ jobs:
             SCRIPT_AFTER: |
               cd ~/api
               npm i
-              npm run start &
+              npm run pm2
 

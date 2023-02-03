@@ -8,7 +8,8 @@
     "dev": "ENVIRONMENT=development tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "start:docker": "dotenv -e ../.env -- docker-compose up --detach --no-deps --build",
     "test": "jest",
-    "lint": "npx eslint . --ext .js,.ts"
+    "lint": "npx eslint . --ext .js,.ts",
+    "pm2": "NODE_ENV=production pm2 start server.ts --watch"
   },
   "keywords": [],
   "author": "",
