@@ -24,7 +24,8 @@ jobs:
 
         uses: easingthemes/ssh-deploy@main
         env:
-            SSH_PRIVATE_KEY: ${{ vars.PRIVATE_KEY }}
+            SSH_PRIVATE_KEY: |
+              ${{ vars.PRIVATE_KEY }}
 
             ARGS: "-rlgoDzvc -i --delete"
             SOURCE: "api/"
