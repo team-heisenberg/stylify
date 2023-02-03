@@ -25,7 +25,7 @@ jobs:
             PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
             
         run: |
-          apt install openssh-client
+          sudo apt-get install openssh-client
           echo "$PRIVATE_KEY" > stylify.pem && chmod 600 stylify.pem
           ssh -o StrictHostKeyChecking=no -i stylify.pem ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
           
