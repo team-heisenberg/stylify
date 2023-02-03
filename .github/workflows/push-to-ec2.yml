@@ -22,7 +22,7 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "$PRIVATE_KEY" > ~/.ssh/prod.key
+          echo "${{ secrets.EC2_SSH_KEY  }}" > ~/.ssh/prod.key
           chmod 600 ~/.ssh/prod.key
           cat >>~/.ssh/config <<END
           Host prod
@@ -31,8 +31,6 @@ jobs:
             IdentityFile ~/.ssh/prod.key
             StrictHostKeyChecking no
           END
-        env:
-          PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
 
       - uses: actions/checkout@v2 
       - name: Deploy in EC2           
