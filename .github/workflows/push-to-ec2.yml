@@ -21,19 +21,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2 
       - name: Deploy in EC2
+
+        uses: easingthemes/ssh-deploy@main
         env:
-            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}-
-            
-        run: |
-          echo "${PRIVATE_KEY}"
-          mkdir .ssh
-          echo "${PRIVATE_KEY}" > ./.ssh/stylify && chmod 600 ./.ssh/stylify
-          ssh -o "StrictHostKeyChecking=no" -i ./.ssh/stylify ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd ~/stylify &&
-            git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/main &&
-            git pull origin main &&
-          '
+            SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+            ARGS: "-rlgoDzvc -i --delete"
+            SOURCE: "api/"
+            REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
+            REMOTE_USER: ec2-user
+            TARGET: ~/stylify
+            EXCLUDE: "/app/"
+            SCRIPT_AFTER: |
+              whoami
+              ls -al
+              echo $RSYNC_STDOUT
+
