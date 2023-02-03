@@ -20,12 +20,19 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2 
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.1
-        with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /stylify
-          remote_host: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
-          remote_user: ec2-user
-          remote_key: "${{ secrets.EC2_SSH_KEY }}"
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+            
+        run: |
+          apt install openssh-client
+          echo "$PRIVATE_KEY" > stylify.pem && chmod 600 stylify.pem
+          ssh -o StrictHostKeyChecking=no -i stylify.pem ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd ~/stylify &&
+            git checkout main &&
+            git fetch --all &&
+            git reset --hard origin/main &&
+            git pull origin main &&
+          '
