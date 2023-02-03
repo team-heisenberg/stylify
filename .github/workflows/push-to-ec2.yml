@@ -19,16 +19,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$PRIVATE_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName ec2-35-155-214-56.us-west-2.compute.amazonaws.com
+            User ec2-user
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
         env:
-            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2           
             
         run: |
-          echo "$PRIVATE_KEY" > stylify.cer && chmod 600 stylify.cer
-          ssh -o StrictHostKeyChecking=no -i stylify.cer ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
-          
-            #Now we have got the access of EC2 and we will start the deploy .
+          ssh ec2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '          
+
             cd ~/stylify &&
             git checkout main &&
             git fetch --all &&
