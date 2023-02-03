@@ -40,7 +40,7 @@ jobs:
             TARGET: ~/api
             EXCLUDE: "/app/"
             SCRIPT_AFTER: |
-              whoami
-              ls -al
-              echo $RSYNC_STDOUT
+              cd ~/api
+              npm i
+              npm run start &
 
