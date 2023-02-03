@@ -5,19 +5,33 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
-    name: Push to EC2 Instance
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+      
+    - name: Buid the application
+      run: echo "Hello"
 
-      - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
+  Deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./api"
-          REMOTE_HOST: "ec2-35-155-214-56.us-west-2.compute.amazonaws.com"
-          REMOTE_USER: "ec2-user"
-          TARGET: "/home/ec2-user/api"
+            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key cs2-user@ec2-35-155-214-56.us-west-2.compute.amazonaws.com '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd ~/stylify &&
+            git checkout main &&
+            git fetch --all &&
+            git reset --hard origin/main &&
+            git pull origin main &&
+          '
