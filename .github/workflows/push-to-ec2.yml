@@ -40,7 +40,5 @@ jobs:
             TARGET: ~/api
             EXCLUDE: "/app/"
             SCRIPT_AFTER: |
-              cd ~/api
-              npm i
-              npm run pm2
+              sudo cd ~/api && sudo npm i && sudo npm run pm2
 
