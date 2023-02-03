@@ -22,35 +22,7 @@ jobs:
       - uses: actions/checkout@v2 
       - name: Deploy in EC2
         env:
-            PRIVATE_KEY: |
-              -----BEGIN RSA PRIVATE KEY-----
-              MIIEogIBAAKCAQEAttbjisDtiOEwCxAespDwYbJfzqr2VR/MZpS6RVSf4YKb9i0c
-              GQ9QzYIK6DiyZKn380RqFm7vm++2SFJVB9f93jqiZ2XI0C1KL44jEU7Rvz/xg/8U
-              LrbCnOMp67wOKaO+TWdr6D/RuYVtfl7OR32I4yJGvBQayH7cwreS8aT2fFu7/ION
-              CteHc8X9IFRME3qAI/y2AeEMsgCfrd0/h/FvyaBjKesY8IIDr08PG9wi6lno3/7o
-              Fj+YYytAqzDQlVjasbrO6+pRSMKIX/bO7tcRE5Zq/TmsmcuTMEUT/GWJXgddDkA+
-              tPHcz6P081Yz84KtmZCuGFeQGTKDyvuABgMbqwIDAQABAoIBAGMQArDG3uvutk0I
-              Ktms1dDZCDe9QUHVvLVHl7TAqO9SCJZU0ohxV+JAtxAix+TqgkD3rFMDQCdItYZx
-              tUhOqmmhcyR6bVb9cthZNn7GKbZpOr29kn3M35yJJ8llVncRFKZzhm+LRGIz/KMf
-              UrxBM818YL6+VdSTh6CoPaFXM4Ukcj4Rxd6R2Oglc5aL7o06FbENZ6MCq96fS3SJ
-              4Xb6uSVwh4KfWuauZhI77V0G+3x0VarozRTjX4dpEhVUmdlZS3U/vZsulXt8TPI1
-              TevRv2lEGbaRQxlWdZ1C9EvVVeEJIwK9xbI2T9rVWHJ0oNcajdg0hXqtzt19b3T2
-              +6mYK6ECgYEA9p2Ux/f4IDA/DaSgTigFHv6tLU7r9bTAja1WeM43lJOQngLK2cbV
-              09GxAZUwJOODttX1sek2tEhDQvuWl2BXEKtDWdO4+yNgeQctms4BPMQAxI0AgZIb
-              oJClCjJuEbM+N9EBud+rI3Ji7NoPdttnpFEd6/mho44/WpJ4tIcMlE0CgYEAvcwH
-              Zf2QIUIY1OxDdLKOMD3jPXwtIZev1WnV1lIqU2i/a0TlQsghlVgUlQ96wtqg4vDB
-              brdXW5eSL3kMocpePWPaCTA2wNzXV+L200e9qwzMRxuPhxBio5uczA3mCV8QDyZX
-              OvpGriqpmwD8isXVYl/RvYpXYUlPo7WuexcAS9cCgYEAy6g8mprLnIFbQMAH5iMk
-              f4EfsD/xmlonfZh8xYy+14K5NdPmgsux/5e2TjFOrdf5CL9OhBqso1rduO4dYWsc
-              21Yja4Xtx+9iFvB3l9SxruXKIIa0uUvYZtOsh2w3+4QDSILgowfzw3UN/rzhcm0j
-              /M1EIYBoHLI23WwCJEs2dy0CfzVhLLOCnQa9kD5SNKadkWAAB+lDA25vOwTKv1mH
-              wl+zFiMVPWWK4+cc3q0NrXkgBB/PlpeM+QTJnFO9t8/JGrgpXSk4Zi3X7rjJHKJP
-              iwiQkONu3O8frJ5XJcI+JnR8SAf6wI3V1gsl9I2juWNOQLVqPZMRVYIHHF7uuiPk
-              VDECgYEAiegzP3CG4sjcty94ptIHNE4ByJdhdBxW1d6qfex4PM03ZSzBVPToa/SK
-              9RVm1+toJdc1n6BLia5De7WiEoFOGdJUMTFvB4MIQIp9GFhXU9rWUTiqXWWFa9E1
-              /8yryEYf4PGx7H7t/zlPLQtw8kHf05n3vjP0NB6f1guBRhyk/a8=
-              -----END RSA PRIVATE KEY-----
-
+            PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}-
             
         run: |
           echo "${PRIVATE_KEY}"
