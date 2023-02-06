@@ -18,10 +18,13 @@ jobs:
         cp -r api/node_modules api/build &&
         ls api
 
+    - name: Zip artifact for deployment
+      run: zip release.zip ./api/build -r
+
     - uses: actions/upload-artifact@v3
       with:
         name: build
-        path: api/build
+        path: release.zip
 
   deploy:
     needs: build
@@ -32,7 +35,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: build
-          path: api/build
+
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: Deploy in EC2
         uses: easingthemes/ssh-deploy@main
@@ -47,7 +52,7 @@ jobs:
               -----END OPENSSH PRIVATE KEY-----
 
             ARGS: "-rlgoDzvc -i --delete"
-            SOURCE: "api/build"
+            SOURCE: "build"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
             TARGET: ~/api
