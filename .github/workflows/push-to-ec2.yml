@@ -15,7 +15,7 @@ jobs:
       run: |
         npm ci --prefix api &&
         npm run build --prefix api &&
-        cp api/node_modules api/build &&
+        cp -r api/node_modules api/build &&
         ls api
 
     - uses: actions/upload-artifact@v3
