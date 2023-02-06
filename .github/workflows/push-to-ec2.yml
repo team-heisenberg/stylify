@@ -13,7 +13,7 @@ jobs:
       
     - name: Buid API
       run: |
-        npm ci && npm run build
+        npm ci --prefix ./app && npm run build --prefix ./app
 
   deploy:
     needs: build
