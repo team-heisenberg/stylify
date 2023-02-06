@@ -60,7 +60,6 @@ jobs:
             SCRIPT_BEFORE: |
               sudo rm -rf ~/api/*
             SCRIPT_AFTER: |
-              echo $(sudo pm2 delete all)
-              echo $(sudo pm2 start ~/api/build/server.js)
+              sudo pm2 start ~/api/build/server.js
 
 
