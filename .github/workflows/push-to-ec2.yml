@@ -52,11 +52,12 @@ jobs:
               -----END OPENSSH PRIVATE KEY-----
 
             ARGS: "-rlgoDzvc -i --delete"
-            SOURCE: "api/build"
+            SOURCE: "./api/build"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
             TARGET: ~/api
             EXCLUDE: "/app/"
+            SCRIPT_BEFORE: sudo rm -rf ~/api/*
             SCRIPT_AFTER: |
               sudo pm2 delete all && sudo npm run pm2 --prefix ~/api
 
