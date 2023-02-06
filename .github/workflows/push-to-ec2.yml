@@ -60,6 +60,6 @@ jobs:
             SCRIPT_BEFORE: |
               sudo rm -rf ~/api/*
             SCRIPT_AFTER: |
-              sudo pm2 start ~/api/build/server.js
+              sudo /usr/bin/bash deploy.sh
 
 
