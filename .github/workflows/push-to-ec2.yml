@@ -58,7 +58,5 @@ jobs:
             TARGET: ~/api
             EXCLUDE: "/app/"
             SCRIPT_BEFORE: sudo rm -rf ~/api/*
-            SCRIPT_AFTER: |
-              echo $(sudo pm2 delete all) \
-              sudo pm2 start ~/api/build/server.js
+            SCRIPT_AFTER: ./deploy.sh
 
