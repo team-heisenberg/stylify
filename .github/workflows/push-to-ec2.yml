@@ -18,14 +18,24 @@ jobs:
         cp ./api/node_modules ./api/build \
         ls ./api
 
+    - uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: ./api/build
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
+      - uses: actions/checkout@v3
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: ./api/build
+
+      - name: Deploy in EC2
         uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE_KEY: |
