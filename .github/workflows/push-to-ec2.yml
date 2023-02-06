@@ -13,7 +13,10 @@ jobs:
       
     - name: Buid API
       run: |
-        npm ci --prefix ./api && npm run build --prefix ./api
+        npm ci --prefix ./api \
+        npm run build --prefix ./api \
+        cp ./api/node_modules ./api/build \
+        ls ./api
 
   deploy:
     needs: build
@@ -35,7 +38,7 @@ jobs:
               -----END OPENSSH PRIVATE KEY-----
 
             ARGS: "-rlgoDzvc -i --delete"
-            SOURCE: "api/build"
+            SOURCE: "./api/build"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
             TARGET: ~/api
