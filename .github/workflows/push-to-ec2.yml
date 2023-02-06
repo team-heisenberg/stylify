@@ -51,12 +51,16 @@ jobs:
               xGuBx4hZduBjaXTdY5oqSfgHy+FAlxcNxUZedmN6/5ZkAAAAAAECAwQF
               -----END OPENSSH PRIVATE KEY-----
 
-            ARGS: "-rlgoDzvc -i --delete"
+            ARGS: "-rlgoDzvc --delete"
             SOURCE: "./api/build"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
             TARGET: ~/api
             EXCLUDE: "/app/"
-            SCRIPT_BEFORE: sudo rm -rf ~/api/*
-            SCRIPT_AFTER: ./deploy.sh
+            SCRIPT_BEFORE: |
+              sudo rm -rf ~/api/*
+            SCRIPT_AFTER: |
+              echo $(sudo pm2 delete all)
+              echo $(sudo pm2 start ~/api/build/server.js)
+
 
