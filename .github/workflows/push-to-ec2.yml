@@ -11,10 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       
-    - name: Buid the application
-      run: echo "Hello"
+    - name: Buid API
+      run: |
+        npm ci && npm run build
 
-  Deploy:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     
@@ -34,11 +35,11 @@ jobs:
               -----END OPENSSH PRIVATE KEY-----
 
             ARGS: "-rlgoDzvc -i --delete"
-            SOURCE: "api/"
+            SOURCE: "api/build"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
             TARGET: ~/api
             EXCLUDE: "/app/"
             SCRIPT_AFTER: |
-              sudo cd ~/api && sudo npm i && sudo npm run pm2
+              sudo pm2 delete all && sudo npm run pm2 --prefix ~/api
 
