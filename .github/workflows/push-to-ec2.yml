@@ -60,6 +60,6 @@ jobs:
             SCRIPT_BEFORE: |
               sudo rm -rf ~/api/*
             SCRIPT_AFTER: |
-              sudo unzip ~/api/release.zip && sudo pm2 start ~/api/build/server.js
+              at now + 1 minute -f ~/deploy.sh
 
 
