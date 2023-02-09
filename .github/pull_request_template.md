@@ -20,6 +20,6 @@ npm run
 
 - [ ] Unit tests (if needed)
 - [ ] Code cleanup (removed dead code, console logs, sorted props, etc)
-- [ ] Updated Trello ticket with info and linked to this PR
+- [ ] Updated ticket with info and linked to this PR
 
 
