@@ -43,13 +43,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE_KEY: |
-              -----BEGIN OPENSSH PRIVATE KEY-----
-              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtz
-              c2gtZWQyNTUxOQAAACBrgceIWXbgY2l03WOaKkn4B8vhQJcXDcVGXnZjev+WZAAA
-              AIhL6MPkS+jD5AAAAAtzc2gtZWQyNTUxOQAAACBrgceIWXbgY2l03WOaKkn4B8vh
-              QJcXDcVGXnZjev+WZAAAAEAwUQIBATAFBgMrZXAEIgQgKges9969nmD5i0SiRVyw
-              xGuBx4hZduBjaXTdY5oqSfgHy+FAlxcNxUZedmN6/5ZkAAAAAAECAwQF
-              -----END OPENSSH PRIVATE KEY-----
+              ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
             ARGS: "-rlgoDzvc -i --delete"
             SOURCE: "release.zip"
