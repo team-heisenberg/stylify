@@ -2,26 +2,17 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    env_file: ./.env
-    environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQLDB_DATABASE
-    ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
-    volumes:
-      - db:/var/lib/mysql
-    networks:
-      - backend
+    extends:
+      file: docker-mysql.yml
+      service: mysqldb
 
   backend:
     depends_on:
       - mysqldb
-    build: ./api
+    build: ../api
     tty: true 
     restart: unless-stopped
-    env_file: ./.env
+    env_file: ../.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:

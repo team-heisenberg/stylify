@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
-    "dev": "ENVIRONMENT=development tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "start": "dotenv -e ../.env -- tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "dev": "dotenv -e ../.env -- ENVIRONMENT=development tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "rimraf -rf ./build && tsc",
-    "start:docker": "dotenv -e ../.env -- docker-compose up --detach --no-deps --build",
-    "test": "jest",
-    "lint": "npx eslint . --ext .js,.ts",
-    "pm2": "NODE_ENV=production pm2 start src/server.ts --watch"
+    "start:docker": "dotenv -e ../.env -- docker compose -f ../.docker/docker-compose.yml -p stylify up  --detach --no-deps --build",
+    "start:db": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql.yml -p stylify up --detach --no-deps --build",
+    "start:db:m1": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql-apple-silicon.yml -p stylify up --detach --no-deps --build",
+    "prisma:migrate": "dotenv -e ../.env npx prisma migrate dev --name",
+    "test": "dotenv -e ../.env -- jest",
+    "lint": "npx eslint . --ext .js,.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +25,7 @@
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "dotenv": "^16.0.3",
+    "dotenv-cli": "^7.0.0",
     "eslint": "^8.33.0",
     "eslint-config-standard-with-typescript": "^33.0.0",
     "eslint-plugin-import": "^2.27.5",
@@ -39,9 +41,11 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@prisma/client": "^4.9.0",
     "app": "^0.1.0",
     "cd": "^0.3.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
   }
 }
