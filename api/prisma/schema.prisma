@@ -58,3 +58,61 @@ model ServiceType {
   services Service[] 
   serviceType String 
 }
+
+model Deal {
+  dealID Int @id @default(autoincrement())
+  business @relation(fields: [businessID], references: [businessID])
+  service @relation(fields: [serviceID], references: [serviceID])
+  dealAmount Int
+  price Int
+  startDate DateTime
+  endDate DateTime
+  businessID Int
+  serviceID Int
+}
+
+model Review {
+  reviewID Int @id @default(autoincrement())
+  business @relation(fields: [businessID], references: [businessID])
+  appointment @relation(fields: : [appointmentID], references: [appointmentID])
+  appointmentRating Int
+  reviewDetails String
+  businessID Int
+  appointmentID Int
+}
+
+model Appointment {
+  appointmentID Int @id @default(autoincrement())
+  customer   Customer @relation(fields: [customerID], references: [customerID])
+  customerID Int
+  business   Business @relation(fields: [businessID], references: [businessID])
+  businessID Int
+  professional   Professional @relation(fields: [professionalID], references: [professionalID])
+  professionalID Int
+  isConfirmed Boolean
+  review   Review @relation(fields: [reviewID], references: [reviewID])
+  reviewID Int
+  deal   Deal @relation(fields: [dealID], references: [dealID])
+  dealID Int
+  appointmentDateTime DateTime
+}
+
+model AppointmentDetails {
+  appointmentDetailsID Int @id @default(autoincrement())
+  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  appointmentID Int
+  service   Service @relation(fields: [serviceID], references: [serviceID])
+  serviceID Int
+  price Int
+}
+
+model Customer {
+  customerID Int @id @default(autoincrement())
+  email String @unique
+  password String
+  firstName String
+  lastName String
+  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  appointmentID Int
+  avatarURL String
+}

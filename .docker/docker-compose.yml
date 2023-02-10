@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    extends:
+      file: docker-mysql.yml
+      service: mysqldb
+
+  backend:
+    depends_on:
+      - mysqldb
+    build: ../api
+    tty: true 
+    restart: unless-stopped
+    env_file: ../.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=mysqldb
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+      - CLIENT_ORIGIN=$CLIENT_ORIGIN
+    networks:
+      - backend
+
+volumes:
+  db:
+
+networks:
+  backend:
+  
