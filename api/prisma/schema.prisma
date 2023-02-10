@@ -10,9 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id String @id @default(uuid())
-  text String @unique
-  number Int
-  numeric Float
+model Appointment {
+  appointmentID Int @id @default(autoincrement())
+  customer   Customer @relation(fields: [customerID], references: [customerID])
+  customerID Int
+  business   Business @relation(fields: [businessID], references: [businessID])
+  businessID Int
+  professional   Professional @relation(fields: [professionalID], references: [professionalID])
+  professionalID Int
+  isConfirmed Boolean
+  review   Review @relation(fields: [reviewID], references: [reviewID])
+  reviewID Int
+  deal   Deal @relation(fields: [dealID], references: [dealID])
+  dealID Int
+  appointmentDateTime DateTime
 }
+
+model AppointmentDetails {
+  appointmentDetailsID Int @id @default(autoincrement())
+  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  appointmentID Int
+  service   Service @relation(fields: [serviceID], references: [serviceID])
+  serviceID Int
+  price Int
+}
+
+model Customer {
+  customerID Int @id @default(autoincrement())
+  email String @unique
+  password String
+  firstName String
+  lastName String
+  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  appointmentID Int
+  avatarURL String
+}
+
