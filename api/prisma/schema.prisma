@@ -10,6 +10,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Business {
+  businessID    Int     @id @default(autoincrement())
+  email String  @unique
+  password String
+  businessName String
+  businessType String
+  description String
+  location String
+  professionals Professional[]
+  reviews Review[]
+  customers Customer[]
+  services Service[]
+}
+
+model Professional {
+  professionalID Int @id @default(autoincrement())
+  businessID Int
+  business Business @relation(fields: [businessID], references: [businessID])
+  firstName String
+  lastName String
+  professionalService ProfessionalServices[]
+}
+
+model Service {
+  serviceID    Int     @id @default(autoincrement())
+  business Business @relation(fields: [businessID], references: [businessID])
+  serviceName String
+  serviceTypeID Int
+  servicePrice Int
+  businessID Int
+  professionalID Int
+  professionalService ProfessionalServices[]
+  serviceType ServiceType @relation(fields: [serviceTypeID], references: [serviceTypeID])
+}
+
+model ProfessionalServices {
+  professionalServicesID Int @id @default(autoincrement())
+  serviceID Int 
+  professionalID Int
+  service Service @relation(fields: [serviceID], references: [serviceID]) 
+  professional Professional @relation(fields: [professionalID], references: [professionalID])
+  }
+
+model ServiceType {
+  serviceTypeID Int @id @default(autoincrement())
+  services Service[] 
+  serviceType String 
+}
+
 model Deal {
   dealID Int @id @default(autoincrement())
   business @relation(fields: [businessID], references: [businessID])
