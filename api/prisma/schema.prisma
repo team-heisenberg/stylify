@@ -11,19 +11,23 @@ datasource db {
 }
 
 model Deal {
-  dealId Int @id @default(autoincrement())
+  dealID Int @id @default(autoincrement())
   business @relation(fields: [businessID], references: [businessID])
   service @relation(fields: [serviceID], references: [serviceID])
   dealAmount Int
   price Int
   startDate DateTime
   endDate DateTime
+  businessID Int
+  serviceID Int
 }
 
 model Review {
-  reviewId Int @id @default(autoincrement())
+  reviewID Int @id @default(autoincrement())
   business @relation(fields: [businessID], references: [businessID])
   appointment @relation(fields: : [appointmentID], references: [appointmentID])
   appointmentRating Int
   reviewDetails String
+  businessID Int
+  appointmentID Int
 }
