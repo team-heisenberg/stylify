@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: mysql:5.7
+    image: arm64v8/mysql:oracle
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -39,4 +39,3 @@ volumes:
 
 networks:
   backend:
-  
