@@ -12,8 +12,8 @@ datasource db {
 
 model Deal {
   dealId Int @id @default(autoincrement())
-  business @relation(fields: [dealId], references: [businessId])
-  service @relation(fields: [dealId], references: [serviceId])
+  business @relation(fields: [businessId], references: [businessId])
+  service @relation(fields: [serviceId], references: [serviceId])
   dealAmount Int
   price Int
   startDate DateTime
@@ -22,8 +22,8 @@ model Deal {
 
 model Review {
   reviewId Int @id @default(autoincrement())
-  business @relation(fields: [reviewId], references: [businessId])
-  appointment @relation(fields: : [reviewId], references: [appointmentId])
+  business @relation(fields: [businessId], references: [businessId])
+  appointment @relation(fields: : [appointmentId], references: [appointmentId])
   appointmentRating Int
   reviewDetails String
 }
