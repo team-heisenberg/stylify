@@ -19,8 +19,8 @@ model Business {
   description String
   location String
   professionals Professional[]
-  // reviews Review[]
-  // customers Customer[]
+  reviews Review[]
+  customers Customer[]
   services Service[]
 }
 
