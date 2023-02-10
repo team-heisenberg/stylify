@@ -11,108 +11,115 @@ datasource db {
 }
 
 model Business {
-  businessID    Int     @id @default(autoincrement())
-  email String  @unique
-  password String
-  businessName String
-  businessType String
-  description String
-  location String
+  businessID    Int            @id @default(autoincrement())
+  email         String         @unique
+  password      String
+  businessName  String
+  businessType  String
+  description   String
+  location      String
   professionals Professional[]
-  reviews Review[]
-  customers Customer[]
-  services Service[]
+  reviews       Review[]
+  customers     Customer[]
+  services      Service[]
+  Deal          Deal[]
+  Appointment   Appointment[]
 }
 
 model Professional {
-  professionalID Int @id @default(autoincrement())
-  businessID Int
-  business Business @relation(fields: [businessID], references: [businessID])
-  firstName String
-  lastName String
+  professionalID      Int                    @id @default(autoincrement())
+  businessID          Int
+  business            Business               @relation(fields: [businessID], references: [businessID])
+  firstName           String
+  lastName            String
   professionalService ProfessionalServices[]
+  Appointment         Appointment[]
 }
 
 model Service {
-  serviceID    Int     @id @default(autoincrement())
-  business Business @relation(fields: [businessID], references: [businessID])
-  serviceName String
-  serviceTypeID Int
-  servicePrice Int
-  businessID Int
-  professionalID Int
+  serviceID           Int                    @id @default(autoincrement())
+  business            Business               @relation(fields: [businessID], references: [businessID])
+  serviceName         String
+  serviceTypeID       Int
+  servicePrice        Int
+  businessID          Int
+  professionalID      Int
   professionalService ProfessionalServices[]
-  serviceType ServiceType @relation(fields: [serviceTypeID], references: [serviceTypeID])
+  serviceType         ServiceType            @relation(fields: [serviceTypeID], references: [serviceTypeID])
+  Deal                Deal[]
+  AppointmentDetails  AppointmentDetails[]
 }
 
 model ProfessionalServices {
-  professionalServicesID Int @id @default(autoincrement())
-  serviceID Int 
-  professionalID Int
-  service Service @relation(fields: [serviceID], references: [serviceID]) 
-  professional Professional @relation(fields: [professionalID], references: [professionalID])
-  }
+  professionalServicesID Int          @id @default(autoincrement())
+  serviceID              Int
+  professionalID         Int
+  service                Service      @relation(fields: [serviceID], references: [serviceID])
+  professional           Professional @relation(fields: [professionalID], references: [professionalID])
+}
 
 model ServiceType {
-  serviceTypeID Int @id @default(autoincrement())
-  services Service[] 
-  serviceType String 
+  serviceTypeID Int       @id @default(autoincrement())
+  services      Service[]
+  serviceType   String
 }
 
 model Deal {
-  dealID Int @id @default(autoincrement())
-  business @relation(fields: [businessID], references: [businessID])
-  service @relation(fields: [serviceID], references: [serviceID])
-  dealAmount Int
-  price Int
-  startDate DateTime
-  endDate DateTime
-  businessID Int
-  serviceID Int
+  dealID      Int           @id @default(autoincrement())
+  business    Business      @relation(fields: [businessID], references: [businessID])
+  service     Service       @relation(fields: [serviceID], references: [serviceID])
+  dealAmount  Int
+  price       Int
+  startDate   DateTime
+  endDate     DateTime
+  businessID  Int
+  serviceID   Int
+  Appointment Appointment[]
 }
 
 model Review {
-  reviewID Int @id @default(autoincrement())
-  business @relation(fields: [businessID], references: [businessID])
-  appointment @relation(fields: : [appointmentID], references: [appointmentID])
+  reviewID          Int         @id @default(autoincrement())
+  business          Business    @relation(fields: [businessID], references: [businessID])
+  appointment       Appointment @relation(fields: [appointmentID], references: [appointmentID])
   appointmentRating Int
-  reviewDetails String
-  businessID Int
-  appointmentID Int
+  reviewDetails     String
+  businessID        Int
+  appointmentID     Int
 }
 
 model Appointment {
-  appointmentID Int @id @default(autoincrement())
-  customer   Customer @relation(fields: [customerID], references: [customerID])
-  customerID Int
-  business   Business @relation(fields: [businessID], references: [businessID])
-  businessID Int
-  professional   Professional @relation(fields: [professionalID], references: [professionalID])
-  professionalID Int
-  isConfirmed Boolean
-  review   Review @relation(fields: [reviewID], references: [reviewID])
-  reviewID Int
-  deal   Deal @relation(fields: [dealID], references: [dealID])
-  dealID Int
+  appointmentID       Int                  @id @default(autoincrement())
+  customer            Customer             @relation(fields: [customerID], references: [customerID])
+  customerID          Int
+  business            Business             @relation(fields: [businessID], references: [businessID])
+  businessID          Int
+  professional        Professional         @relation(fields: [professionalID], references: [professionalID])
+  professionalID      Int
+  isConfirmed         Boolean
+  reviews             Review[]
+  deal                Deal                 @relation(fields: [dealID], references: [dealID])
+  dealID              Int
   appointmentDateTime DateTime
+  AppointmentDetails  AppointmentDetails[]
 }
 
 model AppointmentDetails {
-  appointmentDetailsID Int @id @default(autoincrement())
-  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
-  appointmentID Int
-  service   Service @relation(fields: [serviceID], references: [serviceID])
-  serviceID Int
-  price Int
+  appointmentDetailsID Int         @id @default(autoincrement())
+  appointment          Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  appointmentID        Int
+  service              Service     @relation(fields: [serviceID], references: [serviceID])
+  serviceID            Int
+  price                Int
 }
 
 model Customer {
-  customerID Int @id @default(autoincrement())
-  email String @unique
-  password String
-  firstName String
-  lastName String
-  appointment   Appointment @relation(fields: [appointmentID], references: [appointmentID])
-  appointmentID Int
-  avatarURL String
+  customerID         Int           @id @default(autoincrement())
+  email              String        @unique
+  password           String
+  firstName          String
+  lastName           String
+  appointments       Appointment[]
+  avatarURL          String
+  Business           Business?     @relation(fields: [businessBusinessID], references: [businessID])
+  businessBusinessID Int?
 }
