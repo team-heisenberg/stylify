@@ -26,7 +26,8 @@ model Business {
 
 model Professional {
   professionalID Int @id @default(autoincrement())
-  business Business @relation(fields: [professionalID], references: [businessID])
+  businessID Int
+  business Business @relation(fields: [businessID], references: [businessID])
   firstName String
   lastName String
   professionalService ProfessionalServices[]
@@ -34,7 +35,7 @@ model Professional {
 
 model Service {
   serviceID    Int     @id @default(autoincrement())
-  business Business @relation(fields: [serviceID], references: [businessID])
+  business Business @relation(fields: [businessID], references: [businessID])
   serviceName String
   serviceTypeID Int
   servicePrice Int
