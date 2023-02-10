@@ -9,3 +9,21 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Deal {
+  dealId Int @id @default(autoincrement())
+  business @relation(fields: [dealId], references: [businessId])
+  service @relation(fields: [dealId], references: [serviceId])
+  dealAmount Int
+  price Int
+  startDate DateTime
+  endDate DateTime
+}
+
+model Review {
+  reviewId Int @id @default(autoincrement())
+  business @relation(fields: [reviewId], references: [businessId])
+  appointment @relation(fields: : [reviewId], references: [appointmentId])
+  appointmentRating Int
+  reviewDetails String
+}
