@@ -14,13 +14,10 @@ jobs:
     - name: Buid API
       run: |
         npm i --prefix api &&
-        npm run build --prefix api &&
-        cp -r api/node_modules api/build &&
-        cp -r api/prisma api/build &&
         ls api
 
     - name: Zip artifact for deployment
-      run: zip release.zip ./api/build -r
+      run: zip release.zip ./api -r
 
     - uses: actions/upload-artifact@v3
       with:
@@ -54,7 +51,7 @@ jobs:
             EXCLUDE: "/app/"
             SCRIPT_BEFORE: |
               sudo rm -rf ~/api/*
-            SCRIPT_AFTER: |
-              at now + 1 minute -f ~/deploy.sh
+            # SCRIPT_AFTER: |
+            #   at now + 1 minute -f ~/deploy.sh
 
 
