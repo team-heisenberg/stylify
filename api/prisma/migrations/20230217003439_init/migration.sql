@@ -19,6 +19,7 @@ CREATE TABLE `Professional` (
     `firstName` VARCHAR(191) NOT NULL,
     `lastName` VARCHAR(191) NOT NULL,
 
+    INDEX `Professional_businessID_idx`(`businessID`),
     PRIMARY KEY (`professionalID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -29,8 +30,9 @@ CREATE TABLE `Service` (
     `serviceTypeID` INTEGER NOT NULL,
     `servicePrice` INTEGER NOT NULL,
     `businessID` INTEGER NOT NULL,
-    `professionalID` INTEGER NOT NULL,
 
+    INDEX `Service_businessID_idx`(`businessID`),
+    INDEX `Service_serviceTypeID_idx`(`serviceTypeID`),
     PRIMARY KEY (`serviceID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -40,6 +42,8 @@ CREATE TABLE `ProfessionalServices` (
     `serviceID` INTEGER NOT NULL,
     `professionalID` INTEGER NOT NULL,
 
+    INDEX `ProfessionalServices_serviceID_idx`(`serviceID`),
+    INDEX `ProfessionalServices_professionalID_idx`(`professionalID`),
     PRIMARY KEY (`professionalServicesID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -61,6 +65,8 @@ CREATE TABLE `Deal` (
     `businessID` INTEGER NOT NULL,
     `serviceID` INTEGER NOT NULL,
 
+    INDEX `Deal_businessID_idx`(`businessID`),
+    INDEX `Deal_serviceID_idx`(`serviceID`),
     PRIMARY KEY (`dealID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -72,6 +78,8 @@ CREATE TABLE `Review` (
     `businessID` INTEGER NOT NULL,
     `appointmentID` INTEGER NOT NULL,
 
+    INDEX `Review_businessID_idx`(`businessID`),
+    INDEX `Review_appointmentID_idx`(`appointmentID`),
     PRIMARY KEY (`reviewID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -85,6 +93,10 @@ CREATE TABLE `Appointment` (
     `dealID` INTEGER NOT NULL,
     `appointmentDateTime` DATETIME(3) NOT NULL,
 
+    INDEX `Appointment_customerID_idx`(`customerID`),
+    INDEX `Appointment_businessID_idx`(`businessID`),
+    INDEX `Appointment_professionalID_idx`(`professionalID`),
+    INDEX `Appointment_dealID_idx`(`dealID`),
     PRIMARY KEY (`appointmentID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -95,6 +107,8 @@ CREATE TABLE `AppointmentDetails` (
     `serviceID` INTEGER NOT NULL,
     `price` INTEGER NOT NULL,
 
+    INDEX `AppointmentDetails_appointmentID_idx`(`appointmentID`),
+    INDEX `AppointmentDetails_serviceID_idx`(`serviceID`),
     PRIMARY KEY (`appointmentDetailsID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -109,5 +123,6 @@ CREATE TABLE `Customer` (
     `businessBusinessID` INTEGER NULL,
 
     UNIQUE INDEX `Customer_email_key`(`email`),
+    INDEX `Customer_businessBusinessID_idx`(`businessBusinessID`),
     PRIMARY KEY (`customerID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

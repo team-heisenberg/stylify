@@ -13,6 +13,8 @@
     "prisma:migrate": "dotenv -e ../.env npx prisma migrate dev --name",
     "prisma:deploy": "dotenv -e ../.env npx prisma migrate deploy",
     "prisma:resolve": "dotenv -e ../.env npx prisma migrate resolve",
+    "prisma:seed": "dotenv -e ../.env ts-node seeds/seed.ts",
+    "prisma:reset": "dotenv -e ../.env npx prisma migrate reset",
     "test": "dotenv -e ../.env -- jest",
     "lint": "npx eslint . --ext .js,.ts"
   },
