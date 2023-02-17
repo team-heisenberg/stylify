@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Test` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE `Test`;
-
 -- CreateTable
 CREATE TABLE `Business` (
     `businessID` INTEGER NOT NULL AUTO_INCREMENT,
@@ -120,51 +111,3 @@ CREATE TABLE `Customer` (
     UNIQUE INDEX `Customer_email_key`(`email`),
     PRIMARY KEY (`customerID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- AddForeignKey
-ALTER TABLE `Professional` ADD CONSTRAINT `Professional_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Service` ADD CONSTRAINT `Service_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Service` ADD CONSTRAINT `Service_serviceTypeID_fkey` FOREIGN KEY (`serviceTypeID`) REFERENCES `ServiceType`(`serviceTypeID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ProfessionalServices` ADD CONSTRAINT `ProfessionalServices_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ProfessionalServices` ADD CONSTRAINT `ProfessionalServices_professionalID_fkey` FOREIGN KEY (`professionalID`) REFERENCES `Professional`(`professionalID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Deal` ADD CONSTRAINT `Deal_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Deal` ADD CONSTRAINT `Deal_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_appointmentID_fkey` FOREIGN KEY (`appointmentID`) REFERENCES `Appointment`(`appointmentID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_customerID_fkey` FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_professionalID_fkey` FOREIGN KEY (`professionalID`) REFERENCES `Professional`(`professionalID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_dealID_fkey` FOREIGN KEY (`dealID`) REFERENCES `Deal`(`dealID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `AppointmentDetails` ADD CONSTRAINT `AppointmentDetails_appointmentID_fkey` FOREIGN KEY (`appointmentID`) REFERENCES `Appointment`(`appointmentID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `AppointmentDetails` ADD CONSTRAINT `AppointmentDetails_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Customer` ADD CONSTRAINT `Customer_businessBusinessID_fkey` FOREIGN KEY (`businessBusinessID`) REFERENCES `Business`(`businessID`) ON DELETE SET NULL ON UPDATE CASCADE;

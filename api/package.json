@@ -11,6 +11,8 @@
     "start:db": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql.yml -p stylify up --detach --no-deps --build",
     "start:db:m1": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql-apple-silicon.yml -p stylify up --detach --no-deps --build",
     "prisma:migrate": "dotenv -e ../.env npx prisma migrate dev --name",
+    "prisma:deploy": "dotenv -e ../.env npx prisma migrate deploy",
+    "prisma:resolve": "dotenv -e ../.env npx prisma migrate resolve",
     "test": "dotenv -e ../.env -- jest",
     "lint": "npx eslint . --ext .js,.ts"
   },
@@ -43,6 +45,7 @@
   "dependencies": {
     "@prisma/client": "^4.9.0",
     "app": "^0.1.0",
+    "axios": "^1.3.3",
     "cd": "^0.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
