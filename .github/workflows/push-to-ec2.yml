@@ -13,7 +13,7 @@ jobs:
       
     - name: Buid API
       run: |
-        npm ci --prefix api &&
+        npm i --prefix api &&
         npm run build --prefix api &&
         cp -r api/node_modules api/build &&
         cp -r api/prisma api/build &&
