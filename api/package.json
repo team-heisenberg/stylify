@@ -6,7 +6,7 @@
   "scripts": {
     "start": "dotenv -e ../.env -- tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "dev": "dotenv -e ../.env -- ENVIRONMENT=development tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
-    "build": "rimraf -rf ./build && tsc",
+    "build": "dotenv -e ../.env prisma generate && rimraf -rf ./build && tsc",
     "start:docker": "dotenv -e ../.env -- docker compose -f ../.docker/docker-compose.yml -p stylify up  --detach --no-deps --build",
     "start:db": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql.yml -p stylify up --detach --no-deps --build",
     "start:db:m1": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql-apple-silicon.yml -p stylify up --detach --no-deps --build",
