@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Business {
@@ -23,7 +24,7 @@ model Business {
   customers     Customer[]
   services      Service[]
   Deal          Deal[]
-  Appointment   Appointment[]
+  appointment   Appointment[]
 }
 
 model Professional {
@@ -33,7 +34,9 @@ model Professional {
   firstName           String
   lastName            String
   professionalService ProfessionalServices[]
-  Appointment         Appointment[]
+  appointment         Appointment[]
+
+  @@index([businessID])
 }
 
 model Service {
@@ -43,11 +46,13 @@ model Service {
   serviceTypeID       Int
   servicePrice        Int
   businessID          Int
-  professionalID      Int
   professionalService ProfessionalServices[]
   serviceType         ServiceType            @relation(fields: [serviceTypeID], references: [serviceTypeID])
-  Deal                Deal[]
-  AppointmentDetails  AppointmentDetails[]
+  deal                Deal[]
+  appointmentDetails  AppointmentDetails[]
+
+  @@index([businessID])
+  @@index([serviceTypeID])
 }
 
 model ProfessionalServices {
@@ -56,6 +61,9 @@ model ProfessionalServices {
   professionalID         Int
   service                Service      @relation(fields: [serviceID], references: [serviceID])
   professional           Professional @relation(fields: [professionalID], references: [professionalID])
+
+  @@index([serviceID])
+  @@index([professionalID])
 }
 
 model ServiceType {
@@ -74,17 +82,23 @@ model Deal {
   endDate     DateTime
   businessID  Int
   serviceID   Int
-  Appointment Appointment[]
+  appointment Appointment[]
+
+  @@index([businessID])
+  @@index([serviceID])
 }
 
 model Review {
   reviewID          Int         @id @default(autoincrement())
-  business          Business    @relation(fields: [businessID], references: [businessID])
-  appointment       Appointment @relation(fields: [appointmentID], references: [appointmentID])
+  business          Business?    @relation(fields: [businessID], references: [businessID])
+  appointment       Appointment? @relation(fields: [appointmentID], references: [appointmentID])
   appointmentRating Int
   reviewDetails     String
-  businessID        Int
-  appointmentID     Int
+  businessID        Int?
+  appointmentID     Int?
+
+  @@index([businessID])
+  @@index([appointmentID])
 }
 
 model Appointment {
@@ -97,10 +111,15 @@ model Appointment {
   professionalID      Int
   isConfirmed         Boolean
   reviews             Review[]
-  deal                Deal                 @relation(fields: [dealID], references: [dealID])
-  dealID              Int
+  deal                Deal?                 @relation(fields: [dealID], references: [dealID])
+  dealID              Int?
   appointmentDateTime DateTime
-  AppointmentDetails  AppointmentDetails[]
+  appointmentDetails  AppointmentDetails[]
+
+  @@index([customerID])
+  @@index([businessID])
+  @@index([professionalID])
+  @@index([dealID])
 }
 
 model AppointmentDetails {
@@ -110,6 +129,9 @@ model AppointmentDetails {
   service              Service     @relation(fields: [serviceID], references: [serviceID])
   serviceID            Int
   price                Int
+
+  @@index([appointmentID])
+  @@index([serviceID])
 }
 
 model Customer {
@@ -120,6 +142,8 @@ model Customer {
   lastName           String
   appointments       Appointment[]
   avatarURL          String
-  Business           Business?     @relation(fields: [businessBusinessID], references: [businessID])
+  business           Business?     @relation(fields: [businessBusinessID], references: [businessID])
   businessBusinessID Int?
+
+  @@index([businessBusinessID])
 }

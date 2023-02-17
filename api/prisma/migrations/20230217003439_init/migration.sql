@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Test` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE `Test`;
-
 -- CreateTable
 CREATE TABLE `Business` (
     `businessID` INTEGER NOT NULL AUTO_INCREMENT,
@@ -28,6 +19,7 @@ CREATE TABLE `Professional` (
     `firstName` VARCHAR(191) NOT NULL,
     `lastName` VARCHAR(191) NOT NULL,
 
+    INDEX `Professional_businessID_idx`(`businessID`),
     PRIMARY KEY (`professionalID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -38,8 +30,9 @@ CREATE TABLE `Service` (
     `serviceTypeID` INTEGER NOT NULL,
     `servicePrice` INTEGER NOT NULL,
     `businessID` INTEGER NOT NULL,
-    `professionalID` INTEGER NOT NULL,
 
+    INDEX `Service_businessID_idx`(`businessID`),
+    INDEX `Service_serviceTypeID_idx`(`serviceTypeID`),
     PRIMARY KEY (`serviceID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -49,6 +42,8 @@ CREATE TABLE `ProfessionalServices` (
     `serviceID` INTEGER NOT NULL,
     `professionalID` INTEGER NOT NULL,
 
+    INDEX `ProfessionalServices_serviceID_idx`(`serviceID`),
+    INDEX `ProfessionalServices_professionalID_idx`(`professionalID`),
     PRIMARY KEY (`professionalServicesID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -70,6 +65,8 @@ CREATE TABLE `Deal` (
     `businessID` INTEGER NOT NULL,
     `serviceID` INTEGER NOT NULL,
 
+    INDEX `Deal_businessID_idx`(`businessID`),
+    INDEX `Deal_serviceID_idx`(`serviceID`),
     PRIMARY KEY (`dealID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -81,6 +78,8 @@ CREATE TABLE `Review` (
     `businessID` INTEGER NOT NULL,
     `appointmentID` INTEGER NOT NULL,
 
+    INDEX `Review_businessID_idx`(`businessID`),
+    INDEX `Review_appointmentID_idx`(`appointmentID`),
     PRIMARY KEY (`reviewID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -94,6 +93,10 @@ CREATE TABLE `Appointment` (
     `dealID` INTEGER NOT NULL,
     `appointmentDateTime` DATETIME(3) NOT NULL,
 
+    INDEX `Appointment_customerID_idx`(`customerID`),
+    INDEX `Appointment_businessID_idx`(`businessID`),
+    INDEX `Appointment_professionalID_idx`(`professionalID`),
+    INDEX `Appointment_dealID_idx`(`dealID`),
     PRIMARY KEY (`appointmentID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -104,6 +107,8 @@ CREATE TABLE `AppointmentDetails` (
     `serviceID` INTEGER NOT NULL,
     `price` INTEGER NOT NULL,
 
+    INDEX `AppointmentDetails_appointmentID_idx`(`appointmentID`),
+    INDEX `AppointmentDetails_serviceID_idx`(`serviceID`),
     PRIMARY KEY (`appointmentDetailsID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -118,53 +123,6 @@ CREATE TABLE `Customer` (
     `businessBusinessID` INTEGER NULL,
 
     UNIQUE INDEX `Customer_email_key`(`email`),
+    INDEX `Customer_businessBusinessID_idx`(`businessBusinessID`),
     PRIMARY KEY (`customerID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- AddForeignKey
-ALTER TABLE `Professional` ADD CONSTRAINT `Professional_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Service` ADD CONSTRAINT `Service_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Service` ADD CONSTRAINT `Service_serviceTypeID_fkey` FOREIGN KEY (`serviceTypeID`) REFERENCES `ServiceType`(`serviceTypeID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ProfessionalServices` ADD CONSTRAINT `ProfessionalServices_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `ProfessionalServices` ADD CONSTRAINT `ProfessionalServices_professionalID_fkey` FOREIGN KEY (`professionalID`) REFERENCES `Professional`(`professionalID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Deal` ADD CONSTRAINT `Deal_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Deal` ADD CONSTRAINT `Deal_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Review` ADD CONSTRAINT `Review_appointmentID_fkey` FOREIGN KEY (`appointmentID`) REFERENCES `Appointment`(`appointmentID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_customerID_fkey` FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_businessID_fkey` FOREIGN KEY (`businessID`) REFERENCES `Business`(`businessID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_professionalID_fkey` FOREIGN KEY (`professionalID`) REFERENCES `Professional`(`professionalID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Appointment` ADD CONSTRAINT `Appointment_dealID_fkey` FOREIGN KEY (`dealID`) REFERENCES `Deal`(`dealID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `AppointmentDetails` ADD CONSTRAINT `AppointmentDetails_appointmentID_fkey` FOREIGN KEY (`appointmentID`) REFERENCES `Appointment`(`appointmentID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `AppointmentDetails` ADD CONSTRAINT `AppointmentDetails_serviceID_fkey` FOREIGN KEY (`serviceID`) REFERENCES `Service`(`serviceID`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Customer` ADD CONSTRAINT `Customer_businessBusinessID_fkey` FOREIGN KEY (`businessBusinessID`) REFERENCES `Business`(`businessID`) ON DELETE SET NULL ON UPDATE CASCADE;

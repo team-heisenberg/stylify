@@ -17,13 +17,8 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/:serviceID', async (req, res) => {
-  const { serviceID } = req.params
-  const serviceList = await prisma.service.findFirst({
-    where: {
-      serviceID: Number(serviceID),
-    },
-  })
+router.get('/', async (req, res) => {
+  const serviceList = await prisma.service.findMany()
 
   res.json(serviceList)
 })

@@ -1,8 +1,24 @@
 import { Router } from 'express'
-import { testRouter } from './testRouter'
+import { appointmentDetailsRouter } from './appointmentDetailsRouter'
+import { appointmentRouter } from './appointmentRouter'
+import { businessRouter } from './businessRouter'
+import { dealRouter } from './dealRouter'
+import { professionalRouter } from './professionalRouter'
+import { professionalServicesRouter } from './professionalServicesRouter'
+import { reviewRouter } from './reviewRouter'
+import { serviceRouter } from './serviceRouter'
+import { serviceTypeRouter } from './serviceTypeRouter'
 
 const router = Router()
 
-router.use('/test', testRouter)
+router.use('/appointment', appointmentRouter)
+router.use('/appointmentDetails', appointmentDetailsRouter)
+router.use('/business', businessRouter)
+router.use('/deal', dealRouter)
+router.use('/professional', professionalRouter)
+router.use('/professionalServices', professionalServicesRouter)
+router.use('/review', reviewRouter)
+router.use('/service', serviceRouter)
+router.use('/serviceType', serviceTypeRouter)
 
 export { router }
