@@ -17,13 +17,8 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/:serviceTypeID', async (req, res) => {
-  const { serviceTypeID } = req.params
-  const serviceTypeList = await prisma.serviceType.findFirst({
-    where: {
-      serviceTypeID: Number(serviceTypeID),
-    },
-  })
+router.get('/', async (_, res) => {
+  const serviceTypeList = await prisma.serviceType.findMany()
 
   res.json(serviceTypeList)
 })
@@ -42,7 +37,7 @@ router.get('/:serviceTypeID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:serviceTypeID', async (req, res) => {
   const { serviceTypeID, ...data } = req.body
   const test = await prisma.serviceType.update({
     where: {

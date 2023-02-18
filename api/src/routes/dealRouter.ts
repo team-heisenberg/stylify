@@ -17,13 +17,8 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/:dealID', async (req, res) => {
-  const { dealID } = req.params
-  const dealList = await prisma.deal.findFirst({
-    where: {
-      dealID: Number(dealID),
-    },
-  })
+router.get('/', async (_, res) => {
+  const dealList = await prisma.deal.findMany()
 
   res.json(dealList)
 })
@@ -42,7 +37,7 @@ router.get('/:dealID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:dealID', async (req, res) => {
   const { dealID, ...data } = req.body
   const test = await prisma.deal.update({
     where: {

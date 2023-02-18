@@ -8,6 +8,7 @@ import { professionalServicesRouter } from './professionalServicesRouter'
 import { reviewRouter } from './reviewRouter'
 import { serviceRouter } from './serviceRouter'
 import { serviceTypeRouter } from './serviceTypeRouter'
+import { customerRouter } from './customerRouter'
 
 const router = Router()
 
@@ -20,5 +21,7 @@ router.use('/professionalServices', professionalServicesRouter)
 router.use('/review', reviewRouter)
 router.use('/service', serviceRouter)
 router.use('/serviceType', serviceTypeRouter)
+router.use('/customer', customerRouter)
+
 
 export { router }

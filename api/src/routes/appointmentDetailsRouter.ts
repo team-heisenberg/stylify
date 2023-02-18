@@ -24,8 +24,21 @@ router.get('/', async (_, res) => {
   res.json(appointmentDetailsList)
 })
 
+// GET - Retrieve Record
+router.get('/:appointmentDetailsID', async (req, res) => {
+  const { appointmentDetailsID } = req.params
+
+  const appointmentDetails = await prisma.appointmentDetails.findFirst({
+    where: {
+      appointmentDetailsID: Number(appointmentDetailsID)
+    }
+  })
+
+  res.json(appointmentDetails)
+})
+
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:appointmentDetailsID', async (req, res) => {
   const { appointmentDetailsID, ...data } = req.body
   const appointmentDetails = await prisma.appointmentDetails.update({
     where: {
