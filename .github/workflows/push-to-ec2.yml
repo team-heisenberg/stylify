@@ -13,6 +13,9 @@ jobs:
 
     - name: Install node modules
       run: npm install --prefix ./api
+
+    - name: Setup Prisma
+      run: npm run prisma:generate --prefix ./api
       
     - name: Zip artifact for deployment
       run: zip release.zip ./api -r
@@ -49,7 +52,7 @@ jobs:
             EXCLUDE: "/app/"
             SCRIPT_BEFORE: |
               sudo rm -rf ~/api
-            # SCRIPT_AFTER: |
-            #   at now + 1 minute -f ~/deploy.sh
+            SCRIPT_AFTER: |
+              at now + 1 minute -f ~/deploy.sh
 
 
