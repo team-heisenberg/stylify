@@ -14,7 +14,7 @@ const StoryBoard = () => {
         borderRadius={50}
       />
       <NormalText
-        normalText="Text component"
+        normalText="Text Component"
         fontType={Heading1}
         textColor="blue"
       />
