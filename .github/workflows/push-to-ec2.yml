@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v3
       
     - name: Zip artifact for deployment
-      run: zip release.zip ./api -r -j
+      run: zip -j release.zip ./api -r
 
     - uses: actions/upload-artifact@v3
       with:
@@ -42,10 +42,10 @@ jobs:
             SOURCE: "release.zip"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
-            TARGET: ~/api
+            TARGET: ~/
             EXCLUDE: "/app/"
             SCRIPT_BEFORE: |
-              sudo rm -rf ~/api/*
+              sudo rm -rf ~/api
             # SCRIPT_AFTER: |
             #   at now + 1 minute -f ~/deploy.sh
 
