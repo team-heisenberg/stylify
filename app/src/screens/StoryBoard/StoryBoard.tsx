@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
+import Radio from "../../components/Radio/Radio";
 
 const StoryBoard = () => {
+  const [selectedValue, setSelectedValue] = useState("");
+  const handleRadioPress = (value: string) => {
+    setSelectedValue(value);
+  };
+  const options = ["Option 1", "Option 2", "Option 3"];
+
   return (
     <View>
       <Text>Test from StoryBoard</Text>
@@ -18,6 +26,15 @@ const StoryBoard = () => {
         fontType={Heading1}
         textColor="blue"
       />
+      {options.map((option) => (
+        <Radio
+          key={option}
+          radioValue={option}
+          selected={selectedValue === option}
+          onPress={handleRadioPress}
+        />
+      ))}
+      <Text>{`Selected value: ${selectedValue}`}</Text>
     </View>
   );
 };
