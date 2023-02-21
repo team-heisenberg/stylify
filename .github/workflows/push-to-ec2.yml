@@ -10,6 +10,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+
+    - name: Install node modules
+      run: npm install --prefix ./api
       
     - name: Zip artifact for deployment
       run: zip release.zip ./api -r
