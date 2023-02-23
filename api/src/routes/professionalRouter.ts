@@ -17,13 +17,8 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/:professionalID', async (req, res) => {
-  const { professionalID } = req.params
-  const professionalList = await prisma.professional.findFirst({
-    where: {
-      professionalID: Number(professionalID),
-    },
-  })
+router.get('/', async (_, res) => {
+  const professionalList = await prisma.professional.findMany()
 
   res.json(professionalList)
 })
@@ -42,7 +37,7 @@ router.get('/:professionalID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:professionalID', async (req, res) => {
   const { professionalID, ...data } = req.body
   const test = await prisma.professional.update({
     where: {

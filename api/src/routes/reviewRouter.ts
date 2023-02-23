@@ -24,8 +24,21 @@ router.get('/', async (_, res) => {
   res.json(reviewList)
 })
 
+// GET - Retrieve Record
+router.get('/:reviewID', async (req, res) => {
+  const { reviewID } = req.params
+
+  const review = await prisma.review.findFirst({
+    where: {
+      reviewID: Number(reviewID)
+    }
+  })
+
+  res.json(review)
+})
+
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:reviewID', async (req, res) => {
   const { reviewID, ...data } = req.body
   const review = await prisma.review.update({
     where: {

@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
 // GET - Retrieve Records
 router.get('/', async (_, res) => {
-  const businessList = await prisma.business.findFirst()
+  const businessList = await prisma.business.findMany()
 
   res.json(businessList)
 })
@@ -38,7 +38,7 @@ router.get('/:businessID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:businessID', async (req, res) => {
   const { businessID, ...data } = req.body
   const test = await prisma.business.update({
     where: {

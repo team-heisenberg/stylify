@@ -81,20 +81,20 @@ async function main() {
         create: {
           reviewDetails: 'good service',
           appointmentRating: 5,
-        }
+        },
       },
       appointmentDetails: {
         connectOrCreate: {
           where: {
-            appointmentDetailsID: 1
+            appointmentDetailsID: 1,
           },
           create: {
             serviceID: 1,
-            price: 45
-          }
-        }
-      }
-    }
+            price: 45,
+          },
+        },
+      },
+    },
   })
 
   await prisma.deal.create({
@@ -104,8 +104,8 @@ async function main() {
       price: 10,
       startDate: new Date(),
       endDate: new Date(),
-      businessID: 1
-    }
+      businessID: 1,
+    },
   })
 }
 

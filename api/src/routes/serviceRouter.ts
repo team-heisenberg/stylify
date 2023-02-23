@@ -37,7 +37,7 @@ router.get('/:serviceID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:serviceID', async (req, res) => {
   const { serviceID, ...data } = req.body
   const test = await prisma.service.update({
     where: {

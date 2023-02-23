@@ -24,8 +24,20 @@ router.get('/', async (_, res) => {
   res.json(customerList)
 })
 
+router.get('/:customerID', async (req, res) => {
+  const { customerID } = req.params
+
+  const customer = await prisma.customer.findFirst({
+    where: {
+      customerID: Number(customerID)
+    }
+  })
+
+  res.json(customer)
+})
+
 // PUT - Update Record
-router.put('/', async (req, res) => {
+router.put('/:customerID', async (req, res) => {
   const { customerID, ...data } = req.body
   const customer = await prisma.customer.update({
     where: {
