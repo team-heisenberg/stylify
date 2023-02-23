@@ -10,17 +10,15 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-      
-    - name: Buid API
-      run: |
-        npm i --prefix api &&
-        npm run build --prefix api &&
-        cp -r api/node_modules api/build &&
-        cp -r api/prisma api/build &&
-        ls api
 
+    - name: Install node modules
+      run: npm install --prefix ./api
+
+    - name: Setup Prisma
+      run: npm run prisma:generate --prefix ./api
+      
     - name: Zip artifact for deployment
-      run: zip release.zip ./api/build -r
+      run: zip release.zip ./api -r
 
     - uses: actions/upload-artifact@v3
       with:
@@ -50,10 +48,10 @@ jobs:
             SOURCE: "release.zip"
             REMOTE_HOST: ec2-35-155-214-56.us-west-2.compute.amazonaws.com
             REMOTE_USER: ec2-user
-            TARGET: ~/api
+            TARGET: ~/
             EXCLUDE: "/app/"
             SCRIPT_BEFORE: |
-              sudo rm -rf ~/api/*
+              sudo rm -rf ~/api
             SCRIPT_AFTER: |
               at now + 1 minute -f ~/deploy.sh
 
