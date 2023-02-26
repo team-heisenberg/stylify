@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
+import { defaultStyles } from "../../styles";
 
 const StoryBoard = () => {
 const [checked, setChecked] = useState(false);
@@ -16,8 +17,9 @@ const [checked, setChecked] = useState(false);
   const options = ["Option 1", "Option 2", "Option 3"];
 
   return (
-    <View>
-      <Text>Test from StoryBoard</Text>
+    <View style={defaultStyles.container}>
+
+      <Text>Test from StoryBoard {process.env.NODE_ENV}</Text>
       <ImageComponent
         width={50}
         height={50}

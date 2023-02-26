@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.14",
+    "@react-navigation/native": "^6.1.6",
+    "@react-navigation/native-stack": "^6.9.12",
     "expo": "~47.0.12",
     "expo-checkbox": "~2.2.2",
     "expo-status-bar": "~1.4.2",
