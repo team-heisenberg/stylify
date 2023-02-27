@@ -1,20 +1,37 @@
 // Imports
 import { View, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import NormalText from "../NormalText/NormalText";
 
 // Interface
 interface inputCheckInterface {
   isDisabled: boolean;
   isChecked: boolean;
   onChange: Function;
+  normalText: string;
+  fontType?: {};
+  textColor?: string;
 }
 
 // Component function
 // Props
-const InputCheck = ({isDisabled, isChecked, onChange}: inputCheckInterface) => {
+const InputCheck = ({
+  isDisabled,
+  isChecked,
+  onChange,
+  normalText,
+  fontType,
+  textColor,
+}: inputCheckInterface) => {
   // Return component
   return (
-    <View>
+    <View style={styles.viewStyle}>
+      <NormalText
+        normalText={normalText}
+        fontType={fontType}
+        textColor={textColor}
+        marginRight={10}
+      />
       <Pressable
         disabled={isDisabled}
         style={
@@ -45,6 +62,12 @@ InputCheck.defaultProps = {
 
 // Create stylesheet
 const styles = StyleSheet.create({
+  viewStyle: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
+  },
   checkboxBase: {
     width: 30,
     height: 30,
@@ -81,6 +104,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: "20",
   },
 });
 

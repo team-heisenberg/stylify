@@ -25,7 +25,7 @@ const [checked, setChecked] = useState(false);
         borderRadius={50}
       />
       <Text>{String(checked)}</Text>
-      <InputCheck isDisabled={false} isChecked={checked} onChange={setChecked} />
+      <InputCheck normalText="Testing" isDisabled={false} isChecked={checked} onChange={setChecked} />
       <NormalText
         normalText="Text Component"
         fontType={Heading1}
