@@ -8,11 +8,13 @@ const router = Router()
 // POST - Create Record
 
 router.post('/', async (req, res) => {
-  const customer = await prisma.customer.create({
-    data: {
-      ...req.body,
-    },
-  })
+  const customer = await prisma.customer
+    .create({
+      data: {
+        ...req.body,
+      },
+    })
+    .catch((error) => console.log(error))
 
   res.json(customer)
 })
@@ -29,8 +31,8 @@ router.get('/:customerID', async (req, res) => {
 
   const customer = await prisma.customer.findFirst({
     where: {
-      customerID: Number(customerID)
-    }
+      customerID: Number(customerID),
+    },
   })
 
   res.json(customer)
@@ -41,7 +43,7 @@ router.put('/:customerID', async (req, res) => {
   const { customerID, ...data } = req.body
   const customer = await prisma.customer.update({
     where: {
-      customerID: Number (customerID),
+      customerID: Number(customerID),
     },
     data,
   })
@@ -55,7 +57,7 @@ router.delete('/:customerID', async (req, res) => {
 
   const customer = await prisma.customer
     .delete({
-      where: { customerID: Number (customerID) },
+      where: { customerID: Number(customerID) },
     })
     .catch((error) => error)
 
