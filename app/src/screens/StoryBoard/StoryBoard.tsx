@@ -5,15 +5,24 @@ import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
+import TableComponent from "../../components/TableComponent/TableComponent";
 
 const StoryBoard = () => {
-const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
   };
   const options = ["Option 1", "Option 2", "Option 3"];
+
+  const tableHeader = ["Name", "Nationality"];
+  const tableData = [
+    ["Gabriel", "Brazilian"],
+    ["Kaho", "Japanese"],
+    ["Daniel", "Brazilian"],
+    ["Diego", "Chilean"],
+  ];
 
   return (
     <View>
@@ -41,6 +50,14 @@ const [checked, setChecked] = useState(false);
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
+      <TableComponent
+        numColumns={tableHeader.length}
+        numRows={tableData.length + 1}
+        tableHeader={tableHeader}
+        tableData={tableData}
+        headerBackgroundColor="rgba(130, 40, 72, 1)"
+        headerTextColor="white"
+      />
     </View>
   );
 };
