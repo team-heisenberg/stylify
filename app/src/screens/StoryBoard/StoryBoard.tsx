@@ -16,12 +16,15 @@ const StoryBoard = () => {
   };
   const options = ["Option 1", "Option 2", "Option 3"];
 
-  const tableHeader = ["Name", "Nationality"];
+  const tableHeader = [
+    { title: "Name", property: "name" },
+    { title: "Nationality", property: "nationality" },
+  ];
   const tableData = [
-    ["Gabriel", "Brazilian"],
-    ["Kaho", "Japanese"],
-    ["Daniel", "Brazilian"],
-    ["Diego", "Chilean"],
+    {
+      name: "Diego",
+      nationality: "Chilean",
+    },
   ];
 
   return (
@@ -51,8 +54,8 @@ const StoryBoard = () => {
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
       <TableComponent
-        numColumns={tableHeader.length}
-        numRows={tableData.length + 1}
+        numColumns={2}
+        numRows={3}
         tableHeader={tableHeader}
         tableData={tableData}
         headerBackgroundColor="rgba(130, 40, 72, 1)"

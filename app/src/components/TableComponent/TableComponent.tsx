@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import React from "react";
 import NormalText from "../NormalText/NormalText";
 import { Heading5 } from "../NormalText/FontTypes";
@@ -6,27 +6,27 @@ import { Heading5 } from "../NormalText/FontTypes";
 interface TableProps {
   numColumns: number;
   numRows: number;
-  tableHeader: string[];
-  tableData: any[][];
+  tableHeader: { title: string; property: string }[];
+  tableData: any[];
   headerBackgroundColor?: string;
   headerTextColor?: string;
 }
 
 const TableComponent = (props: TableProps) => {
-  const renderItem = (item: { item: string[]; index: number }) => {
+  const renderItem = (item: { item: string; index: number }) => {
     const { item: rowData, index } = item;
     return (
-      <View style={styles.row}>
-        {rowData.map((cellData, cellIndex) => (
-          <View key={cellIndex} style={styles.cell}>
-            <NormalText normalText={cellData} />
+      <View style={styles.row} key={index}>
+        {props.tableHeader.map((header: any, i) => (
+          <View key={i} style={styles.cell}>
+            <NormalText normalText={rowData[header.property]} />
           </View>
         ))}
       </View>
     );
   };
 
-  const header = props.tableHeader.map((title, index) => (
+  const header = props.tableHeader.map((h, index) => (
     <View
       key={index}
       style={[
@@ -35,7 +35,7 @@ const TableComponent = (props: TableProps) => {
       ]}
     >
       <NormalText
-        normalText={title}
+        normalText={h.title}
         textColor={props.headerTextColor}
         fontType={Heading5}
       />
