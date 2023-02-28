@@ -16,7 +16,7 @@ const NormalText = ({
   return (
     <View>
       <Text
-        style={[fontType, { color: textColor }, { marginRight: marginRight }]}
+        style={[fontType, { color: textColor }, { marginRight: marginRight || 0 }]}
       >
         {normalText}
       </Text>
