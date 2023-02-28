@@ -6,6 +6,7 @@ import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -30,6 +31,9 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
+      <ArrowLeft width={50} height={50} fill="red" />
+      <Edit width={50} height={50} fill="red" />
+      <ThreeDots width={50} height={50} fill="red" />
       <ImageComponent
         width={415}
         height={200}
