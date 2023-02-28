@@ -19,10 +19,11 @@ const [checked, setChecked] = useState(false);
     <View>
       <Text>Test from StoryBoard</Text>
       <ImageComponent
-        width={50}
-        height={50}
-        imageURL="https://reactnative.dev/img/tiny_logo.png"
-        borderRadius={50}
+        width={415}
+        height={200}
+        imageURL="https://picsum.photos/500/350"
+        linearGradient={true}
+        positionLinearGradient="bottom"
       />
       <Text>{String(checked)}</Text>
       <InputCheck normalText="Testing" isDisabled={false} isChecked={checked} onChange={setChecked} />
