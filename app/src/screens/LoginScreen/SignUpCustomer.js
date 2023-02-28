@@ -55,10 +55,16 @@ const SignUpCustomer = () => {
         const user = userCredentials.user;
         console.log("Registered with: ", user.email);
 
-        await axios
+        const customer = await axios
           .post("http://localhost:8080/customer", {
             ...newCustomer,
             avatarURL: user.photoURL || "",
+          })
+          .catch((error) => console.log(error));
+
+        await axios
+          .post("http://localhost:8080/auth", {
+            ...customer,
           })
           .then((res) => console.log(res))
           .catch((error) => console.log(error));

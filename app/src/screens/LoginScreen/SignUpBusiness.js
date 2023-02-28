@@ -60,16 +60,22 @@ const SignUpBusiness = () => {
         const user = userCredentials.user;
         console.log("Registered with: ", user.email);
 
-        await axios
+        const business = await axios
           .post("http://localhost:8080/business", {
             ...newBusiness,
+          })
+          .catch((error) => console.log(error));
+
+        await axios
+          .post("http://localhost:8080/auth", {
+            ...business,
           })
           .then((res) => console.log(res))
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error.message));
   };
-
+ 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ padding: 100 }}>
       <View>

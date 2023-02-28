@@ -9,19 +9,20 @@ import { reviewRouter } from './reviewRouter'
 import { serviceRouter } from './serviceRouter'
 import { serviceTypeRouter } from './serviceTypeRouter'
 import { customerRouter } from './customerRouter'
+import { authenticateToken, authRouter } from './authRouter'
 
 const router = Router()
 
-router.use('/appointment', appointmentRouter)
-router.use('/appointmentDetails', appointmentDetailsRouter)
-router.use('/business', businessRouter)
-router.use('/deal', dealRouter)
-router.use('/professional', professionalRouter)
-router.use('/professionalServices', professionalServicesRouter)
-router.use('/review', reviewRouter)
-router.use('/service', serviceRouter)
-router.use('/serviceType', serviceTypeRouter)
-router.use('/customer', customerRouter)
-
+router.use('/auth', authRouter)
+router.use('/appointment', authenticateToken, appointmentRouter)
+router.use('/appointmentDetails', authenticateToken, appointmentDetailsRouter)
+router.use('/business', authenticateToken, businessRouter)
+router.use('/deal', authenticateToken, dealRouter)
+router.use('/professional', authenticateToken, professionalRouter)
+router.use('/professionalServices', authenticateToken, professionalServicesRouter)
+router.use('/review', authenticateToken, reviewRouter)
+router.use('/service', authenticateToken, serviceRouter)
+router.use('/serviceType', authenticateToken, serviceTypeRouter)
+router.use('/customer', authenticateToken, customerRouter)
 
 export { router }
