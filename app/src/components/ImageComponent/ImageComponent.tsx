@@ -44,12 +44,6 @@ const ImageComponent = ({
     },
   });
 
-  if (linearGradient) {
-    <LinearGradient
-    colors={["rgba(0,0,0,0.8)", "transparent"]}
-    style={style.background} />
-  }
-
   // Return structure
   return (
     <View>
