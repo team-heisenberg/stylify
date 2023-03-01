@@ -9,6 +9,7 @@ import TableComponent from "../../components/TableComponent/TableComponent";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
 import React from "react";
+import InputComponent from "../../components/InputComponent/InputComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -90,6 +91,13 @@ const StoryBoard = () => {
         onSelect={handleSelect}
       />
       /> */}
+      <InputComponent
+        inputLabel="Input label"
+        showText={true}
+        error={false}
+        labelBgColor="white"
+        inputBgColor="white"
+      />
     </View>
   );
 };
