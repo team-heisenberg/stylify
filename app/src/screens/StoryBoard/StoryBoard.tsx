@@ -5,6 +5,8 @@ import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
+import InputComponent from "../../components/InputComponent/InputComponent";
+import TableComponent from "../../components/TableComponent/TableComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -37,7 +39,12 @@ const StoryBoard = () => {
         positionLinearGradient="bottom"
       />
       <Text>{String(checked)}</Text>
-      <InputCheck normalText="Testing" isDisabled={false} isChecked={checked} onChange={setChecked} />
+      <InputCheck
+        normalText="Testing"
+        isDisabled={false}
+        isChecked={checked}
+        onChange={setChecked}
+      />
       <NormalText
         normalText="Text Component"
         fontType={Heading1}
@@ -61,6 +68,13 @@ const StoryBoard = () => {
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
       /> */}
+      <InputComponent
+        inputLabel="Input label"
+        showText={true}
+        error={false}
+        labelBgColor="white"
+        inputBgColor="white"
+      />
     </View>
   );
 };
