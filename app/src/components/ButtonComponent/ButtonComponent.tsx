@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NormalText from "../NormalText/NormalText";
 import { Link } from "../NormalText/FontTypes";
 
@@ -28,17 +28,6 @@ const ButtonComponent = ({
 }: ButtonComponentInterface) => {
   const [positionTop, setPositionTop] = useState(4);
   const [positionLeft, setPositionLeft] = useState(4);
-  const [focused, setFocused] = useState(false);
-
-  useEffect(() => {
-    if (focused) {
-      setPositionTop(0);
-      setPositionLeft(0);
-    } else {
-      setPositionTop(4);
-      setPositionLeft(4);
-    }
-  }, [focused]);
 
   return (
     <View
@@ -51,10 +40,12 @@ const ButtonComponent = ({
           onPress;
         }}
         onPressIn={() => {
-          setFocused(true);
+          setPositionTop(0);
+          setPositionLeft(0);
         }}
         onPressOut={() => {
-          setFocused(false);
+          setPositionTop(4);
+          setPositionLeft(4);
         }}
         disabled={isDisabled}
       >
