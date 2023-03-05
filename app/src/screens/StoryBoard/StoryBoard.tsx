@@ -11,6 +11,7 @@ import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/Icon
 import React from "react";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import Card from "../../components/Card/Card";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -100,6 +101,14 @@ const StoryBoard = () => {
         inputBgColor="white"
       />
       <ButtonComponent buttonText="Button" />
+      <Card>
+        <ImageComponent
+          imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
+          width={69}
+          height={69}
+        />
+        <NormalText normalText="Haircut" />
+      </Card>
     </View>
   );
 };
