@@ -10,6 +10,7 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
 import React from "react";
 import InputComponent from "../../components/InputComponent/InputComponent";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -98,6 +99,7 @@ const StoryBoard = () => {
         labelBgColor="white"
         inputBgColor="white"
       />
+      <ButtonComponent buttonText="Button" />
     </View>
   );
 };
