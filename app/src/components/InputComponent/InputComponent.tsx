@@ -24,7 +24,11 @@ const InputComponent = ({
 }: InputComponentInterface) => {
   return (
     <NativeBaseProvider>
-      <View style={{ position: "relative" }}>
+      <View
+        style={{
+          position: "relative",
+        }}
+      >
         <View
           style={{
             position: "absolute",
