@@ -124,6 +124,12 @@ const StoryBoard = () => {
         data={dataDropdown}
         onSelect={handleSelect}
       />
+      <Dropdown
+        label="Select Item"
+        labelTop="Label top"
+        data={dataDropdown}
+        onSelect={handleSelect}
+      />
     </View>
   );
 };
