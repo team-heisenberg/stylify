@@ -50,6 +50,7 @@ const StoryBoard = () => {
           radioValue={option}
           selected={selectedValue === option}
           onPress={handleRadioPress}
+          radioText={option}
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
