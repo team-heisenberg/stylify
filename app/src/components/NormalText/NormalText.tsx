@@ -6,6 +6,7 @@ interface NormalTextInterface {
   textColor?: string;
   marginRight?: number;
   marginTop?: number;
+  textAlign?: string;
 }
 
 const NormalText = ({
@@ -14,6 +15,7 @@ const NormalText = ({
   textColor,
   marginRight,
   marginTop,
+  textAlign,
 }: NormalTextInterface) => {
   return (
     <View>
@@ -23,6 +25,12 @@ const NormalText = ({
           { color: textColor },
           { marginRight: marginRight || 0 },
           { marginTop: marginTop || 0 },
+          { textAlign: "center" },
+          // { height: 59 },
+          // { display: "flex" },
+          // { alignItems: "center" },
+          // { justifyContent: "center" },
+          // { alignContent: "center" },
         ]}
       >
         {normalText}
@@ -37,6 +45,7 @@ NormalText.defaultProps = {
   textColor: "#24313A",
   marginRight: "",
   marginTop: "",
+  textAlign: "center"
 };
 
 export default NormalText;

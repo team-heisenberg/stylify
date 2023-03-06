@@ -7,6 +7,7 @@ import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -75,6 +76,7 @@ const StoryBoard = () => {
         labelBgColor="white"
         inputBgColor="white"
       />
+      <ButtonComponent buttonText="Button" />
     </View>
   );
 };

@@ -30,7 +30,8 @@
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.9",
     "react-phone-input-2": "^2.15.1",
-    "react-phone-number-input": "^3.2.19"
+    "react-phone-number-input": "^3.2.19",
+    "react-native-svg": "13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
