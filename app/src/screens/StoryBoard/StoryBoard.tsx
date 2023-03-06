@@ -75,7 +75,7 @@ const StoryBoard = () => {
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
-      <TableComponent
+      {/* <TableComponent
         numColumns={2}
         numRows={3}
         tableHeader={tableHeader}
@@ -89,6 +89,7 @@ const StoryBoard = () => {
         data={dataDropdown}
         onSelect={handleSelect}
       />
+      /> */}
     </View>
   );
 };
