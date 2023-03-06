@@ -6,6 +6,7 @@ import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import Dropdown from "../../components/Dropdown/Dropdown";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -27,6 +28,16 @@ const StoryBoard = () => {
     },
   ];
 
+  const handleSelect = (item: { label: string; value: string }) => {
+    console.log("Selected item:", item);
+  };
+
+  const dataDropdown = [
+    { label: "Option 1", value: "1" },
+    { label: "Option 2", value: "2" },
+    { label: "Option 3", value: "3" },
+  ];
+
   return (
     <View>
       <Text>Test from StoryBoard</Text>
@@ -38,7 +49,12 @@ const StoryBoard = () => {
         positionLinearGradient="bottom"
       />
       <Text>{String(checked)}</Text>
-      <InputCheck normalText="Testing" isDisabled={false} isChecked={checked} onChange={setChecked} />
+      <InputCheck
+        normalText="Testing"
+        isDisabled={false}
+        isChecked={checked}
+        onChange={setChecked}
+      />
       <NormalText
         normalText="Text Component"
         fontType={Heading1}
@@ -61,6 +77,12 @@ const StoryBoard = () => {
         tableData={tableData}
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
+      />
+      <Dropdown
+        label="Select Item"
+        labelTop="Label top"
+        data={dataDropdown}
+        onSelect={handleSelect}
       />
     </View>
   );
