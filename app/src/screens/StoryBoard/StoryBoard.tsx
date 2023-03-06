@@ -53,14 +53,14 @@ const StoryBoard = () => {
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
-      <TableComponent
+      {/* <TableComponent
         numColumns={2}
         numRows={3}
         tableHeader={tableHeader}
         tableData={tableData}
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
-      />
+      /> */}
     </View>
   );
 };
