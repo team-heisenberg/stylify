@@ -5,7 +5,6 @@ import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
-import TableComponent from "../../components/TableComponent/TableComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -54,14 +53,14 @@ const StoryBoard = () => {
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
-      <TableComponent
+      {/* <TableComponent
         numColumns={2}
         numRows={3}
         tableHeader={tableHeader}
         tableData={tableData}
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
-      />
+      /> */}
     </View>
   );
 };
