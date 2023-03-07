@@ -61,14 +61,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    // backgroundColor: "green",
     position: "relative",
     padding: 40
   },
   containerLabel: {
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: "blue",
     margin: 5,
   },
   containerMacroLabel: {
@@ -78,7 +76,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignContent: "space-around",
     paddingLeft: 50
-    // backgroundColor: "red"
   }
 });
 
