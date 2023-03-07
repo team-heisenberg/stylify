@@ -14,9 +14,10 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
-// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
+import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard = () => {
+  const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");
@@ -53,6 +54,7 @@ const StoryBoard = () => {
       <Edit width={50} height={50} fill="red" />
       <ThreeDots width={50} height={50} fill="red" />
       {/* <ArrowLeft fill="red" width={50} height={50} /> */}
+      <ArrowLeft fill="red" width={50} height={50} />
       {/* <ImageComponent
         width={415}
         height={200}
@@ -90,12 +92,6 @@ const StoryBoard = () => {
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
       />
-      <Dropdown
-        label="Select Item"
-        labelTop="Label top"
-        data={dataDropdown}
-        onSelect={handleSelect}
-      />
       /> */}
       <InputComponent
         inputLabel="Input label"
@@ -114,6 +110,12 @@ const StoryBoard = () => {
         <NormalText normalText="Haircut" />
       </Card>
       <Message />
+      <Dropdown
+        label="Select Item"
+        labelTop="Label top"
+        data={dataDropdown}
+        onSelect={handleSelect}
+      />
     </View>
   );
 };
