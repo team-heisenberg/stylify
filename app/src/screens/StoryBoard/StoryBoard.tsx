@@ -14,6 +14,7 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
+// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -51,6 +52,7 @@ const StoryBoard = () => {
       <ArrowLeft width={50} height={50} fill="red" />
       <Edit width={50} height={50} fill="red" />
       <ThreeDots width={50} height={50} fill="red" />
+      {/* <ArrowLeft fill="red" width={50} height={50} /> */}
       {/* <ImageComponent
         width={415}
         height={200}
