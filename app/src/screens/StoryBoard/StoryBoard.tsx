@@ -10,6 +10,7 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
 import React from "react";
 import InputComponent from "../../components/InputComponent/InputComponent";
+import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 
@@ -49,7 +50,7 @@ const StoryBoard = () => {
       <ArrowLeft width={50} height={50} fill="red" />
       <Edit width={50} height={50} fill="red" />
       <ThreeDots width={50} height={50} fill="red" />
-      <ImageComponent
+      {/* <ImageComponent
         width={415}
         height={200}
         imageURL="https://picsum.photos/500/350"
@@ -78,7 +79,7 @@ const StoryBoard = () => {
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
-      {/* <TableComponent
+      /* <TableComponent
         numColumns={2}
         numRows={3}
         tableHeader={tableHeader}
