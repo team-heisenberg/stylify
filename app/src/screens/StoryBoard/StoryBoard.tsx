@@ -7,6 +7,7 @@ import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 
@@ -33,7 +34,7 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
-      <ImageComponent
+      {/* <ImageComponent
         width={415}
         height={200}
         imageURL="https://picsum.photos/500/350"
