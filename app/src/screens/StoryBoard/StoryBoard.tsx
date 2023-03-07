@@ -15,6 +15,7 @@ import Message from "../../components/Message/Message";
 import ImageButton from "../../components/ImageButton/ImageButton";
 
 const StoryBoard = () => {
+  const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");

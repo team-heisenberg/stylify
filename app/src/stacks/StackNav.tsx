@@ -1,0 +1,52 @@
+import { NavigationContainer, useRoute } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { SafeAreaView } from "react-native";
+import StoryBoard from "../screens/StoryBoard/StoryBoard";
+import TabNavigator from "./TabNavigator";
+import Browse from "../screens/Browse/Browse";
+import Deals from "../screens/Deals/Deals";
+import Profile from "../screens/Profile/Profile";
+import ServiceDetail from "../screens/Browse/ServiceDetail";
+import ClientAppointments from "../screens/Profile/ClientAppointments";
+import ClientFavourites from "../screens/Profile/ClientFavourites";
+import ClientProfile from "../screens/Profile/ClientProfile";
+import ClientSettings from "../screens/Profile/ClientSettings";
+
+const Stack = createNativeStackNavigator();
+
+const StackNav = () => {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerBackTitle: "",
+            headerTitle: "hello",
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen
+            name="Navigation"
+            component={TabNavigator}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="Home" component={StoryBoard} />
+          <Stack.Screen name="Browse" component={Browse} />
+          <Stack.Screen name="Deals" component={Deals} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Service Detail" component={ServiceDetail} />
+          <Stack.Screen name="Client Appointments" component={ClientAppointments} />
+          <Stack.Screen name="Client Favourites" component={ClientFavourites} />
+          <Stack.Screen name="Client Profile" component={ClientProfile} />
+          <Stack.Screen name="Client Settings" component={ClientSettings} />
+
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  );
+};
+
+export default StackNav;
