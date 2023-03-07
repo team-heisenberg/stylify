@@ -18,7 +18,6 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
-// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 import FavButton from "../../components/FavButton/FavButton";
 import ImageButton from "../../components/ImageButton/ImageButton";
 import { useNavigation } from "@react-navigation/native";

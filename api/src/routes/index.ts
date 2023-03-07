@@ -23,7 +23,7 @@ router.use('/deal', authenticateToken, dealRouter)
 router.use('/professional', authenticateToken, professionalRouter)
 router.use('/professionalServices', authenticateToken, professionalServicesRouter)
 router.use('/review', authenticateToken, reviewRouter)
-router.use('/service', authenticateToken, serviceRouter)
+router.use('/service', serviceRouter)
 router.use('/serviceType', authenticateToken, serviceTypeRouter)
 router.use('/customer', authenticateToken, customerRouter)
 

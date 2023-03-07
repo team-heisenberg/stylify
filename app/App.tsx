@@ -39,6 +39,7 @@ export default function App() {
     //     />
     //   </Stack.Navigator>
     // </NavigationContainer>
+<<<<<<< HEAD
     // <View style={styles.container}>
     //   <StatusBar style="auto" />
     //   <StoryBoard />
@@ -47,6 +48,12 @@ export default function App() {
       <StatusBar style="auto" />
       <StackNav />
     </NativeBaseProvider>
+=======
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <StoryBoard />
+    </View>
+>>>>>>> 82022af (feature/HB-133-Implement-search-functionality)
   );
 }
 

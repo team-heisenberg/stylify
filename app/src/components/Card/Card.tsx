@@ -58,7 +58,7 @@ const Card = ({
 Card.defaultProps = {
   flex: 1,
   width: 300,
-  // height: 89,
+  height: 89,
   borderWidth: 2,
   borderColor: "#822848",
   backgroundColor: "#FDF6E9",

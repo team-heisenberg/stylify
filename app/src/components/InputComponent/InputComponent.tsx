@@ -3,6 +3,8 @@ import { Input, NativeBaseProvider, View } from "native-base";
 import { captions } from "../NormalText/FontTypes";
 
 interface InputComponentInterface {
+  value?: string;
+  onChangeText?: () => void;
   inputLabel?: string;
   placeholder?: string;
   showText?: boolean;
@@ -13,6 +15,8 @@ interface InputComponentInterface {
   error?: boolean;
 }
 const InputComponent = ({
+  value,
+  onChangeText,
   inputLabel,
   placeholder,
   showText,
@@ -47,6 +51,8 @@ const InputComponent = ({
           }}
         >
           <Input
+            value={value}
+            onChangeText={onChangeText}
             variant="rounded"
             placeholder={placeholder}
             w={{
@@ -78,6 +84,7 @@ const InputComponent = ({
 export default InputComponent;
 
 InputComponent.defaultProps = {
+  value: "",
   inputLabel: "",
   placeholder: "",
   showText: true,
