@@ -1,4 +1,9 @@
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import NormalText from "../NormalText/NormalText";
 import { Link } from "../NormalText/FontTypes";
@@ -12,7 +17,7 @@ interface ButtonComponentInterface {
   isDisabled?: boolean;
   buttonText: string;
   textColor?: string;
-  onPress?: (value: string) => void;
+  onPress?: () => void;
 }
 
 const ButtonComponent = ({
@@ -36,9 +41,7 @@ const ButtonComponent = ({
       }}
     >
       <TouchableWithoutFeedback
-        onPress={() => {
-          onPress;
-        }}
+        onPress={onPress}
         onPressIn={() => {
           setPositionTop(0);
           setPositionLeft(0);
