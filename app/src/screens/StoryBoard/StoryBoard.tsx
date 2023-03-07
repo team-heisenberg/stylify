@@ -8,16 +8,20 @@ import Radio from "../../components/Radio/Radio";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
 import Dropdown from "../../components/Dropdown/Dropdown";
-import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
+import {
+  ArrowLeft,
+  Edit,
+  ThreeDots,
+} from "../../components/IconsComponent/IconsComponent";
 import React from "react";
 import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
-import { useNavigation } from "@react-navigation/native";
 // import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
-import ImageButton from "../../components/ImageButton/ImageButton";
 import FavButton from "../../components/FavButton/FavButton";
+import ImageButton from "../../components/ImageButton/ImageButton";
+import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard = () => {
   // const navigation = useNavigation();

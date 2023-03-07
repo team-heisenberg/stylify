@@ -11,6 +11,7 @@ import SignUpBusiness from "./src/screens/LoginScreen/SignUpBusiness";
 import SignUpScreen from "./src/screens/LoginScreen/SignUpScreen";
 import StackNav from "./src/stacks/StackNav";
 import { SafeAreaView } from "react-native";
+import SearchScreen from "./src/screens/SearchScreen/SearchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,15 @@ export default function App() {
     //     <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
     //     <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
     //     <Stack.Screen name="Home" component={HomeScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       options={{ headerShown: false }}
+    //       name="Search"
+    //       component={SearchScreen}
+    //     />
     //   </Stack.Navigator>
     // </NavigationContainer>
     // <View style={styles.container}>
