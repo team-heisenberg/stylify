@@ -21,6 +21,7 @@ import Message from "../../components/Message/Message";
 import FavButton from "../../components/FavButton/FavButton";
 import ImageButton from "../../components/ImageButton/ImageButton";
 import { useNavigation } from "@react-navigation/native";
+import SearchComponent from "../../components/SearchComponent/SearchComponent";
 
 const StoryBoard = () => {
   // const navigation = useNavigation();
