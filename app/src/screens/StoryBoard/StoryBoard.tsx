@@ -15,6 +15,8 @@ import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
 import { useNavigation } from "@react-navigation/native";
+// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
+import ImageButton from "../../components/ImageButton/ImageButton";
 
 const StoryBoard = () => {
   const navigation = useNavigation();
@@ -53,6 +55,13 @@ const StoryBoard = () => {
       <ArrowLeft width={50} height={50} fill="red" />
       <Edit width={50} height={50} fill="red" />
       <ThreeDots width={50} height={50} fill="red" />
+      <ImageButton
+        type="edit"
+        imageURL="https://picsum.photos/200/300"
+        onClick={() => {
+          return;
+        }}
+      />
       {/* <ArrowLeft fill="red" width={50} height={50} /> */}
       <ArrowLeft fill="red" width={50} height={50} />
       {/* <ImageComponent
