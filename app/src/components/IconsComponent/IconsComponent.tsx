@@ -1,6 +1,6 @@
 import ArrowDown from "../../../assets/icons/ArrowDown.svg";
 import ArrowDownBig from "../../../assets/icons/ArrowDownBig.svg";
-import ArrowLeft from "../../../assets/icons/ArrowLeft.svg"
+import ArrowLeft from "../../../assets/icons/ArrowLeft.svg";
 import ArrowLeftBig from "../../../assets/icons/ArrowLeftBig.svg";
 import ArrowRight from "../../../assets/icons/ArrowRight.svg";
 import ArrowRightBig from "../../../assets/icons/ArrowRightBig.svg";
@@ -24,6 +24,8 @@ import Plus from "../../../assets/icons/Plus.svg";
 import Search from "../../../assets/icons/Search.svg";
 import Star from "../../../assets/icons/Star.svg";
 import ThreeDots from "../../../assets/icons/ThreeDots.svg";
+import Browse from "../../../assets/icons/Browse.svg";
+import User from "../../../assets/icons/User.svg";
 
 export {
   ArrowDown,
@@ -35,6 +37,7 @@ export {
   ArrowRightSmall,
   ArrowUp,
   ArrowUpBig,
+  Browse,
   Calendar,
   CalendarFilled,
   Check,
@@ -52,4 +55,5 @@ export {
   Search,
   Star,
   ThreeDots,
+  User,
 };

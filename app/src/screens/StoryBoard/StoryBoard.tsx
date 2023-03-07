@@ -11,9 +11,11 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
-// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
+import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
+import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard = () => {
+  const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");
@@ -36,7 +38,7 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
-      {/* <ArrowLeft fill="red" width={50} height={50} /> */}
+      <ArrowLeft fill="red" width={50} height={50} />
       {/* <ImageComponent
         width={415}
         height={200}

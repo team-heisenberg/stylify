@@ -1,11 +1,12 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import { Heading3 } from '../../components/NormalText/FontTypes'
+import NormalText from '../../components/NormalText/NormalText'
 
 const Deals = () => {
   return (
-    <View>
-      <Text>Deals Page</Text>
-    </View>
+    <>
+      <NormalText normalText="Deals" fontType={Heading3} textAlign="left" />
+    </>
   )
 }
 
