@@ -22,8 +22,8 @@
     "expo-linear-gradient": "~12.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.17.1",
-    "pod-install": "^0.1.38",
     "native-base": "^3.4.26",
+    "pod-install": "^0.1.38",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
@@ -41,6 +41,7 @@
     "@babel/core": "^7.12.9",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.70.6",
+    "react-native-svg-transformer": "^1.0.0",
     "typescript": "^4.6.3"
   },
   "private": true
