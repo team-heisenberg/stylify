@@ -13,6 +13,7 @@ import InputComponent from "../../components/InputComponent/InputComponent";
 import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
+import Message from "../../components/Message/Message";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -110,6 +111,7 @@ const StoryBoard = () => {
         />
         <NormalText normalText="Haircut" />
       </Card>
+      <Message />
     </View>
   );
 };

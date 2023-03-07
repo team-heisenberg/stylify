@@ -1,22 +1,28 @@
-import { StyleSheet, View } from "react-native";
+import { FlexAlignType, FlexStyle, StyleSheet, View } from "react-native";
 import React from "react";
 
 interface CardInterface {
   flex?: number;
   width?: number;
   height?: number;
+  borderWidth?: number;
   borderColor?: string;
   backgroundColor?: string;
   children?: React.ReactNode;
+  flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
+  padding?: number;
 }
 
 const Card = ({
   flex,
   width,
   height,
+  borderWidth,
   borderColor,
   backgroundColor,
   children,
+  flexDirection,
+  padding,
 }: CardInterface) => {
   return (
     <View style={{ flex: flex }}>
@@ -26,8 +32,11 @@ const Card = ({
           {
             width: width,
             height: height,
+            borderWidth: borderWidth,
             borderColor: borderColor,
             backgroundColor: backgroundColor,
+            flexDirection: flexDirection,
+            padding: padding,
           },
         ]}
       >
@@ -49,18 +58,19 @@ const Card = ({
 Card.defaultProps = {
   flex: 1,
   width: 300,
-  height: 89,
+  // height: 89,
+  borderWidth: 2,
   borderColor: "#822848",
   backgroundColor: "#FDF6E9",
+  flexDirection: "row",
+  padding: 10,
 };
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 2,
     borderRadius: 8,
     position: "absolute",
     zIndex: 100,
-    flexDirection: "row",
     alignItems: "center",
   },
   shadow: {
