@@ -11,6 +11,7 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
+// import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -35,6 +36,7 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
+      {/* <ArrowLeft fill="red" width={50} height={50} /> */}
       {/* <ImageComponent
         width={415}
         height={200}

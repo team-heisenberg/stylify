@@ -1,6 +1,6 @@
 import ArrowDown from "../../../assets/icons/ArrowDown.svg";
 import ArrowDownBig from "../../../assets/icons/ArrowDownBig.svg";
-import ArrowLeft from "../../../assets/icons/ArrowLeft.svg";
+import ArrowLeft from "../../../assets/icons/ArrowLeft.svg"
 import ArrowLeftBig from "../../../assets/icons/ArrowLeftBig.svg";
 import ArrowRight from "../../../assets/icons/ArrowRight.svg";
 import ArrowRightBig from "../../../assets/icons/ArrowRightBig.svg";
