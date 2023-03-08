@@ -8,8 +8,13 @@ const SearchComponent = () => {
 
   const service = async () => {
     await axios
-      .get("http://localhost:8080/service")
-      .then((res) => console.log(res.data))
+      .get("http://localhost:8080/search?q=hair")
+      .then((res) => {
+        console.log(res.data);
+        // res.data.map((data) => {
+        //   console.log(data.businessID);
+        // });
+      })
       .catch((error) => console.log(error));
   };
 

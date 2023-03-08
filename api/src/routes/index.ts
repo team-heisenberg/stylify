@@ -15,7 +15,7 @@ import { searchRouter } from './searchBusinessOrService'
 const router = Router()
 
 router.use('/auth', authRouter)
-router.use('/search', authenticateToken, searchRouter)
+router.use('/search', searchRouter)
 router.use('/appointment', authenticateToken, appointmentRouter)
 router.use('/appointmentDetails', authenticateToken, appointmentDetailsRouter)
 router.use('/business', authenticateToken, businessRouter)
