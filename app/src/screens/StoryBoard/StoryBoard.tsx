@@ -13,6 +13,7 @@ import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
 // import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 import ImageButton from "../../components/ImageButton/ImageButton";
+import FavButton from "../../components/FavButton/FavButton";
 
 const StoryBoard = () => {
   const [checked, setChecked] = useState(false);
@@ -37,6 +38,7 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
+      <FavButton />
       <ImageButton
         type="edit"
         imageURL="https://picsum.photos/200/300"
