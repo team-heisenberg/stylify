@@ -5,11 +5,11 @@ import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
+import InputComponent from "../../components/InputComponent/InputComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
 import React from "react";
-import InputComponent from "../../components/InputComponent/InputComponent";
 import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import ImageButton from "../../components/ImageButton/ImageButton";
 
 const StoryBoard = () => {
+  const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");
@@ -93,13 +94,13 @@ const StoryBoard = () => {
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
       /* <TableComponent
+      {/* <TableComponent
         numColumns={2}
         numRows={3}
         tableHeader={tableHeader}
         tableData={tableData}
         headerBackgroundColor="rgba(130, 40, 72, 1)"
         headerTextColor="white"
-      />
       /> */}
       <InputComponent
         inputLabel="Input label"
@@ -118,12 +119,6 @@ const StoryBoard = () => {
         <NormalText normalText="Haircut" />
       </Card>
       <Message />
-      <Dropdown
-        label="Select Item"
-        labelTop="Label top"
-        data={dataDropdown}
-        onSelect={handleSelect}
-      />
       <Dropdown
         label="Select Item"
         labelTop="Label top"
