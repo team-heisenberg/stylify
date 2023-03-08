@@ -19,7 +19,6 @@ import { useNavigation } from "@react-navigation/native";
 import ImageButton from "../../components/ImageButton/ImageButton";
 
 const StoryBoard = () => {
-  const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
   const [selectedValue, setSelectedValue] = useState("");
