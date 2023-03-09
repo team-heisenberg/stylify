@@ -12,7 +12,7 @@ import {
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigatorClient = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -101,4 +101,4 @@ const TabNavigator = () => {
   );
 };
 
-export default TabNavigator;
+export default TabNavigatorClient;
