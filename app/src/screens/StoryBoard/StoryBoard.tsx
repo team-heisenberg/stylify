@@ -7,10 +7,14 @@ import { Heading1 } from "../../components/NormalText/FontTypes";
 import Radio from "../../components/Radio/Radio";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import Dropdown from "../../components/Dropdown/Dropdown";
+import { ArrowLeft, Edit, ThreeDots } from "../../components/IconsComponent/IconsComponent";
+import React from "react";
 import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
+import { useNavigation } from "@react-navigation/native";
 // import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 import ImageButton from "../../components/ImageButton/ImageButton";
 
@@ -35,9 +39,22 @@ const StoryBoard = () => {
     },
   ];
 
+  const handleSelect = (item: { label: string; value: string }) => {
+    console.log("Selected item:", item);
+  };
+
+  const dataDropdown = [
+    { label: "Option 1", value: "1" },
+    { label: "Option 2", value: "2" },
+    { label: "Option 3", value: "3" },
+  ];
+
   return (
     <View>
       <Text>Test from StoryBoard</Text>
+      <ArrowLeft width={50} height={50} fill="red" />
+      <Edit width={50} height={50} fill="red" />
+      <ThreeDots width={50} height={50} fill="red" />
       <ImageButton
         type="edit"
         imageURL="https://picsum.photos/200/300"
@@ -46,6 +63,7 @@ const StoryBoard = () => {
         }}
       />
       {/* <ArrowLeft fill="red" width={50} height={50} /> */}
+      <ArrowLeft fill="red" width={50} height={50} />
       {/* <ImageComponent
         width={415}
         height={200}
@@ -75,6 +93,7 @@ const StoryBoard = () => {
         />
       ))}
       <Text>{`Selected value: ${selectedValue}`}</Text>
+      /* <TableComponent
       {/* <TableComponent
         numColumns={2}
         numRows={3}
@@ -100,6 +119,12 @@ const StoryBoard = () => {
         <NormalText normalText="Haircut" />
       </Card>
       <Message />
+      <Dropdown
+        label="Select Item"
+        labelTop="Label top"
+        data={dataDropdown}
+        onSelect={handleSelect}
+      />
     </View>
   );
 };
