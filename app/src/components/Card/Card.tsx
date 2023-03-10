@@ -1,8 +1,7 @@
-import { FlexAlignType, FlexStyle, StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import React from "react";
 
 interface CardInterface {
-  flex?: number;
   width?: number;
   height?: number;
   borderWidth?: number;
@@ -11,10 +10,10 @@ interface CardInterface {
   children?: React.ReactNode;
   flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
   padding?: number;
+  onPress?: () => void;
 }
 
 const Card = ({
-  flex,
   width,
   height,
   borderWidth,
@@ -23,41 +22,43 @@ const Card = ({
   children,
   flexDirection,
   padding,
+  onPress,
 }: CardInterface) => {
   return (
-    <View style={{ flex: flex }}>
-      <View
-        style={[
-          styles.card,
-          {
-            width: width,
-            height: height,
-            borderWidth: borderWidth,
-            borderColor: borderColor,
-            backgroundColor: backgroundColor,
-            flexDirection: flexDirection,
-            padding: padding,
-          },
-        ]}
-      >
-        {children}
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={{ height: 93 }}>
+        <View
+          style={[
+            styles.card,
+            {
+              width: width,
+              height: height,
+              borderWidth: borderWidth,
+              borderColor: borderColor,
+              backgroundColor: backgroundColor,
+              flexDirection: flexDirection,
+              padding: padding,
+            },
+          ]}
+        >
+          {children}
+        </View>
+        <View
+          style={[
+            styles.shadow,
+            {
+              width: width,
+              height: height,
+            },
+          ]}
+        />
       </View>
-      <View
-        style={[
-          styles.shadow,
-          {
-            width: width,
-            height: height,
-          },
-        ]}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 Card.defaultProps = {
-  flex: 1,
-  width: 300,
+  width: "90%",
   height: 89,
   borderWidth: 2,
   borderColor: "#822848",

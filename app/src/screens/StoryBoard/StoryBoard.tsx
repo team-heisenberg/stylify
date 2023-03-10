@@ -20,8 +20,7 @@ import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
 import FavButton from "../../components/FavButton/FavButton";
 import ImageButton from "../../components/ImageButton/ImageButton";
-import { useNavigation } from "@react-navigation/native";
-import SearchComponent from "../../components/SearchComponent/SearchComponent";
+// import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard = () => {
   // const navigation = useNavigation();
