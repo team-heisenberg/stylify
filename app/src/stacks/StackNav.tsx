@@ -13,6 +13,10 @@ import ClientFavourites from "../screens/Profile/ClientFavourites";
 import ClientProfile from "../screens/Profile/ClientProfile";
 import ClientSettings from "../screens/Profile/ClientSettings";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
+import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
+import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
+import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
+import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +57,22 @@ const StackNav = () => {
           <Stack.Screen name="Client Favourites" component={ClientFavourites} />
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
+          <Stack.Screen
+            name="Create Appointment Business"
+            component={CreateAppointmentBusiness}
+          />
+          <Stack.Screen
+            name="Select Services Business"
+            component={SelectServicesBusiness}
+          />
+          <Stack.Screen
+            name="Select Professional Business"
+            component={SelectProfessionalBusiness}
+          />
+          <Stack.Screen
+            name="Confirm Appointment Business"
+            component={ConfirmAppointmentBusiness}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
