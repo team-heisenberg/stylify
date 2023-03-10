@@ -18,12 +18,12 @@ import PieChartContainer from "../../containers/PieChartContainer/PieChartContai
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
+import FavButton from "../../components/FavButton/FavButton";
 import ImageButton from "../../components/ImageButton/ImageButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import TabViewExample from "../../components/TabViewComponent/TabViewComponent";
 import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
 // import { useNavigation } from "@react-navigation/native";
-import FavButton from "../../components/FavButton/FavButton";
 
 const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   // const navigation = useNavigation();
