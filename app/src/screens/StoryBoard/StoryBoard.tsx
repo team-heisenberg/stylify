@@ -17,6 +17,7 @@ import Message from "../../components/Message/Message";
 import { useNavigation } from "@react-navigation/native";
 // import { ArrowLeft } from "../../components/IconsComponent/IconsComponent";
 import ImageButton from "../../components/ImageButton/ImageButton";
+import FavButton from "../../components/FavButton/FavButton";
 
 const StoryBoard = () => {
   // const navigation = useNavigation();
@@ -52,6 +53,7 @@ const StoryBoard = () => {
   return (
     <View>
       <Text>Test from StoryBoard</Text>
+      <FavButton />
       <ArrowLeft width={50} height={50} fill="red" />
       <Edit width={50} height={50} fill="red" />
       <ThreeDots width={50} height={50} fill="red" />
