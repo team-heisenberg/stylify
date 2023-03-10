@@ -27,6 +27,8 @@ import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointment
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
 import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
+import SearchScreen from "../screens/SearchScreen/SearchScreen";
+
 
 const Stack = createNativeStackNavigator();
 
