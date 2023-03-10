@@ -138,6 +138,42 @@ const StackNav = () => {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="StoryBook" component={StoryBoard} />
           
+          {/* <Stack.Screen
+            name="Navigation"
+            component={TabNavigatorClient}
+            options={{
+              headerShown: false,
+            }}
+          /> */}
+          <Stack.Screen name="Home" component={StoryBoard} />
+          <Stack.Screen name="Browse" component={Browse} />
+          <Stack.Screen name="Deals" component={Deals} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Service Detail" component={ServiceDetail} />
+          <Stack.Screen
+            name="Client Appointments"
+            component={ClientAppointments}
+          />
+          <Stack.Screen name="Client Favourites" component={ClientFavourites} />
+          <Stack.Screen name="Client Profile" component={ClientProfile} />
+          <Stack.Screen name="Client Settings" component={ClientSettings} />
+          {/* Business Home Page / Create Appointment */}
+          <Stack.Screen
+            name="Create Appointment Business"
+            component={CreateAppointmentBusiness}
+          />
+          <Stack.Screen
+            name="Select Services Business"
+            component={SelectServicesBusiness}
+          />
+          <Stack.Screen
+            name="Select Professional Business"
+            component={SelectProfessionalBusiness}
+          />
+          <Stack.Screen
+            name="Confirm Appointment Business"
+            component={ConfirmAppointmentBusiness}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
