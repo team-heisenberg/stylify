@@ -29,7 +29,6 @@ import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointment
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
 
-
 const Stack = createNativeStackNavigator();
 
 const StackNav = () => {
