@@ -12,11 +12,8 @@ import ClientAppointments from "../screens/Profile/ClientAppointments";
 import ClientFavourites from "../screens/Profile/ClientFavourites";
 import ClientProfile from "../screens/Profile/ClientProfile";
 import ClientSettings from "../screens/Profile/ClientSettings";
-<<<<<<< HEAD
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
-=======
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
->>>>>>> 6c43072 (feature/HB-133-Implement-search-functionality)
 
 const Stack = createNativeStackNavigator();
 
@@ -31,34 +28,30 @@ const StackNav = () => {
             headerShown: false,
           }}
         >
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Navigation"
             component={TabNavigatorBusiness}
             options={{
               headerShown: false,
             }}
-          />
-          {/* <Stack.Screen
+          /> */}
+          <Stack.Screen
             name="Navigation"
             component={TabNavigatorClient}
             options={{
               headerShown: false,
             }}
-          /> */}
+          />
           <Stack.Screen name="Home" component={StoryBoard} />
           <Stack.Screen name="Browse" component={Browse} />
           <Stack.Screen name="Deals" component={Deals} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Service Detail" component={ServiceDetail} />
-<<<<<<< HEAD
+          <Stack.Screen name="Search Results" component={SearchScreen} />
           <Stack.Screen
             name="Client Appointments"
             component={ClientAppointments}
           />
-=======
-          <Stack.Screen name="Search Results" component={SearchScreen} />
-          <Stack.Screen name="Client Appointments" component={ClientAppointments} />
->>>>>>> 6c43072 (feature/HB-133-Implement-search-functionality)
           <Stack.Screen name="Client Favourites" component={ClientFavourites} />
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
