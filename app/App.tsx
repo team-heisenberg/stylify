@@ -1,4 +1,4 @@
-import { NativeBaseProvider } from "native-base";
+// import { NativeBaseProvider } from "native-base";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaViewBase, StyleSheet, Text, View } from "react-native";
 import StoryBoard from "./src/screens/StoryBoard/StoryBoard";
@@ -11,6 +11,8 @@ import SignUpBusiness from "./src/screens/LoginScreen/SignUpBusiness";
 import SignUpScreen from "./src/screens/LoginScreen/SignUpScreen";
 import StackNav from "./src/stacks/StackNav";
 import { SafeAreaView } from "react-native";
+import SearchScreen from "./src/screens/SearchScreen/SearchScreen";
+import { NativeBaseProvider } from "native-base";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +31,15 @@ export default function App() {
     //     <Stack.Screen name="Home" component={HomeScreen} />
     //   </Stack.Navigator>
     // </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       options={{ headerShown: false }}
+    //       name="Search"
+    //       component={SearchScreen}
+    //     />
+    //   </Stack.Navigator>Ω
+    // </NavigationContainer>
     // <View style={styles.container}>
     //   <StatusBar style="auto" />
     //   <StoryBoard />
@@ -37,6 +48,10 @@ export default function App() {
       <StatusBar style="auto" />
       <StackNav />
     </NativeBaseProvider>
+    // <View style={styles.container}>
+    //   <StatusBar style="auto" />
+    //   <StoryBoard />
+    // </View>
   );
 }
 
