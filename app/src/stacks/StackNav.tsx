@@ -23,12 +23,11 @@ import ClientFavourites from "../screens/Profile/ClientFavourites";
 import ClientProfile from "../screens/Profile/ClientProfile";
 import ClientSettings from "../screens/Profile/ClientSettings";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
-import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
-import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
-import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
-import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
-
+import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
+import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
+import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
+import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
 
 const Stack = createNativeStackNavigator();
 
