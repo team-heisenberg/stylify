@@ -1,13 +1,13 @@
-import React from 'react'
-import { Heading3 } from '../../components/NormalText/FontTypes'
-import NormalText from '../../components/NormalText/NormalText'
+import React from "react";
+import { Heading3 } from "../../components/NormalText/FontTypes";
+import NormalText from "../../components/NormalText/NormalText";
 
 const InsightsBusiness = () => {
   return (
     <>
-      <NormalText normalText="Insights Business Screen" fontType={Heading3} textAlign="left" />
+      <NormalText normalText="Insights" fontType={Heading3} textAlign="left" />
     </>
-  )
-}
+  );
+};
 
-export default InsightsBusiness
+export default InsightsBusiness;

@@ -10,7 +10,7 @@ import MoreBusiness from "../screens/MoreBusiness/MoreBusiness";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigatorClient = () => {
+const TabNavigatorBusiness = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -81,4 +81,4 @@ const TabNavigatorClient = () => {
   );
 };
 
-export default TabNavigatorClient;
+export default TabNavigatorBusiness;
