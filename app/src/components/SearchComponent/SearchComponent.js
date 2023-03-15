@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
 import NormalText from "../NormalText/NormalText";
 import SearchListItem from "./SearchListItem";
+import { createAxiosClient } from "../../api";
 
 const SearchComponent = () => {
   const [value, setValue] = useState("");
@@ -12,8 +13,9 @@ const SearchComponent = () => {
 
   // Search for services
   const searchService = async (value) => {
-    await axios
-      .get("http://localhost:8080/service")
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get("/service")
       .then((res) => {
         const service = res.data.filter((a) => {
           return a.serviceName.toLowerCase().includes(value.toLowerCase());
@@ -26,15 +28,17 @@ const SearchComponent = () => {
         setServiceName(unique);
       })
       .catch((error) => {
-        console.log(error), setFilteredService([]);
+        console.log(JSON.stringify(error))
       });
   };
 
   // Search for businesses
   const searchBusiness = async (value) => {
-    await axios
-      .get(`http://localhost:8080/search?q=${value}`)
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get("/service")
       .then((res) => {
+        console.log(res);
         setFilteredBusiness(res.data);
       })
       .catch((error) => {

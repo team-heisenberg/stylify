@@ -15,18 +15,18 @@ import { searchRouter } from './searchBusinessOrService'
 const router = Router()
 
 router.use('/auth', authRouter)
-// router.use('/search', authenticateToken, searchRouter)
+router.use('/search', authenticateToken, searchRouter)
 router.use('/search', searchRouter)
 router.use('/appointment', authenticateToken, appointmentRouter)
 router.use('/appointmentDetails', authenticateToken, appointmentDetailsRouter)
-router.use('/business', authenticateToken, businessRouter)
+router.use('/business', businessRouter)
 router.use('/deal', authenticateToken, dealRouter)
 router.use('/professional', authenticateToken, professionalRouter)
 router.use('/professionalServices', authenticateToken, professionalServicesRouter)
 router.use('/review', authenticateToken, reviewRouter)
-// router.use('/service', authenticateToken, serviceRouter)
+router.use('/service', authenticateToken, serviceRouter)
 router.use('/service', serviceRouter)
 router.use('/serviceType', authenticateToken, serviceTypeRouter)
-router.use('/customer', authenticateToken, customerRouter)
+router.use('/customer', customerRouter)
 
 export { router }

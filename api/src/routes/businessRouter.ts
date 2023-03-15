@@ -1,6 +1,7 @@
 
 import { Router } from 'express'
 import { PrismaClient } from '@prisma/client'
+import { authenticateToken } from './authRouter'
 
 const prisma = new PrismaClient()
 
@@ -18,14 +19,14 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/', async (_, res) => {
+router.get('/', authenticateToken,async (_, res) => {
   const businessList = await prisma.business.findMany()
 
   res.json(businessList)
 })
 
 // GET - Retrieve Record
-router.get('/:businessID', async (req, res) => {
+router.get('/:businessID', authenticateToken,async (req, res) => {
   const { businessID } = req.params
 
   const business = await prisma.business.findFirst({
@@ -38,7 +39,7 @@ router.get('/:businessID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/:businessID', async (req, res) => {
+router.put('/:businessID', authenticateToken,async (req, res) => {
   const { businessID, ...data } = req.body
   const test = await prisma.business.update({
     where: {
@@ -51,7 +52,7 @@ router.put('/:businessID', async (req, res) => {
 })
 
 // DELETE - Delete Record
-router.delete('/:businessID', async (req, res) => {
+router.delete('/:businessID', authenticateToken,async (req, res) => {
   const { businessID} = req.params
 
   const test = await prisma.business
