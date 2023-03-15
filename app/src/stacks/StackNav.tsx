@@ -131,6 +131,13 @@ const StackNav = () => {
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
           />
+
+          <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
+          <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="StoryBook" component={StoryBoard} />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

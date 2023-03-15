@@ -2,8 +2,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import StackNav from "./src/stacks/StackNav";
-import { SafeAreaView } from "react-native";
-import SearchScreen from "./src/screens/SearchScreen/SearchScreen";
 import { NativeBaseProvider } from "native-base";
 
 
