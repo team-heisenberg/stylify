@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { PrismaClient } from '@prisma/client'
+import { authenticateToken } from './authRouter'
 
 const prisma = new PrismaClient()
 
@@ -20,13 +21,13 @@ router.post('/', async (req, res) => {
 })
 
 // GET - Retrieve Records
-router.get('/', async (_, res) => {
+router.get('/', authenticateToken, async (_, res) => {
   const customerList = await prisma.customer.findMany()
 
   res.json(customerList)
 })
 
-router.get('/:customerID', async (req, res) => {
+router.get('/:customerID', authenticateToken, async (req, res) => {
   const { customerID } = req.params
 
   const customer = await prisma.customer.findFirst({
@@ -39,7 +40,7 @@ router.get('/:customerID', async (req, res) => {
 })
 
 // PUT - Update Record
-router.put('/:customerID', async (req, res) => {
+router.put('/:customerID', authenticateToken, async (req, res) => {
   const { customerID, ...data } = req.body
   const customer = await prisma.customer.update({
     where: {
@@ -52,7 +53,7 @@ router.put('/:customerID', async (req, res) => {
 })
 
 // DELETE - Delete Record
-router.delete('/:customerID', async (req, res) => {
+router.delete('/:customerID', authenticateToken, async (req, res) => {
   const { customerID } = req.params
 
   const customer = await prisma.customer

@@ -1,6 +1,9 @@
 import 'dotenv'
 import { Router } from 'express'
 import jwt from 'jsonwebtoken'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 const router = Router()
 
@@ -20,15 +23,32 @@ export function authenticateToken(req, res, next) {
   })
 }
 
-router.post('/', (req, res) => {
-  const { businessName, firstName, lastName, businessID, customerID } = req.body
-  const user = { name: businessName ? businessName : `${firstName} ${lastName}`, ID: businessID ?? customerID }
+router.post('/', async (req, res) => {
+  const { email } = req.body
+  console.log(email)
+  const result: any[] = await prisma.$queryRawUnsafe(
+    `SELECT c.customerID  as ID, c.email as Email, CONCAT(c.firstName, " ", c.lastName) as Name, "1" as IsCustomer   FROM Customer c
+  WHERE c.email = ?
+  UNION
+  SELECT b.businessID  as ID, b.email as Email, b.businessName  as Name, "0" as IsCustomer   FROM Business b 
+  WHERE b.email = ?`,
+    email,
+    email
+  )
 
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET || '')
-  accessTokens.push(accessToken)
-  const refreshToken: any = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET || '')
-  refreshTokens.push(refreshToken)
-  res.json({ accessToken: accessToken, refreshToken: refreshToken })
+  if (result?.length === 0) {
+    res.status(400).end()
+    return
+  }
+
+  // @ts-ignore
+  const user = result[0]
+
+  const newAccessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET || '')
+  accessTokens.push(newAccessToken)
+  const newRefreshToken: any = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET || '')
+  refreshTokens.push(newRefreshToken)
+  res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken, userData: result[0] })
 })
 
 router.delete('/', (req, res) => {

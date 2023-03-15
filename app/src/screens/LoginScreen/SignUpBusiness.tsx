@@ -1,22 +1,15 @@
 import axios from "axios";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase";
 import PhoneInput from "react-native-phone-input";
+import InputComponent from "../../components/InputComponent/InputComponent";
+import { ScrollView } from "native-base";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const SignUpBusiness = () => {
+const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [businessName, setBusinessName] = useState("");
@@ -38,17 +31,6 @@ const SignUpBusiness = () => {
     password: "",
   };
 
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
-
   const handleSignUp = () => {
     if (password !== passwordConfirm) {
       return setError(true);
@@ -65,76 +47,69 @@ const SignUpBusiness = () => {
             ...newBusiness,
           })
           .catch((error) => console.log(error));
-
-        await axios
-          .post("http://localhost:8080/auth", {
-            ...business,
-          })
-          .then((res) => console.log(res))
-          .catch((error) => console.log(error));
+        navigation.replace("Login");
       })
       .catch((error) => console.log(error.message));
   };
- 
+
   return (
-    <KeyboardAvoidingView behavior="padding" style={{ padding: 100 }}>
-      <View>
-        <TextInput
+    <KeyboardAvoidingView behavior="padding" style={{ padding: 15 }}>
+      <ScrollView>
+        <InputComponent
           placeholder="First Name"
           value={firstName}
           onChangeText={(text) => setFirstName(text)}
         />
-        <TextInput
+        <InputComponent
           placeholder="Last Name"
           value={lastName}
           onChangeText={(text) => setLastName(text)}
         />
-        <TextInput
+        <InputComponent
           placeholder="Business Name"
           value={businessName}
           onChangeText={(text) => setBusinessName(text)}
         />
-        <TextInput
+        <InputComponent
           placeholder="Business Address"
           value={businessAddress}
           onChangeText={(text) => setBusinessAddress(text)}
         />
+        {/* @ts-ignore */}
         <PhoneInput
           style={styles.input}
           ref={phoneRef}
           value={phoneNumber}
           onChangePhoneNumber={setPhoneNumber}
         />
-        <TextInput
+        <InputComponent
           placeholder="Business Type"
           value={businessType}
           onChangeText={(text) => setBusinessType(text)}
         />
-        <TextInput
+        <InputComponent
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
-        <TextInput
+        <InputComponent
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          secureTextEntry
+          showText={false}
         />
-        <TextInput
+        <InputComponent
           placeholder="Password"
           value={passwordConfirm}
           onChangeText={(text) => setPasswordConfrim(text)}
-          secureTextEntry
+          showText={false}
         />
         {error && <Text>Password do not match</Text>}
-      </View>
 
-      <View>
-        <TouchableOpacity onPress={handleSignUp}>
-          <Text>SignUp</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={{ marginVertical: 15 }}>
+          <ButtonComponent buttonText="SignUp" onPress={handleSignUp} />
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
@@ -143,9 +118,11 @@ export default SignUpBusiness;
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+    height: 50,
+    margin: 0,
+    borderWidth: 2,
     padding: 10,
+    marginTop: 8,
+    borderRadius: 50,
   },
 });

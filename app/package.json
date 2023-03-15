@@ -13,6 +13,7 @@
     "@react-native-community/art": "^1.2.0",
     "@react-native-community/checkbox": "^0.5.14",
     "@react-native-community/picker": "^1.8.1",
+    "@react-native-picker/picker": "2.4.8",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.5",
     "@react-navigation/native-stack": "^6.9.11",
