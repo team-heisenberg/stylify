@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Deals from "../screens/Deals/Deals";
 import StoryBoard from "../screens/StoryBoard/StoryBoard";
+import HomeCustomer from "../screens/HomeCustomer/HomeCustomer";
 import Profile from "../screens/Profile/Profile";
 import Browse from "../screens/Browse/Browse";
 import {
@@ -27,7 +28,7 @@ const TabNavigatorClient = () => {
     >
       <Tab.Screen
         name="Home"
-        component={StoryBoard}
+        component={HomeCustomer}
         options={{
           headerShown: false,
           tabBarShowLabel: false,

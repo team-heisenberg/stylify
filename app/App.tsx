@@ -51,7 +51,7 @@ export default function App() {
     // <View style={styles.container}>
     //   <StatusBar style="auto" />
     //   <StoryBoard />
-    // </View>
+    // </View>r
   );
 }
 
