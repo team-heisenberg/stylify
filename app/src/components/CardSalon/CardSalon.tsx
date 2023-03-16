@@ -1,14 +1,16 @@
-import { View } from "react-native"
-import Card from "../Card/Card"
+import { View } from "react-native";
+import Card from "../Card/Card";
 
-const CardSalon = () => {
-    return (
-        <View>
-            <Card>
-                
-            </Card>
-        </View>
-    )
+interface CardInterface {
+  onPress?: () => void;
 }
 
-export default CardSalon
+const CardSalon = ({ onPress }: CardInterface) => {
+  return (
+    <View>
+      <Card height={96} padding={0} width={375} onPress={onPress}></Card>
+    </View>
+  );
+};
+
+export default CardSalon;

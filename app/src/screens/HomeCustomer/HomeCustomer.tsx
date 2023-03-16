@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import CardSalon from "../../components/CardSalon/CardSalon";
+import CardAppointment from "../../components/CardAppointment/CardAppointment";
 
 interface EnumServiceItem {
   appointmentDetailsId: number;
@@ -12,59 +13,60 @@ interface EnumServiceItem {
 }
 
 const HomeCustomer = () => {
-  //   const appointmentsArray: {
-  //     customerId: number;
-  //     appointmentId: number;
-  //     businessId: number;
-  //     serviceDetails: Array<EnumServiceItem>;
-  //     professionalId: number;
-  //   }[] = [
-  //     {
-  //       customerId: 0,
-  //       businessId: 1111,
-  //       serviceDetails: [
-  //         {
-  //           appointmentDetailsId: 1111,
-  //           appointmentsId: 1111,
-  //           serviceId: 1111,
-  //           price: 11111,
-  //         },
-  //       ],
-  //       professionalId: 1111
-  //     }
-  //   ];
-
   return (
     <View style={styles.page}>
-      <NormalText
-        normalText="Upcoming Appointment"
-        fontType={Heading3}
-        textAlign="left"
-        marginTop={40}
-      />
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.containerText}>
         <NormalText
-          normalText="No upcoming appointments"
-          fontType={Heading5}
-          textColor="#24313A"
+          normalText="Upcoming Appointment"
+          fontType={Heading3}
           textAlign="left"
+          marginTop={20}
+        />
+        <Text>View All</Text>
+      </View>
+      <View style={styles.cardAppointment}>
+        <CardAppointment
+          time="12:00"
+          ampm="am"
+          salonName="Daniel Salon"
+          services="Haircut"
+          professional="Diego Lara"
         />
       </View>
       <View style={{ marginTop: 20 }}>
         <NormalText
           normalText="No upcoming appointments"
           fontType={Heading5}
-          textColor="#24313A"
+          textColor="#8E9394"
           textAlign="left"
         />
       </View>
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.containerText}>
         <NormalText
-          normalText="No upcoming appointments"
+          normalText="Recent Appointments"
           fontType={Heading5}
           textColor="#24313A"
           textAlign="left"
         />
+        <Text>View All</Text>
+      </View>
+      <View style={styles.containerText}>
+        <NormalText
+          normalText="Salons near me"
+          fontType={Heading5}
+          textColor="#24313A"
+          textAlign="left"
+        />
+        <Text>10km radius</Text>
+      </View>
+      <View style={styles.containerText}>
+        <NormalText
+          normalText="Favourite salons"
+          fontType={Heading5}
+          textColor="#24313A"
+          textAlign="left"
+        />
+        <Text>Explore more</Text>
       </View>
     </View>
   );
@@ -75,7 +77,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F5EE",
     height: "100%",
     marginLeft: 16,
+    marginRight: 16
   },
+  cardAppointment: {
+    display: "flex",
+    marginTop: 16,
+  },
+  containerText : {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    marginTop: 20
+  }
 });
 
 export default HomeCustomer;
