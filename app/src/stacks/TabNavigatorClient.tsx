@@ -10,7 +10,6 @@ import {
   Browse as BrowseIcon,
   Fire,
 } from "../components/IconsComponent/IconsComponent";
-import HomeCustomer from "../screens/HomeCustomer/HomeCustomer";
 
 const Tab = createBottomTabNavigator();
 
