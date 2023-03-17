@@ -20,9 +20,12 @@ import Card from "../../components/Card/Card";
 import Message from "../../components/Message/Message";
 import FavButton from "../../components/FavButton/FavButton";
 import ImageButton from "../../components/ImageButton/ImageButton";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import TabViewExample from "../../components/TabViewComponent/TabViewComponent";
+import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
 // import { useNavigation } from "@react-navigation/native";
 
-const StoryBoard = () => {
+const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   // const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
 
@@ -114,7 +117,11 @@ const StoryBoard = () => {
         labelBgColor="white"
         inputBgColor="white"
       />
-      <ButtonComponent buttonText="Button" />
+
+      <ButtonComponent
+        buttonText="Show Top Tab Navigator"
+        onPress={() => navigation.navigate("TopTabNavigator")}
+      />
       <Card>
         <ImageComponent
           imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
