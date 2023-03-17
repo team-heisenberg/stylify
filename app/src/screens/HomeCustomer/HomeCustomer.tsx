@@ -1,22 +1,51 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import CardSalon from "../../components/CardSalon/CardSalon";
 import CardAppointment from "../../components/CardAppointment/CardAppointment";
 import CardRecentAppointment from "../../components/CardRecentAppointment/CardRecentAppointment";
-
-interface EnumServiceItem {
-  appointmentDetailsId: number;
-  appointmentsId: number;
-  serviceId: number;
-  price: number;
-}
+import { createAxiosClient } from "../../api";
 
 const HomeCustomer = () => {
   const navigation = useNavigation<any>();
+  const [business, setBusiness] = useState([]);
+  const route = useRoute();
+
+  console.log(business);
+
+  const searchBusiness = async () => {
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get("/business")
+      .then((res) => {
+        console.log(res);
+        setBusiness(res.data);
+      })
+      .catch((error) => {
+        console.log(error), setBusiness([]);
+      });
+  };
+
+  useEffect(() => {
+    searchBusiness();
+  }, []);
+
+  // const listItems = business?.map((business) => {
+  //   <View style={styles.cards}>
+  //           <CardSalon
+  //             salonImage="https://picsum.photos/200/300"
+  //             salonName={business["businessName"]}
+  //             salonLocation={business["location"]}
+  //             rating="4.6"
+  //             favState={false}
+  //           />
+  //         </View>
+  // }
+  // );
+
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       {/* TEST IF THERE ARE UPCOMING APPOINTMENTS VVVVV */}
@@ -84,7 +113,7 @@ const HomeCustomer = () => {
           </TouchableOpacity>
         </View>
         <View>
-        <View style={styles.cards}>
+          <View style={styles.cards}>
             <CardRecentAppointment
               salonImage="https://picsum.photos/200/300"
               salonName="Daniel Salon"
@@ -119,20 +148,31 @@ const HomeCustomer = () => {
           </TouchableOpacity>
         </View>
         <View>
-          <View style={styles.cards}>
-            <CardSalon
-              salonImage="https://picsum.photos/200/300"
-              salonName="Daniel Salon"
-              salonLocation="Downtown, Vancouver"
-              rating="4.6"
-              favState={false}
-            />
-          </View>
+          {business?.map((b) => (
+            <View style={styles.cards}>
+              <CardSalon
+                salonImage="https://picsum.photos/200/300"
+                salonName={b["businessName"]}
+                salonLocation={b["location"]}
+                rating="4.6"
+                favState={false}
+                onPress={() => {
+                  navigation.navigate("Booking",
+                    {
+                      salonName: b["businessName"],
+                      salonLocation: b["location"],
+                      rating: "4.6",
+                      favState: false
+                    });
+                }}
+              />
+            </View>
+          ))}
         </View>
       </View>
 
       {/* IF THEY HAVE FAVORITE SALONS VVVVV */}
-      <View style={{marginBottom: 40}}>
+      <View style={{ marginBottom: 40 }}>
         <View style={styles.containerText}>
           <NormalText
             normalText="Favourite salons"

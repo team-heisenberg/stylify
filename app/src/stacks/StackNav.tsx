@@ -20,6 +20,7 @@ import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointme
 import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
+import Booking from "../screens/Booking/Booking";
 
 const Stack = createNativeStackNavigator();
 
@@ -104,6 +105,7 @@ const StackNav = () => {
           <Stack.Screen name="Client Favourites" component={ClientFavourites} />
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
+          <Stack.Screen name="Booking" component={Booking} />
           
           {/* Business Home Page / Create Appointment */}
           <Stack.Screen

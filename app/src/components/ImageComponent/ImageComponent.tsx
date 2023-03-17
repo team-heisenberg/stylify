@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 // Declare interface
 interface imageInferface {
-  width: number;
+  width: any;
   height: number;
   imageURL?: any;
   source?: any,
