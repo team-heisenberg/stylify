@@ -11,10 +11,6 @@ export default function App() {
       <StatusBar style="auto" />
       <StackNav />
     </NativeBaseProvider>
-    // <View style={styles.container}>
-    //   <StatusBar style="auto" />
-    //   <StoryBoard />
-    // </View>
   );
 }
 

@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Deals from "../screens/Deals/Deals";
-import HomeCustomer from "../screens/HomeCustomer/HomeCustomer";
 import Profile from "../screens/Profile/Profile";
 import Browse from "../screens/Browse/Browse";
 import {
@@ -9,6 +8,7 @@ import {
   Browse as BrowseIcon,
   Fire,
 } from "../components/IconsComponent/IconsComponent";
+import HomeCustomer from "../screens/HomeCustomer/HomeCustomer";
 
 const Tab = createBottomTabNavigator();
 

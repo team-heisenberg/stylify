@@ -11,20 +11,20 @@ interface RadioProps {
 
 const Radio = (props: RadioProps) => {
   return (
-      <View style={styles.container}>
-        <NormalText normalText={props.radioText} />
-        <TouchableOpacity
-          onPress={() => props.onPress(props.radioValue)}
-          style={styles.radioNoClicked}
-        >
-          {props.selected ? (
-            <TouchableOpacity
-              onPress={() => props.onPress(props.radioValue)}
-              style={styles.radioClicked}
-            />
-          ) : null}
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => props.onPress(props.radioValue)}
+        style={styles.radioNoClicked}
+      >
+        {props.selected ? (
+          <TouchableOpacity
+            onPress={() => props.onPress(props.radioValue)}
+            style={styles.radioClicked}
+          />
+        ) : null}
+      </TouchableOpacity>
+      <NormalText normalText={props.radioText} />
+    </View>
   );
 };
 
@@ -33,23 +33,25 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    padding: 8,
+    paddingTop: 8,
+    paddingRight: 8,
+    paddingBottom: 8
   },
   radioNoClicked: {
-    height: 24,
-    width: 24,
+    height: 16,
+    width: 16,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: "#000",
+    borderColor: "rgba(130, 40, 72, 1)",
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 8,
   },
   radioClicked: {
-    height: 12,
-    width: 12,
+    height: 8,
+    width: 8,
     borderRadius: 6,
-    backgroundColor: "#000",
+    backgroundColor: "rgba(130, 40, 72, 1)",
   },
 });
 

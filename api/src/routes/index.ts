@@ -16,11 +16,12 @@ import { insightsRouter } from './insights'
 const router = Router()
 
 router.use('/auth', authRouter)
+
 router.use('/search', authenticateToken, searchRouter)
 router.use('/search', searchRouter)
 router.use('/appointment', authenticateToken, appointmentRouter)
 router.use('/appointmentDetails', authenticateToken, appointmentDetailsRouter)
-router.use('/business', authenticateToken, businessRouter)
+router.use('/business', businessRouter)
 router.use('/deal', authenticateToken, dealRouter)
 router.use('/professional', authenticateToken, professionalRouter)
 router.use('/professionalServices', authenticateToken, professionalServicesRouter)

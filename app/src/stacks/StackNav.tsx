@@ -13,6 +13,13 @@ import BusinessDeals from "../screens/BusinessDeals/BusinessDeals";
 import { createAxiosClient } from "../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BusinessProfile from "../screens/BusinessProfile/BusinessProfile";
+import ClientFavourites from "../screens/Profile/ClientFavourites";
+import ClientProfile from "../screens/Profile/ClientProfile";
+import ClientSettings from "../screens/Profile/ClientSettings";
+import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
+import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
+import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
+import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,7 +56,7 @@ const StackNav = () => {
         <Stack.Navigator
           screenOptions={{
             headerBackTitle: "",
-            headerShown: true,
+            headerShown: false,
           }}
         >
           <Stack.Screen
@@ -94,8 +101,27 @@ const StackNav = () => {
             )}
           />
           <Stack.Screen name="BusinessProfile" component={BusinessProfile} />
-
-
+          <Stack.Screen name="Client Favourites" component={ClientFavourites} />
+          <Stack.Screen name="Client Profile" component={ClientProfile} />
+          <Stack.Screen name="Client Settings" component={ClientSettings} />
+          
+          {/* Business Home Page / Create Appointment */}
+          <Stack.Screen
+            name="Create Appointment Business"
+            component={CreateAppointmentBusiness}
+          />
+          <Stack.Screen
+            name="Select Services Business"
+            component={SelectServicesBusiness}
+          />
+          <Stack.Screen
+            name="Select Professional Business"
+            component={SelectProfessionalBusiness}
+          />
+          <Stack.Screen
+            name="Confirm Appointment Business"
+            component={ConfirmAppointmentBusiness}
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
