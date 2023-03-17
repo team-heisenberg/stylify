@@ -40,7 +40,7 @@ NormalText.defaultProps = {
   textColor: "#24313A",
   marginRight: "",
   marginTop: "",
-  textAlign: "center",
+  textAlign: "center"
 };
 
 export default NormalText;

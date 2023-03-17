@@ -26,7 +26,8 @@ import Star from "../../../assets/icons/Star.svg";
 import ThreeDots from "../../../assets/icons/ThreeDots.svg";
 import Browse from "../../../assets/icons/Browse.svg";
 import User from "../../../assets/icons/User.svg";
-import Navigate from "../../../assets/icons/Navigate.svg"
+import Navigate from "../../../assets/icons/Navigate.svg";
+import RedDot from "../../../assets/icons/RedDot.svg";
 
 export {
   ArrowDown,
@@ -57,5 +58,6 @@ export {
   Star,
   ThreeDots,
   User,
-  Navigate
+  Navigate,
+  RedDot
 };

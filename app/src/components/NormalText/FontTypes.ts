@@ -46,6 +46,12 @@ export const BodyBold = {
   fontWeight: "600",
 };
 
+export const BodyBold2 = {
+  fontSize: 14,
+  lineHeight: 21,
+  fontWeight: "700"
+};
+
 export const BodyRegular = {
   fontSize: 16,
   lineHeight: 27,
