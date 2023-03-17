@@ -11,6 +11,7 @@ import { serviceTypeRouter } from './serviceTypeRouter'
 import { customerRouter } from './customerRouter'
 import { authenticateToken, authRouter } from './authRouter'
 import { searchRouter } from './searchBusinessOrService'
+import { insightsRouter } from './insights'
 
 const router = Router()
 
@@ -28,5 +29,6 @@ router.use('/service', authenticateToken, serviceRouter)
 router.use('/service', serviceRouter)
 router.use('/serviceType', authenticateToken, serviceTypeRouter)
 router.use('/customer', customerRouter)
+router.use('/insights', authenticateToken, insightsRouter)
 
 export { router }

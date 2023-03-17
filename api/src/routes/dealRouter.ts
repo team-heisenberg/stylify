@@ -38,6 +38,18 @@ router.get('/:dealID', async (req, res) => {
   res.json(deal)
 })
 
+router.get('/dealsByBusiness/:businessID', async (req, res) => {
+  const { businessID } = req.params
+
+  const deal = await prisma.deal.findMany({
+    where: {
+      businessID: Number(businessID),
+    },
+  })
+
+  res.json(deal)
+})
+
 // PUT - Update Record
 router.put('/:dealID', async (req, res) => {
   const { dealID, ...data } = req.body

@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosResponse } from "axios";
 import { AddIcon, Fab, View } from "native-base";
 import React, { useEffect, useState } from "react";
@@ -20,11 +21,18 @@ const BusinessDeals: React.FC<any> = ({ serviceTypeID }) => {
   const [deals, setDeals] = useState<any[]>();
   const getDeals = async () => {
     const { axiosClient } = await createAxiosClient();
+
+    const rawUserData = await AsyncStorage.getItem("@stylify:user");
+
+    const userData = JSON.parse(rawUserData || "{}");
+
+    console.log(userData)
     const res: any = await axiosClient
-      .get("/deal")
+      .get(`/deal/dealsByBusiness/${userData.ID}`)
       .catch((err) => ({ error: err }));
 
     const { data, error } = res;
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>",data)
     if (error) {
       console.error(error);
       return;

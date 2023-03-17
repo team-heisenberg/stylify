@@ -1,13 +1,10 @@
-import { AxiosResponse } from "axios";
 import { View } from "native-base";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet } from "react-native";
 import { createAxiosClient } from "../../api";
 import Card from "../../components/Card/Card";
 import {
-  Heading1,
-  Heading2,
-  Heading3,
+  Heading1
 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 
