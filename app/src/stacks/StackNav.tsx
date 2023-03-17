@@ -71,7 +71,6 @@ const StackNav = () => {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="StoryBook" component={StoryBoard} />
-          <Stack.Screen name="Booking" component={Booking} />
           <Stack.Screen
             name="TopTabNavigator"
             component={() => (
@@ -106,6 +105,7 @@ const StackNav = () => {
           <Stack.Screen name="Client Favourites" component={ClientFavourites} />
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
+          <Stack.Screen name="Booking" component={Booking} />
           
           {/* Business Home Page / Create Appointment */}
           <Stack.Screen
