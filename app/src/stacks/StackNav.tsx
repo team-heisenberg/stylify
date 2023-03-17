@@ -21,6 +21,13 @@ import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointment
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
 import Booking from "../screens/Booking/Booking";
+import Browse from "../screens/Browse/Browse";
+import Deals from "../screens/Deals/Deals";
+import Profile from "../screens/Profile/Profile";
+import ServiceDetail from "../screens/Browse/ServiceDetail";
+import SearchScreen from "../screens/SearchScreen/SearchScreen";
+import TabNavigatorBusiness from "./TabNavigatorBusiness";
+import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -106,7 +113,7 @@ const StackNav = () => {
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
           <Stack.Screen name="Booking" component={Booking} />
-          
+
           {/* Business Home Page / Create Appointment */}
           <Stack.Screen
             name="Create Appointment Business"
@@ -123,7 +130,12 @@ const StackNav = () => {
           <Stack.Screen
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
-          /> 
+          />
+          <Stack.Screen name="Browse" component={Browse} />
+          <Stack.Screen name="Deals" component={Deals} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Service Detail" component={ServiceDetail} />
+          <Stack.Screen name="Search Results" component={SearchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

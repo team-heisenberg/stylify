@@ -1,12 +1,14 @@
 import { View, Text } from "react-native";
 
 interface NormalTextInterface {
-  normalText: string;
+  normalText: any;
   fontType?: {};
   textColor?: string;
   marginRight?: number;
   marginTop?: number;
   textAlign?: "auto" | "left" | "right" | "center" | "justify";
+  borderBottomWidth?: number;
+  borderBottomColor?: string;
 }
 
 const NormalText = ({
@@ -16,6 +18,8 @@ const NormalText = ({
   marginRight,
   marginTop,
   textAlign,
+  borderBottomWidth,
+  borderBottomColor,
 }: NormalTextInterface) => {
   return (
     <View>
@@ -26,6 +30,8 @@ const NormalText = ({
           { marginRight: marginRight || 0 },
           { marginTop: marginTop || 0 },
           { textAlign: textAlign },
+          { borderBottomWidth: borderBottomWidth || 0 },
+          { borderBottomColor: borderBottomColor },
         ]}
       >
         {normalText}
@@ -40,7 +46,9 @@ NormalText.defaultProps = {
   textColor: "#24313A",
   marginRight: "",
   marginTop: "",
-  textAlign: "center"
+  textAlign: "center",
+  borderBottomWidth: "",
+  borderBottomColor: "#24313A",
 };
 
 export default NormalText;

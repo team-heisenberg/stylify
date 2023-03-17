@@ -45,19 +45,20 @@ const TableComponent = (props: TableProps) => {
   const tableData = props.tableData.map((rowData) => rowData);
 
   return (
-    <FlatList
-      style={styles.container}
-      data={[...tableData]}
-      renderItem={renderItem}
-      ListHeaderComponent={() => <View style={styles.header}>{header}</View>}
-      stickyHeaderIndices={[0]}
-    />
+    <View>
+      <FlatList
+        style={styles.container}
+        data={[...tableData]}
+        renderItem={renderItem}
+        ListHeaderComponent={() => <View style={styles.header}>{header}</View>}
+        stickyHeaderIndices={[0]}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
