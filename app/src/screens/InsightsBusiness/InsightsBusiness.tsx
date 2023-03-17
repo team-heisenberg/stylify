@@ -1,6 +1,4 @@
-import { ScrollView } from "native-base";
 import React from "react";
-import { ScrollViewBase, View } from "react-native";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";

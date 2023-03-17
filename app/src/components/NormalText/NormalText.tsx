@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 
 interface NormalTextInterface {
-  normalText: string;
+  normalText: any;
   fontType?: {};
   textColor?: string;
   marginRight?: number;

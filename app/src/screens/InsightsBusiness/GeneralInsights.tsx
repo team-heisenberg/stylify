@@ -12,15 +12,22 @@ import { Link } from "@react-navigation/native";
 import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import { ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
 
 interface GeneralInsightsInterface {
   insightsType: "day" | "week" | "month" | "year";
+}
+
+interface ReviewInterface {
+  appointmentRating: number;
+  reviewDetails: string;
 }
 
 const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   const [totalEarnings, setTotalEarnings] = useState("");
   const [lastEarnings, setLastEarnings] = useState("");
   const [topProfessionals, setTopProfessionals] = useState([]);
+  const [reviews, setReviews] = useState<ReviewInterface[]>([]);
 
   let initialDate;
   let finalDate;
@@ -46,7 +53,6 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
         "/insights/?initialDate=2023-01-11&finalDate=2023-12-11&businessID=1"
       )
       .then((res) => {
-        // console.log(res.data.Total);
         setTotalEarnings(res.data.Total);
       })
       .catch((error) => {
@@ -77,8 +83,20 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
         "/insights/byProfessional/?initialDate=2023-01-11&finalDate=2023-12-11&businessID=1"
       )
       .then((res) => {
-        // console.log(res.data);
         setTopProfessionals(res.data);
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+      });
+  };
+
+  // Get Reviews
+  const getReviews = async () => {
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get("/review")
+      .then((res) => {
+        setReviews(res.data);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -89,7 +107,10 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     getTotalEarnings();
     getLastEarnings();
     getTopProfessionals();
+    getReviews();
   }, []);
+
+  console.log(reviews);
 
   return (
     <ScrollView>
@@ -138,10 +159,27 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
         </Link>
       </View>
       <PieChartContainer onlineAmount={3} callAmount={3} walkinAmount={1} />
-      <View>
-        <NormalText normalText="Ratings" fontType="Heading5" textAlign="left" />
-        <Card />
-      </View>
+
+      <NormalText normalText="Ratings" fontType={Heading5} textAlign="left" />
+      {reviews.map((review) => {
+        <Card>
+          <ImageComponent />
+          <NormalText normalText="Amy Adams" />
+          <NormalText normalText={review.appointmentRating} />
+          <NormalText normalText={review.reviewDetails} />
+        </Card>;
+      })}
+      <Card justifyContent="space-between">
+        <ImageComponent
+          imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
+          width={40}
+          height={40}
+          borderRadius={50}
+        />
+        <NormalText normalText="Amy Adams" />
+        <NormalText normalText={5} />
+        <NormalText normalText="good service" />
+      </Card>
     </ScrollView>
   );
 };
