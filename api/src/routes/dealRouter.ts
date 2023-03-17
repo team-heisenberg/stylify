@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 
 // GET - Retrieve Records
 router.get('/', async (_, res) => {
-  const dealList = await prisma.deal.findMany({ include: { business: true}})
+  const dealList = await prisma.deal.findMany({ include: { business: true, service: true }})
 
   res.json(dealList)
 })

@@ -6,7 +6,8 @@ import { LinearGradient } from "expo-linear-gradient";
 interface imageInferface {
   width: number;
   height: number;
-  imageURL: any;
+  imageURL?: any;
+  source?: any,
   borderRadius: number;
   linearGradient?: boolean;
   positionLinearGradient?: String;
@@ -17,6 +18,7 @@ const ImageComponent = ({
   width,
   height,
   imageURL,
+  source,
   borderRadius,
   linearGradient,
   positionLinearGradient
@@ -47,7 +49,7 @@ const ImageComponent = ({
   // Return structure
   return (
     <View>
-      <Image source={{ uri: `${imageURL}` }} style={style.imageStyle} />
+      <Image source={source || { uri: `${imageURL}` }} style={style.imageStyle} />
       {linearGradient ? <LinearGradient colors={["rgba(0,0,0,0.8)", "transparent"]} style={style.background} /> : ""}
     </View>
   );

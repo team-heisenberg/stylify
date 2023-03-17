@@ -28,6 +28,7 @@ import Browse from "../../../assets/icons/Browse.svg";
 import User from "../../../assets/icons/User.svg";
 import Navigate from "../../../assets/icons/Navigate.svg";
 import RedDot from "../../../assets/icons/RedDot.svg";
+import RightChevron from "../../../assets/icons/RightChevron.svg";
 
 export {
   ArrowDown,
@@ -59,5 +60,6 @@ export {
   ThreeDots,
   User,
   Navigate,
-  RedDot
+  RedDot,
+  RightChevron,
 };
