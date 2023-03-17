@@ -8,6 +8,8 @@ import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SignUpScreen from "../screens/LoginScreen/SignUpScreen";
 import SignUpBusiness from "../screens/LoginScreen/SignUpBusiness";
 import SignUpCustomer from "../screens/LoginScreen/SignUpCustomer";
+import InsightsTopTabNavigator from "../components/TopTabNavigator/InsightsTopTabNavigator";
+import TabViewComponent from "../components/TabViewComponent/TabViewComponent";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +34,15 @@ const StackNav = () => {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="StoryBook" component={StoryBoard} />
-          
+          <Stack.Screen
+            name="TopTabNavigator"
+            component={() => <TabViewComponent routes={
+              [
+                { key: 'first', title: 'First', Component: StoryBoard },
+                { key: 'second', title: 'Second', Component: StoryBoard},
+              ]
+            } />}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
