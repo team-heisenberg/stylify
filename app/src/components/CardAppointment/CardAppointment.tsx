@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
@@ -98,19 +97,3 @@ const styles = StyleSheet.create({
 });
 
 export default CardAppointment;
-=======
-import { View } from "react-native"
-import Card from "../Card/Card"
-
-const CardAppointment = ({}) => {
-    return (
-        <View>
-            <Card>
-                
-            </Card>
-        </View>
-    )
-}
-
-export default CardAppointment
->>>>>>> e129073 (feature: working on homescreen)

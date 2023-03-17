@@ -13,22 +13,13 @@ import BusinessDeals from "../screens/BusinessDeals/BusinessDeals";
 import { createAxiosClient } from "../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BusinessProfile from "../screens/BusinessProfile/BusinessProfile";
-import TabNavigatorClient from "./TabNavigatorClient";
-import Browse from "../screens/Browse/Browse";
-import Deals from "../screens/Deals/Deals";
-import Profile from "../screens/Profile/Profile";
-import ServiceDetail from "../screens/Browse/ServiceDetail";
-import ClientAppointments from "../screens/Profile/ClientAppointments";
 import ClientFavourites from "../screens/Profile/ClientFavourites";
 import ClientProfile from "../screens/Profile/ClientProfile";
 import ClientSettings from "../screens/Profile/ClientSettings";
-import TabNavigatorBusiness from "./TabNavigatorBusiness";
-import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointmentBusiness";
 import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
-
 
 const Stack = createNativeStackNavigator();
 
@@ -110,11 +101,10 @@ const StackNav = () => {
             )}
           />
           <Stack.Screen name="BusinessProfile" component={BusinessProfile} />
-
-
           <Stack.Screen name="Client Favourites" component={ClientFavourites} />
           <Stack.Screen name="Client Profile" component={ClientProfile} />
           <Stack.Screen name="Client Settings" component={ClientSettings} />
+          
           {/* Business Home Page / Create Appointment */}
           <Stack.Screen
             name="Create Appointment Business"
@@ -131,23 +121,7 @@ const StackNav = () => {
           <Stack.Screen
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
-          />
-
-          <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
-          <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="StoryBook" component={StoryBoard} />
-          
-          {/* <Stack.Screen
-            name="Navigation"
-            component={TabNavigatorClient}
-            options={{
-              headerShown: false,
-            }}
-          /> */}
-
-          
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

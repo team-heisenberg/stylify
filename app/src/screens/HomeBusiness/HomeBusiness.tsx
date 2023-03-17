@@ -9,7 +9,11 @@ import { Calendar } from "react-native-calendars";
 import {
   ArrowUp,
   ArrowDown,
+  Plus,
 } from "../../components/IconsComponent/IconsComponent";
+import { ScrollView } from "native-base";
+import CardAppointment from "../../components/CardAppointment/CardAppointment";
+import { Fab } from "native-base";
 
 const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
   navigation,
@@ -104,14 +108,35 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
           fontType={Heading3}
           textAlign="left"
         />
-        <View style={styles.details}>
+        <ScrollView style={styles.cardAppointment}>
+          <View style={styles.cardContainer}>
+            <CardAppointment
+              time={"2:00"}
+              ampm={"pm"}
+              salonName={"Bruce Wayne"}
+              services={"Hair Cut, Beard Styling"}
+              professional={"Mike Adams"}
+            />
+          </View>
+          <View style={styles.cardContainer}>
+            <CardAppointment
+              time={"2:00"}
+              ampm={"pm"}
+              salonName={"Bruce Wayne"}
+              services={"Hair Cut, Beard Styling"}
+              professional={"Mike Adams"}
+            />
+          </View>
+        </ScrollView>
+        {/* <View style={styles.details}>
           <NormalText
             normalText="No upcoming appointments scheduled."
             fontType={Heading5}
             textAlign="left"
           />
-        </View>
+        </View> */}
       </View>
+        {/* <Fab size={"lg"} icon={<Plus fill="white" stroke="white" />} /> */}
       <View style={styles.button}>
         <ButtonComponent
           buttonText="Create New Appointment"
@@ -163,6 +188,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: { marginTop: 10, marginLeft: 16, marginRight: 16 },
   appointments: { marginTop: 16, marginLeft: 16, marginRight: 16 },
+  cardContainer: { marginBottom: 16 },
+  cardAppointment: { paddingTop: 8, paddingBottom: 16 },
   details: { marginTop: 16, marginLeft: 24, marginRight: 16 },
   button: {
     flex: 1,

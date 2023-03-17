@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
@@ -92,19 +91,3 @@ const styles = StyleSheet.create({
 });
 
 export default CardSalon;
-=======
-import { View } from "react-native"
-import Card from "../Card/Card"
-
-const CardSalon = () => {
-    return (
-        <View>
-            <Card>
-                
-            </Card>
-        </View>
-    )
-}
-
-export default CardSalon
->>>>>>> e129073 (feature: working on homescreen)

@@ -2,9 +2,18 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
-import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
-import { ArrowLeftBig } from "../../components/IconsComponent/IconsComponent";
+import {
+  Heading3,
+  Heading5,
+} from "../../components/NormalText/FontTypes";
+import {
+  ArrowLeftBig,
+  Plus,
+} from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import CardSalon from "../../components/CardSalon/CardSalon";
+import Card from "../../components/Card/Card";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
 
 const SelectServicesBusiness = () => {
   const navigation = useNavigation<any>();
@@ -30,7 +39,63 @@ const SelectServicesBusiness = () => {
           textAlign="left"
           fontType={Heading5}
         />
-        <View style={styles.servicesCard}></View>
+        <View style={styles.servicesCard}>
+          <Card>
+            <ImageComponent height={69} width={69} borderRadius={4} />
+            <View>
+              <NormalText
+                normalText="Men's Haircut"
+                textColor="rgba(130, 40, 72, 1)"
+              />
+              <View style={{ flexDirection: "row" }}>
+                <NormalText normalText="45min" />
+                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
+                <NormalText normalText="$27.50" />
+              </View>
+            </View>
+            <View style={styles.cardIcon}>
+              <Plus fill="white" />
+            </View>
+          </Card>
+        </View>
+        <View style={styles.servicesCard}>
+          <Card>
+            <ImageComponent height={69} width={69} borderRadius={4} />
+            <View>
+              <NormalText
+                normalText="Men's Haircut"
+                textColor="rgba(130, 40, 72, 1)"
+              />
+              <View style={{ flexDirection: "row" }}>
+                <NormalText normalText="45min" />
+                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
+                <NormalText normalText="$27.50" />
+              </View>
+            </View>
+            <View style={styles.cardIcon}>
+              <Plus fill="white" />
+            </View>
+          </Card>
+        </View>
+        <View style={styles.servicesCard}>
+          <Card>
+            <ImageComponent height={69} width={69} borderRadius={4} />
+            <View>
+              <NormalText
+                normalText="Men's Haircut"
+                textColor="rgba(130, 40, 72, 1)"
+              />
+              <View style={{ flexDirection: "row" }}>
+                <NormalText normalText="45min" />
+                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
+                <NormalText normalText="$27.50" />
+              </View>
+            </View>
+            <View style={styles.cardIcon}>
+              <Plus fill="white" />
+            </View>
+          </Card>
+        </View>
       </View>
 
       <View style={styles.button}>
@@ -65,6 +130,12 @@ const styles = StyleSheet.create({
   },
   servicesContainer: { marginTop: 20, marginBottom: 16 },
   servicesCard: { marginBottom: 16 },
+  cardIcon: {
+    backgroundColor: "#105535",
+    padding: 12,
+    borderRadius: 50,
+    marginLeft: 120,
+  },
   button: {
     flex: 1,
     justifyContent: "flex-end",
