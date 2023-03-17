@@ -25,6 +25,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         const { accessToken, userData } = res?.data;
         if (accessToken) {
           await AsyncStorage.setItem("@stylify:token", accessToken);
+          await AsyncStorage.setItem("@stylify:user", JSON.stringify(userData));
           navigation.replace("Home", { user: userData });
         }
       }

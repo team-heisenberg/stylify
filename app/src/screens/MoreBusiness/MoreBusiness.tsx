@@ -91,7 +91,7 @@ const MoreBusiness: React.FC<NativeStackScreenProps<any>> = ({
         <TouchableOpacity
           style={styles.card}
           onPress={() =>
-            navigation.navigate("Service Detail", { title: "Hair cuts" })
+            navigation.navigate("BusinessProfile")
           }
         >
           <ImageComponent

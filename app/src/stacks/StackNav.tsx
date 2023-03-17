@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
 import StoryBoard from "../screens/StoryBoard/StoryBoard";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
@@ -10,10 +10,39 @@ import SignUpBusiness from "../screens/LoginScreen/SignUpBusiness";
 import SignUpCustomer from "../screens/LoginScreen/SignUpCustomer";
 import TabViewComponent from "../components/TabViewComponent/TabViewComponent";
 import BusinessDeals from "../screens/BusinessDeals/BusinessDeals";
+import { createAxiosClient } from "../api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import BusinessProfile from "../screens/BusinessProfile/BusinessProfile";
 
 const Stack = createNativeStackNavigator();
 
 const StackNav = () => {
+  const [serviceTypes, setServiceTypes] = useState([]);
+
+  const getServiceTypes = async () => {
+    const { axiosClient } = await createAxiosClient();
+    const rawUserData = await AsyncStorage.getItem("@stylify:user");
+    const userData = JSON.parse(rawUserData || "{}");
+
+    const res: any = await axiosClient
+      .get(`/serviceType/servicetypebybusiness/${userData.ID}`)
+      .catch((err) => ({ error: err }));
+
+    const { data, error } = res;
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    if (data) {
+      setServiceTypes(data);
+    }
+  };
+
+  useEffect(() => {
+    getServiceTypes();
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
@@ -51,10 +80,22 @@ const StackNav = () => {
               <TabViewComponent
                 routes={[
                   { key: "all", title: "All", Component: BusinessDeals },
+                  ...serviceTypes?.map((s: any) => ({
+                    key: s.serviceTypeID,
+                    title:
+                      s.serviceType.charAt(0).toUpperCase() +
+                      s.serviceType.slice(1),
+                    Component: () => (
+                      <BusinessDeals serviceTypeID={s.serviceTypeID} />
+                    ),
+                  })),
                 ]}
               />
             )}
           />
+          <Stack.Screen name="BusinessProfile" component={BusinessProfile} />
+
+
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

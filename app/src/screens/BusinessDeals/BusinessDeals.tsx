@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { createAxiosClient } from "../../api";
 import Card from "../../components/Card/Card";
-import { ArrowRightBig, ArrowRightSmall, RightChevron } from "../../components/IconsComponent/IconsComponent";
+import {
+  ArrowRightBig,
+  ArrowRightSmall,
+  RightChevron,
+} from "../../components/IconsComponent/IconsComponent";
 import {
   Heading1,
   Heading2,
@@ -12,7 +16,7 @@ import {
 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 
-const BusinessDeals = () => {
+const BusinessDeals: React.FC<any> = ({ serviceTypeID }) => {
   const [deals, setDeals] = useState<any[]>();
   const getDeals = async () => {
     const { axiosClient } = await createAxiosClient();
@@ -25,8 +29,18 @@ const BusinessDeals = () => {
       console.error(error);
       return;
     }
-    console.log(data);
-    setDeals(data);
+
+
+    if (serviceTypeID) {
+      const filteredDeals = data.filter(
+        (d: any) => d.service.serviceTypeID === serviceTypeID
+      );
+
+      setDeals(filteredDeals);
+    } else {
+      console.log(data);
+      setDeals(data);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +50,14 @@ const BusinessDeals = () => {
   return (
     <View style={styles.container}>
       {deals?.map((deal, i) => (
-        <Card width="100%" height={100} justifyContent="space-between" flexDirection="row" key={i} onPress={() => alert("Coringando")}>
+        <Card
+          width="100%"
+          height={100}
+          justifyContent="space-between"
+          flexDirection="row"
+          key={i}
+          onPress={() => alert("Edit")}
+        >
           <View>
             <NormalText
               textAlign="left"
@@ -48,18 +69,15 @@ const BusinessDeals = () => {
               normalText={deal.business.businessName}
             />
           </View>
-          {/* <View style={styles.discountCode}>
-            <NormalText
-              textAlign="left"
-              textColor="white"
-              normalText={`EASY${deal.price}`}
-              fontType={Heading1}
-            />
-          </View> */}
           <RightChevron />
         </Card>
       ))}
-      <Fab  size={60} backgroundColor="#24313A" icon={<AddIcon />} onPress={() => alert("Coringando")}/>
+      <Fab
+        size={60}
+        backgroundColor="#24313A"
+        icon={<AddIcon />}
+        onPress={() => alert("Create")}
+      />
     </View>
   );
 };
@@ -73,7 +91,7 @@ const styles = StyleSheet.create({
   discountCode: {
     backgroundColor: "#822848",
     padding: 16,
-    borderRadius: 6
+    borderRadius: 6,
   },
 
   arrow: {
