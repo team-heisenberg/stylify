@@ -27,6 +27,7 @@ import Profile from "../screens/Profile/Profile";
 import ServiceDetail from "../screens/Browse/ServiceDetail";
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
+import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,9 +66,13 @@ const StackNav = () => {
             headerBackTitle: "",
             headerShown: false,
           }}
+        // screenOptions={{
+        //   headerBackTitle: "",
+        //   headerShown: true,
+        // }}
         >
           <Stack.Screen
-            options={{ headerShown: false }}
+            // options={{ headerShown: false }}
             name="Login"
             component={LoginScreen}
           />
@@ -130,13 +135,12 @@ const StackNav = () => {
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
           />
-
           <Stack.Screen
             name="Navigation"
             component={TabNavigatorBusiness}
-            options={{
-              headerShown: false,
-            }}
+            // options={{
+            //   headerShown: false,
+            // }}
           />
           {/* <Stack.Screen
             name="Navigation"
@@ -151,6 +155,10 @@ const StackNav = () => {
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Service Detail" component={ServiceDetail} />
           <Stack.Screen name="Search Results" component={SearchScreen} />
+          <Stack.Screen
+            name="Top Professionals Details"
+            component={topProfessionalsDetails}
+          />
           {/* <Stack.Screen
             name="Client Appointments"
             component={ClientAppointments}
