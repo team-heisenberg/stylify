@@ -72,7 +72,7 @@ const StackNav = () => {
         // }}
         >
           <Stack.Screen
-            // options={{ headerShown: false }}
+            options={{ headerShown: false }}
             name="Login"
             component={LoginScreen}
           />
@@ -135,12 +135,13 @@ const StackNav = () => {
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
           />
+
           <Stack.Screen
             name="Navigation"
             component={TabNavigatorBusiness}
-            // options={{
-            //   headerShown: false,
-            // }}
+            options={{
+              headerShown: false,
+            }}
           />
           {/* <Stack.Screen
             name="Navigation"
@@ -149,16 +150,12 @@ const StackNav = () => {
               headerShown: false,
             }}
           /> */}
-          <Stack.Screen name="HomeStoryBook" component={StoryBoard} />
+          <Stack.Screen name="Home" component={StoryBoard} />
           <Stack.Screen name="Browse" component={Browse} />
           <Stack.Screen name="Deals" component={Deals} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Service Detail" component={ServiceDetail} />
           <Stack.Screen name="Search Results" component={SearchScreen} />
-          <Stack.Screen
-            name="Top Professionals Details"
-            component={topProfessionalsDetails}
-          />
           {/* <Stack.Screen
             name="Client Appointments"
             component={ClientAppointments}
