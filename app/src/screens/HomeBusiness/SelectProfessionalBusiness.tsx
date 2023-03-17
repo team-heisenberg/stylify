@@ -5,13 +5,14 @@ import NormalText from "../../components/NormalText/NormalText";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import { ArrowLeftBig } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import { Agenda } from "react-native-calendars";
 
 const SelectProfessionalBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.navigation}>
         <TouchableOpacity
           style={styles.arrow}
@@ -23,25 +24,44 @@ const SelectProfessionalBusiness = () => {
         </TouchableOpacity>
         <NormalText normalText={route.params.title} fontType={Heading3} />
       </View>
-      <ButtonComponent
-        buttonText="Book Appointment"
-        onPress={() =>
-          navigation.navigate("Confirm Appointment Business", {
-            title: "Confirm Appointment",
-          })
-        }
-      />
-    </>
+      {/* <Agenda  theme={{}} /> */}
+      <Agenda />
+      <View style={styles.button}>
+        <ButtonComponent
+          buttonText="Book Appointment"
+          onPress={() =>
+            navigation.navigate("Confirm Appointment Business", {
+              title: "Confirm Appointment",
+            })
+          }
+        />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F9F5EE",
+    marginLeft: 16,
+    marginRight: 16,
+  },
   navigation: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 30,
+    marginBottom: 16,
   },
   arrow: {
     paddingRight: 15,
+  },
+  button: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginLeft: 29,
+    marginRight: 29,
+    marginBottom: 24,
   },
 });
 
