@@ -71,7 +71,7 @@ const CardRecentAppointment = ({
           </View>
         </View>
         <View style={styles.buttonContainer}>
-            <ButtonComponent width={80} height={28} buttonText="Rebook" onPress={onPress} />
+            <ButtonComponent width={81} height={28} buttonText="Rebook" onPress={onPress} />
         </View>
       </View>
     </Card>
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    right: 35,
     height: 30,
-    width: 10,
+    width: 80,
   },
 });
 

@@ -20,6 +20,7 @@ import ConfirmAppointmentBusiness from "../screens/HomeBusiness/ConfirmAppointme
 import CreateAppointmentBusiness from "../screens/HomeBusiness/CreateAppointmentBusiness";
 import SelectProfessionalBusiness from "../screens/HomeBusiness/SelectProfessionalBusiness";
 import SelectServicesBusiness from "../screens/HomeBusiness/SelectServicesBusiness";
+import Booking from "../screens/Booking/Booking";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,7 @@ const StackNav = () => {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="StoryBook" component={StoryBoard} />
+          <Stack.Screen name="Booking" component={Booking} />
           <Stack.Screen
             name="TopTabNavigator"
             component={() => (
