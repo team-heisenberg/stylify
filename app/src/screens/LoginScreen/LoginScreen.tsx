@@ -8,7 +8,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const LoginScreen: React.FC<NativeStackScreenProps<any>>  = ({ navigation }) => {
+const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,6 +21,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>>  = ({ navigation }) => 
           })
           .catch((error) => console.log(error));
 
+        console.log(JSON.stringify(res));
         const { accessToken, userData } = res?.data;
         if (accessToken) {
           await AsyncStorage.setItem("@stylify:token", accessToken);
@@ -28,7 +29,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>>  = ({ navigation }) => 
         }
       }
     });
-    return unsubscribe();
+    return unsubscribe;
   }, []);
 
   const handleSignUp = () => {
