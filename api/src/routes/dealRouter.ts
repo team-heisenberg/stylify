@@ -18,7 +18,9 @@ router.post('/', async (req, res) => {
 
 // GET - Retrieve Records
 router.get('/', async (_, res) => {
-  const dealList = await prisma.deal.findMany()
+  const dealList = await prisma.deal.findMany({
+    include: { business: true, service: true },
+  })
 
   res.json(dealList)
 })
@@ -30,6 +32,18 @@ router.get('/:dealID', async (req, res) => {
   const deal = await prisma.deal.findFirst({
     where: {
       dealID: Number(dealID),
+    },
+  })
+
+  res.json(deal)
+})
+
+router.get('/dealsByBusiness/:businessID', async (req, res) => {
+  const { businessID } = req.params
+
+  const deal = await prisma.deal.findMany({
+    where: {
+      businessID: Number(businessID),
     },
   })
 

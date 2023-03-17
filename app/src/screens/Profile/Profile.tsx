@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
+import { signOut } from "firebase/auth";
 import React from "react";
 import { TouchableOpacity } from "react-native";
+import { auth } from "../../../firebase";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import TableComponent from "../../components/TableComponent/TableComponent";
@@ -9,6 +11,15 @@ const Profile = () => {
   const navigation = useNavigation<any>();
 
   const tableHeader = [{ title: "", property: "profile" }];
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   const tableData = [
     {
       profile: (
@@ -55,6 +66,13 @@ const Profile = () => {
           }
         >
           <NormalText normalText="Settings" />
+        </TouchableOpacity>
+      ),
+    },
+    {
+      profile: (
+        <TouchableOpacity onPress={handleSignOut}>
+          <NormalText normalText="Sign Out" />
         </TouchableOpacity>
       ),
     },

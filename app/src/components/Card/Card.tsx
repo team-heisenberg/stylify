@@ -2,7 +2,7 @@ import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import React from "react";
 
 interface CardInterface {
-  width?: number;
+  width?: number | string;
   height?: number;
   borderWidth?: number;
   borderColor?: string;
@@ -11,6 +11,7 @@ interface CardInterface {
   flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
   padding?: number;
   onPress?: () => void;
+  justifyContent?: "center" | "space-between"
 }
 
 const Card = ({
@@ -23,6 +24,7 @@ const Card = ({
   flexDirection,
   padding,
   onPress,
+  justifyContent,
 }: CardInterface) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -38,6 +40,7 @@ const Card = ({
               backgroundColor: backgroundColor,
               flexDirection: flexDirection,
               padding: padding,
+              justifyContent: justifyContent,
             },
           ]}
         >

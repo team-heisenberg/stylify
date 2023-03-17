@@ -23,6 +23,23 @@ router.get('/', async (_, res) => {
   res.json(serviceTypeList)
 })
 
+router.get('/servicetypebybusiness/:businessID', async (req, res) => {
+  const { businessID } = req.params
+  const serviceTypeList = await prisma.serviceType.findMany({
+    select: {
+      serviceTypeID: true,
+      serviceType:true,
+      services: {
+        where: {
+          businessID: Number(businessID)
+        }
+      }
+     }    
+  })
+
+  res.json(serviceTypeList)
+})
+
 // GET - Retrieve Record
 router.get('/:serviceTypeID', async (req, res) => {
   const { serviceTypeID } = req.params
