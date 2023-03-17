@@ -8,7 +8,6 @@ import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SignUpScreen from "../screens/LoginScreen/SignUpScreen";
 import SignUpBusiness from "../screens/LoginScreen/SignUpBusiness";
 import SignUpCustomer from "../screens/LoginScreen/SignUpCustomer";
-import InsightsTopTabNavigator from "../components/TopTabNavigator/InsightsTopTabNavigator";
 import TabViewComponent from "../components/TabViewComponent/TabViewComponent";
 
 const Stack = createNativeStackNavigator();

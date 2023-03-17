@@ -120,28 +120,7 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
 
       <ButtonComponent
         buttonText="Show Top Tab Navigator"
-        onPress={() => 
-          navigation.navigate("TopTabNavigator")}
-        //     routes: [
-        //       {
-        //         key: "1",
-        //         title: "Tab 1",
-        //       },
-        //       {
-        //         key: "2",
-        //         title: "Tab 2",
-        //       },
-        //       {
-        //         key: "3",
-        //         title: "Tab 3",
-        //       },
-        //       {
-        //         key: "4",
-        //         title: "Tab 4",
-        //       },
-        //     ],
-        //   });
-        // }}
+        onPress={() => navigation.navigate("TopTabNavigator")}
       />
       <Card>
         <ImageComponent
