@@ -37,7 +37,8 @@ const ButtonComponent = ({
   return (
     <View
       style={{
-        flex: flex,
+        width: '98.5%',
+        marginVertical: 8,
       }}
     >
       <TouchableWithoutFeedback
@@ -55,13 +56,14 @@ const ButtonComponent = ({
         <View
           style={{
             position: "relative",
+            width: "100%"
           }}
         >
           <View
             style={[
               styles.button,
               {
-                width: width,
+                width: "100%",
                 height: height,
                 backgroundColor: backgroundColor,
               },
@@ -81,7 +83,7 @@ const ButtonComponent = ({
             style={[
               styles.shadow,
               {
-                width: width,
+                width: "100%",
                 height: height,
               },
               { top: positionTop, left: positionLeft },
@@ -98,7 +100,6 @@ const ButtonComponent = ({
 };
 
 ButtonComponent.defaultProps = {
-  flex: 1,
   width: 300,
   height: 59,
   backgroundColor: "#105535",

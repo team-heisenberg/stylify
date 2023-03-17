@@ -1,19 +1,14 @@
-import { NavigationContainer, useRoute } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { SafeAreaView } from "react-native";
 import StoryBoard from "../screens/StoryBoard/StoryBoard";
-import TabNavigatorClient from "./TabNavigatorClient";
-import Browse from "../screens/Browse/Browse";
-import Deals from "../screens/Deals/Deals";
-import Profile from "../screens/Profile/Profile";
-import ServiceDetail from "../screens/Browse/ServiceDetail";
-import ClientAppointments from "../screens/Profile/ClientAppointments";
-import ClientFavourites from "../screens/Profile/ClientFavourites";
-import ClientProfile from "../screens/Profile/ClientProfile";
-import ClientSettings from "../screens/Profile/ClientSettings";
-import TabNavigatorBusiness from "./TabNavigatorBusiness";
-import SearchScreen from "../screens/SearchScreen/SearchScreen";
+import LoginScreen from "../screens/LoginScreen/LoginScreen";
+import HomeScreen from "../screens/HomeScreen/HomeScreen";
+import SignUpScreen from "../screens/LoginScreen/SignUpScreen";
+import SignUpBusiness from "../screens/LoginScreen/SignUpBusiness";
+import SignUpCustomer from "../screens/LoginScreen/SignUpCustomer";
+import TabViewComponent from "../components/TabViewComponent/TabViewComponent";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,37 +19,29 @@ const StackNav = () => {
         <Stack.Navigator
           screenOptions={{
             headerBackTitle: "",
-            headerTitle: "hello",
-            headerShown: false,
+            headerShown: true,
           }}
         >
-          {/* <Stack.Screen
-            name="Navigation"
-            component={TabNavigatorBusiness}
-            options={{
-              headerShown: false,
-            }}
-          /> */}
           <Stack.Screen
-            name="Navigation"
-            component={TabNavigatorClient}
-            options={{
-              headerShown: false,
-            }}
+            options={{ headerShown: false }}
+            name="Login"
+            component={LoginScreen}
           />
-          <Stack.Screen name="Home" component={StoryBoard} />
-          <Stack.Screen name="Browse" component={Browse} />
-          <Stack.Screen name="Deals" component={Deals} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Service Detail" component={ServiceDetail} />
-          <Stack.Screen name="Search Results" component={SearchScreen} />
+
+          <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
+          <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="StoryBook" component={StoryBoard} />
           <Stack.Screen
-            name="Client Appointments"
-            component={ClientAppointments}
+            name="TopTabNavigator"
+            component={() => <TabViewComponent routes={
+              [
+                { key: 'first', title: 'First', Component: StoryBoard },
+                { key: 'second', title: 'Second', Component: StoryBoard},
+              ]
+            } />}
           />
-          <Stack.Screen name="Client Favourites" component={ClientFavourites} />
-          <Stack.Screen name="Client Profile" component={ClientProfile} />
-          <Stack.Screen name="Client Settings" component={ClientSettings} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
