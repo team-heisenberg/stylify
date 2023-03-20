@@ -27,7 +27,7 @@ const PieChartComponent = ({
         padding={100}
 
         //@ts-ignore 
-        origin={{ x: 130 }}
+        origin={{ x: 150 }}
 
         style={{
           labels: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     position: "relative",
     padding: 40
   },
