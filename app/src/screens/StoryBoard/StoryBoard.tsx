@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import InputCheck from "../../components/InputCheck/InputCheck";
 import NormalText from "../../components/NormalText/NormalText";
@@ -23,6 +23,8 @@ import ImageButton from "../../components/ImageButton/ImageButton";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import TabViewExample from "../../components/TabViewComponent/TabViewComponent";
 import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
+import StarComponent from "../../components/StarComponent/StarComponent";
+import Ratings from "../../components/Ratings/Ratings";
 // import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
@@ -57,7 +59,7 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   ];
 
   return (
-    <View>
+    <ScrollView style={{ marginBottom: 50 }}>
       <Text>Test from StoryBoard</Text>
       <FavButton />
       <ArrowLeft width={50} height={50} fill="red" />
@@ -137,7 +139,11 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         data={dataDropdown}
         onSelect={handleSelect}
       />
-    </View>
+      <NormalText normalText="Star Component" textAlign="left" />
+      <StarComponent ratings={4.5} />
+      <NormalText normalText="Ratings Component" textAlign="left" />
+      <Ratings ratings={4.5} />
+    </ScrollView>
   );
 };
 
