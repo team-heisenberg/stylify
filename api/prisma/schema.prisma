@@ -44,7 +44,7 @@ model Service {
   business            Business               @relation(fields: [businessID], references: [businessID])
   serviceName         String
   serviceTypeID       Int
-  servicePrice        Int
+  servicePrice        Float
   businessID          Int
   professionalService ProfessionalServices[]
   serviceType         ServiceType            @relation(fields: [serviceTypeID], references: [serviceTypeID])
@@ -89,7 +89,7 @@ model Deal {
 }
 
 model Review {
-  reviewID          Int         @id @default(autoincrement())
+  reviewID          Int          @id @default(autoincrement())
   business          Business?    @relation(fields: [businessID], references: [businessID])
   appointment       Appointment? @relation(fields: [appointmentID], references: [appointmentID])
   appointmentRating Int
@@ -111,10 +111,11 @@ model Appointment {
   professionalID      Int
   isConfirmed         Boolean
   reviews             Review[]
-  deal                Deal?                 @relation(fields: [dealID], references: [dealID])
+  deal                Deal?                @relation(fields: [dealID], references: [dealID])
   dealID              Int?
   appointmentDateTime DateTime
   appointmentDetails  AppointmentDetails[]
+  appointmentType     AppointmentType @default(ONLINE)
 
   @@index([customerID])
   @@index([businessID])
@@ -128,7 +129,7 @@ model AppointmentDetails {
   appointmentID        Int
   service              Service     @relation(fields: [serviceID], references: [serviceID])
   serviceID            Int
-  price                Int
+  price                Float
 
   @@index([appointmentID])
   @@index([serviceID])
@@ -146,4 +147,10 @@ model Customer {
   businessBusinessID Int?
 
   @@index([businessBusinessID])
+}
+
+enum AppointmentType {
+  ONLINE
+  CALL
+  WALKIN
 }
