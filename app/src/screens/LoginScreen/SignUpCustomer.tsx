@@ -2,12 +2,13 @@ import axios from "axios";
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import PhoneInput from "react-native-phone-input";
 import { ScrollView } from "native-base";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { doc, setDoc } from "firebase/firestore";
 
 const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
   navigation,
@@ -38,6 +39,11 @@ const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
         setError(false);
         const user = userCredentials.user;
         console.log("Registered with: ", user.email);
+
+        await setDoc(doc(db, "users", `${user.email}`), {
+          ...newCustomer,
+          isCustomer: true,
+        });
 
         const customer = await axios
           .post("http://localhost:8080/customer", {
