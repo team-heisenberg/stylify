@@ -2,14 +2,17 @@ import axios from "axios";
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import PhoneInput from "react-native-phone-input";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import { ScrollView } from "native-base";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { doc, setDoc } from "firebase/firestore";
 
-const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
+const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({
+  navigation,
+}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [businessName, setBusinessName] = useState("");
@@ -41,6 +44,10 @@ const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({ navigation }) =
         setError(false);
         const user = userCredentials.user;
         console.log("Registered with: ", user.email);
+        await setDoc(doc(db, "users", `${user.email}`), {
+          ...newBusiness,
+          isCustomer: false,
+        });
 
         const business = await axios
           .post("http://localhost:8080/business", {

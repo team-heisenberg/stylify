@@ -2,11 +2,12 @@ import { KeyboardAvoidingView, View } from "react-native";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { doc, getDoc } from "firebase/firestore";
 
 const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -15,14 +16,39 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const res = await axios
+        // Try to sync user
+        const docRef = doc(db, "users", `${user.email}`);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const { isCustomer, ...usr } = docSnap.data();
+          console.log("Document data:", usr);
+
+          await axios
+            .post(
+              `http://localhost:8080/${isCustomer ? "customer" : "business"}`,
+              {
+                ...usr,
+                avatarURL: isCustomer ? user.photoURL || "" : undefined,
+              }
+            )
+            .catch((error) => console.log(error));
+        } else {
+          console.log("No such document!");
+        }
+
+        const { data, error } = (await axios
           .post("http://localhost:8080/auth", {
             ...user,
           })
-          .catch((error) => console.log(error));
+          .catch((error) => ({ error }))) as any;
 
-        console.log(JSON.stringify(res));
-        const { accessToken, userData } = res?.data;
+        if (error) {
+          console.error(error)
+          return;
+        }
+
+        const { accessToken, userData } = data;
         if (accessToken) {
           await AsyncStorage.setItem("@stylify:token", accessToken);
           await AsyncStorage.setItem("@stylify:user", JSON.stringify(userData));
