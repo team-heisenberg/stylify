@@ -1,101 +1,48 @@
 import { PrismaClient } from '@prisma/client'
+import {
+  genAppointments,
+  genBusinesses,
+  genCustomers,
+  genProfessionals,
+  genProfessionalServices,
+  genServices,
+  genServiceTypes,
+} from './utils'
 const prisma = new PrismaClient()
 
 async function main() {
-  await prisma.customer.create({
-    data: {
-      customerID: 1,
-      email: 'test1@email.com',
-      password: 'password1',
-      firstName: 'Test',
-      lastName: 'Test',
-      avatarURL: 'https://picsum.photos/200/300',
-    },
+  await prisma.customer.createMany({
+    data: genCustomers(10),
   })
 
-  await prisma.professional.create({
-    data: {
-      professionalID: 1,
-      firstName: 'Joe',
-      lastName: 'Doe',
-      businessID: 1,
-    },
+  await prisma.professional.createMany({
+    data: genProfessionals(5, [1, 2]),
   })
 
-  await prisma.business.create({
-    data: {
-      email: 'testbusiness@mail.com',
-      password: 'password1',
-      businessName: 'Book My Cut',
-      businessType: 'Hair Salon',
-      description: 'Have your hair cut',
-      location: '12th Ave',
-    },
+  await prisma.business.createMany({
+    data: genBusinesses(2),
   })
 
   await prisma.serviceType.createMany({
-    data: [
-      {
-        serviceTypeID: 1,
-        serviceType: 'hair',
-      },
-      {
-        serviceTypeID: 2,
-        serviceType: 'nails',
-      },
-    ],
+    data: genServiceTypes(10),
   })
 
   await prisma.service.createMany({
-    data: [
-      {
-        serviceName: 'hair curt',
-        servicePrice: 35,
-        serviceTypeID: 1,
-        businessID: 1,
-      },
-      {
-        serviceName: 'naiils',
-        servicePrice: 35,
-        serviceTypeID: 2,
-        businessID: 1,
-      },
-    ],
+    data: genServices(10, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2),
   })
 
-  await prisma.professionalServices.create({
-    data: {
-      serviceID: 1,
-      professionalID: 1,
-    },
+  await prisma.professionalServices.createMany({
+    data: genProfessionalServices(10, [1, 2, 3, 4, 5]),
   })
 
-  await prisma.appointment.create({
-    data: {
-      customerID: 1,
-      businessID: 1,
-      professionalID: 1,
-      isConfirmed: true,
-      appointmentDateTime: new Date(),
-      reviews: {
-        create: {
-          reviewDetails: 'good service',
-          appointmentRating: 5,
-        },
-      },
-      appointmentDetails: {
-        connectOrCreate: {
-          where: {
-            appointmentDetailsID: 1,
-          },
-          create: {
-            serviceID: 1,
-            price: 45,
-          },
-        },
-      },
-    },
+  const pr = genAppointments(20, 5, 2, 10).map(async (a) => {
+
+    await prisma.appointment.create({
+      data: a,
+    })
   })
+
+  await Promise.all(pr)
 
   await prisma.deal.create({
     data: {
