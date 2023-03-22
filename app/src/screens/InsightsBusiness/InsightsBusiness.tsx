@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
@@ -7,7 +8,13 @@ import GeneralInsights from "./GeneralInsights";
 const InsightsBusiness = () => {
   return (
     <>
-      <NormalText normalText="Insights" fontType={Heading3} textAlign="left" />
+      <View style={{ margin: 20 }}>
+        <NormalText
+          normalText="Insights"
+          fontType={Heading3}
+          textAlign="left"
+        />
+      </View>
       <TabViewComponent
         routes={[
           {

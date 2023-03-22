@@ -8,48 +8,93 @@ import {
   Heading4,
   Heading5,
 } from "../../components/NormalText/FontTypes";
-import PieChartContainer from "../../containers/PieChartContainer/PieChartContainer";
 import { ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
-import ImageComponent from "../../components/ImageComponent/ImageComponent";
+import Reviews from "./Reviews";
+import AppointmentsInsights from "./AppointmentsInsights";
 
 interface GeneralInsightsInterface {
   insightsType: "day" | "week" | "month" | "year";
 }
 
-interface ReviewInterface {
-  appointmentRating: number;
-  reviewDetails: string;
-}
-
 const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
-  const [totalEarnings, setTotalEarnings] = useState("");
-  const [lastEarnings, setLastEarnings] = useState("");
+  const [totalEarnings, setTotalEarnings] = useState(null);
+  const [lastEarnings, setLastEarnings] = useState(null);
   const [topProfessionals, setTopProfessionals] = useState([]);
-  const [reviews, setReviews] = useState<ReviewInterface[]>([]);
 
-  let initialDate;
-  let finalDate;
-  let initialDateForLastEarnings;
-  let finalDateForLastEarnings;
+  let date = new Date();
+  let currentYear = new Date().getFullYear();
+  let initialDate: any;
+  let finalDate: any;
+  let initialDateForLastEarnings: any;
+  let finalDateForLastEarnings: any;
   let EarningsType;
+  let EarningsPercentage;
 
   if (insightsType === "day") {
     EarningsType = "Daily";
+    initialDate = date.toLocaleDateString("en-CA");
+    finalDate = date.toLocaleDateString("en-CA");
+    initialDateForLastEarnings = date.setDate(date.getDate() - 1);
+    finalDateForLastEarnings = date.setDate(date.getDate() - 1);
   } else if (insightsType === "week") {
     EarningsType = "Weekly";
+    initialDate = new Date(
+      date.setDate(date.getDate() - date.getDay())
+    ).toLocaleDateString("en-CA");
+    finalDate = new Date(
+      date.setDate(date.getDate() - date.getDay() + 6)
+    ).toLocaleDateString("en-CA");
+    initialDateForLastEarnings = new Date(
+      date.setDate(date.getDate() - date.getDay() - 7)
+    );
+    finalDateForLastEarnings = new Date(
+      date.setDate(date.getDate() - date.getDay() - 1)
+    );
   } else if (insightsType === "month") {
     EarningsType = "Monthly";
+    initialDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      1
+    ).toLocaleDateString("en-CA");
+    finalDate = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).toLocaleDateString("en-CA");
+    initialDateForLastEarnings = date.setMonth(date.getMonth() - 1, 1);
+    finalDateForLastEarnings = date.setMonth(date.getMonth(), 0);
   } else if (insightsType === "year") {
     EarningsType = "Yearly";
+    initialDate = new Date(new Date().getFullYear(), 0, 1).toLocaleDateString(
+      "en-CA"
+    );
+    finalDate = new Date(new Date().getFullYear(), 11, 31).toLocaleDateString(
+      "en-CA"
+    );
+    initialDateForLastEarnings = new Date(currentYear - 1, 0, 1);
+    finalDateForLastEarnings = new Date(currentYear - 1, 11, 31);
   }
+
+  // Calculate Earnings Percentage
+  if (totalEarnings && lastEarnings) {
+    let percentage = (totalEarnings / lastEarnings - 1) * 100;
+    if (totalEarnings >= lastEarnings) {
+      EarningsPercentage = `↑ ${percentage}%`;
+    } else if (totalEarnings < lastEarnings) {
+      EarningsPercentage = `↓ ${percentage}%`;
+    }
+  }
+
+  console.log(initialDate);
 
   // Get Total Earnings
   const getTotalEarnings = async () => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        "/insights/?initialDate=2023-01-11&finalDate=2023-12-11&businessID=1"
+        `/insights/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=1`
       )
       .then((res) => {
         setTotalEarnings(res.data.Total);
@@ -64,7 +109,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        "/insights/?initialDate=2023-01-11&finalDate=2023-12-11&businessID=1"
+        `/insights/?initialDate=${initialDateForLastEarnings}&finalDate=${finalDateForLastEarnings}&businessID=1`
       )
       .then((res) => {
         setLastEarnings(res.data.Total);
@@ -79,23 +124,10 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        "/insights/byProfessional/?initialDate=2023-01-11&finalDate=2023-12-11&businessID=1"
+        `/insights/byProfessional/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=1`
       )
       .then((res) => {
         setTopProfessionals(res.data);
-      })
-      .catch((error) => {
-        console.log(JSON.stringify(error));
-      });
-  };
-
-  // Get Reviews
-  const getReviews = async () => {
-    const { axiosClient } = await createAxiosClient();
-    await axiosClient
-      .get("/review")
-      .then((res) => {
-        setReviews(res.data);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -109,10 +141,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     getTotalEarnings();
     getLastEarnings();
     getTopProfessionals();
-    getReviews();
   }, []);
-
-  console.log(reviews);
 
   return (
     <ScrollView style={{ marginTop: 5 }}>
@@ -130,16 +159,10 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
               fontType={Heading5}
             />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "space-between",
-            }}
-          >
+          <View style={styles.cardViewStyles}>
             <NormalText normalText={`$${totalEarnings}`} fontType={Heading4} />
             <NormalText
-              normalText="↓10% from last month"
+              normalText={`${EarningsPercentage} from last ${insightsType}`}
               fontType={captions}
               textColor="#822848"
               fontWeight="bold"
@@ -168,16 +191,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             },
           ]}
         />
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            marginLeft: 20,
-            marginTop: 10,
-          }}
-        >
+        <View style={styles.viewAllText}>
           <TouchableOpacity
             style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
             onPress={showAllProfessionals}
@@ -185,62 +199,32 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             <NormalText normalText="View All" />
           </TouchableOpacity>
         </View>
-        <PieChartContainer onlineAmount={3} callAmount={3} walkinAmount={1} />
+        <AppointmentsInsights />
       </View>
-
-      <View
-        style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#718096" }}
-      >
-        <NormalText
-          normalText="Ratings"
-          fontType={Heading5}
-          textAlign="left"
-          marginTop={10}
-        />
-        {/* {reviews?.map((review) => {
-
-            <Card>
-              <ImageComponent />
-              <NormalText normalText="Amy Adams" />
-              <NormalText normalText={review.appointmentRating} />
-              <NormalText normalText={review.reviewDetails} />
-            </Card>
-
-        })} */}
-        <Card
-          flexDirection="column"
-          height={138}
-          justifyContent="space-around"
-          width="95%"
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <ImageComponent
-                imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
-                width={50}
-                height={50}
-                borderRadius={50}
-              />
-              <NormalText normalText="Amy Adams" marginLeft={10} />
-            </View>
-            <NormalText normalText={5} />
-          </View>
-          <View style={{ width: "100%" }}>
-            <NormalText normalText="good service" textAlign="left" />
-          </View>
-        </Card>
-      </View>
+      <View style={styles.divider} />
+      <Reviews />
     </ScrollView>
   );
 };
 
 export default GeneralInsights;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  cardViewStyles: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+  },
+  viewAllText: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  divider: {
+    borderTopWidth: 1,
+    borderTopColor: "#718096",
+  },
+});

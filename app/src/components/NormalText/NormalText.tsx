@@ -7,6 +7,7 @@ interface NormalTextInterface {
   marginRight?: number;
   marginTop?: number;
   marginLeft?: number;
+  marginBottom?: number;
   textAlign?: "auto" | "left" | "right" | "center" | "justify";
   borderBottomWidth?: number;
   borderBottomColor?: string;
@@ -20,6 +21,7 @@ const NormalText = ({
   marginRight,
   marginTop,
   marginLeft,
+  marginBottom,
   textAlign,
   borderBottomWidth,
   borderBottomColor,
@@ -35,6 +37,7 @@ const NormalText = ({
             marginRight: marginRight || 0,
             marginTop: marginTop || 0,
             marginLeft: marginLeft || 0,
+            marginBottom: marginBottom || 0,
             textAlign: textAlign,
             borderBottomWidth: borderBottomWidth || 0,
             borderBottomColor: borderBottomColor,
@@ -55,6 +58,7 @@ NormalText.defaultProps = {
   marginRight: "",
   marginTop: "",
   marginLeft: "",
+  marginBottom: "",
   textAlign: "center",
   borderBottomWidth: "",
   borderBottomColor: "#24313A",
