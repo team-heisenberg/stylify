@@ -15,7 +15,8 @@ router.post('/', async (req, res) => {
         ...req.body,
       },
     })
-    .catch((error) => console.log(error))
+    .catch((err) => console.warn(`Customer already exists`, err))
+
 
   res.json(customer)
 })
