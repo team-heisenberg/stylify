@@ -14,20 +14,31 @@ interface ReviewsInterface {
 }
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState<ReviewsInterface[]>([]);
+  // const [reviews, setReviews] = useState<ReviewsInterface[]>([]);
+
+  const reviews = [
+    {
+      appointmentRating: 4,
+      reviewDetails: "good service",
+    },
+    {
+      appointmentRating: 2,
+      reviewDetails: "very bad service",
+    },
+  ];
 
   // Get Reviews
-  const getReviews = async () => {
-    const { axiosClient } = await createAxiosClient();
-    await axiosClient
-      .get("/review")
-      .then((res) => {
-        setReviews(res.data);
-      })
-      .catch((error) => {
-        console.log(JSON.stringify(error));
-      });
-  };
+  // const getReviews = async () => {
+  //   const { axiosClient } = await createAxiosClient();
+  //   await axiosClient
+  //     .get("/review")
+  //     .then((res) => {
+  //       setReviews(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(JSON.stringify(error));
+  //     });
+  // };
 
   // Get Customer
   const getCustomer = async () => {
@@ -35,7 +46,7 @@ const Reviews = () => {
     await axiosClient
       .get("/customer")
       .then((res) => {
-        setReviews(res.data);
+        // setReviews(res.data);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -43,7 +54,7 @@ const Reviews = () => {
   };
 
   useEffect(() => {
-    getReviews();
+    // getReviews();
   }, []);
 
   console.log(reviews);
@@ -63,30 +74,36 @@ const Reviews = () => {
         data={reviews}
         renderItem={({ item, index }) => {
           return (
-            <Card
-              flexDirection="column"
-              height={138}
-              justifyContent="space-around"
-              width="95%"
-            >
-              <View style={styles.cardViewStyles}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <ImageComponent
-                    imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
-                    width={50}
-                    height={50}
-                    borderRadius={50}
-                  />
-                  <NormalText normalText="Amy Adams" marginLeft={10} />
+            <View style={styles.renderItemContainer}>
+              <Card
+                flexDirection="column"
+                height={138}
+                justifyContent="space-around"
+                width={340}
+              >
+                <View style={styles.cardViewStyles}>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <ImageComponent
+                      imageURL="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2811&q=80"
+                      width={50}
+                      height={50}
+                      borderRadius={50}
+                    />
+                    <NormalText normalText="Amy Adams" marginLeft={10} />
+                  </View>
+                  <StarComponent ratings={item.appointmentRating} />
                 </View>
-                <StarComponent ratings={item.appointmentRating} />
-              </View>
-              <View style={{ width: "100%" }}>
-                <NormalText normalText={item.reviewDetails} textAlign="left" />
-              </View>
-            </Card>
+                <View style={{ width: "100%" }}>
+                  <NormalText
+                    normalText={item.reviewDetails}
+                    textAlign="left"
+                  />
+                </View>
+              </Card>
+            </View>
           );
         }}
+        horizontal={true}
         style={styles.flatlist}
       />
     </View>
@@ -100,11 +117,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
   },
+  renderItemContainer: {
+    marginRight: 20,
+  },
   cardViewStyles: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
+    height: "30%",
   },
   flatlist: {
     height: 150,
