@@ -34,6 +34,10 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
             style={styles.calendar}
             firstDay={1}
             theme={{
+              textDayFontFamily: "PlayfairDisplay_400Regular",
+              textMonthFontFamily: "PlayfairDisplay_700Bold",
+              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
+              // textTodayFontFamily: "PlayfairDisplay_700Bold",
               calendarBackground: "#F9F5EE",
               textDayFontWeight: "400",
               textDisabledColor: "#000000",
@@ -59,6 +63,9 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
             style={styles.expanded}
             firstDay={1}
             theme={{
+              textDayFontFamily: "PlayfairDisplay_400Regular",
+              textMonthFontFamily: "PlayfairDisplay_700Bold",
+              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
               calendarBackground: "#F9F5EE",
               textDayFontWeight: "400",
               textDisabledColor: "#000000",
@@ -78,22 +85,22 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
       </View>
       <TouchableOpacity
         onPress={() => setExpanded(!expanded)}
-        // style={styles.arrowDownUpContainer}
+        style={styles.arrowDownUpContainer}
       >
         {expanded ? (
           <ArrowUp
             width={20}
             height={24}
-            fill={"white"}
-            stroke={"white"}
+            fill={"black"}
+            stroke={"black"}
             style={styles.arrowDownUp}
           />
         ) : (
           <ArrowDown
             width={20}
             height={20}
-            fill={"white"}
-            stroke={"white"}
+            fill={"black"}
+            stroke={"black"}
             style={styles.arrowDownUp}
           />
         )}
@@ -167,23 +174,20 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   arrowDownUpContainer: {
-    // padding: 10,
-    // backgroundColor: "black",
     // position: "absolute",
     // top: 80,
     // right: "50%",
     // borderRadius: 24,
     ////
-    padding: 10,
-    backgroundColor: "red",
+    backgroundColor: "transparent",
   },
   arrowDownUp: {
-    backgroundColor: "black",
+    backgroundColor: "#F9F5EE",
     ////
     padding: 10,
     position: "absolute",
     top: -10,
-    right: "50%",
+    right: "47.5%",
     borderRadius: 24,
   },
   searchContainer: { marginTop: 10, marginLeft: 16, marginRight: 16 },

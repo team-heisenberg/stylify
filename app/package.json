@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/figtree": "^0.2.3",
+    "@expo-google-fonts/playfair-display": "^0.2.3",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/art": "^1.2.0",
     "@react-native-community/checkbox": "^0.5.14",
@@ -23,6 +25,7 @@
     "dotenv": "^16.0.3",
     "expo": "~47.0.12",
     "expo-checkbox": "~2.2.2",
+    "expo-font": "~11.0.1",
     "expo-linear-gradient": "~12.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.17.1",

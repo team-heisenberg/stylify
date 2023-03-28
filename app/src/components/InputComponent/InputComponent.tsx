@@ -32,7 +32,7 @@ const InputComponent = ({
       style={{
         position: "relative",
         marginBottom: 20,
-        width: "100%"
+        width: "100%",
       }}
     >
       <View
@@ -69,12 +69,16 @@ const InputComponent = ({
           borderWidth="2"
           isDisabled={isDisabled}
           isRequired={isRequired}
+          style={{
+            fontFamily: "Figtree_400Regular",
+          }}
         />
         {error && (
           <NormalText
             normalText="Error text"
             textColor="#FF1C00"
             marginTop={4}
+            fontType={captions}
           />
         )}
       </View>

@@ -19,7 +19,7 @@ interface CardInterface {
 
 const CardSalon = ({ onPress, onClick, salonImage, salonName, salonLocation, rating, favState }: CardInterface) => {
   return (
-    <Card height={96} padding={0} width={375} onPress={onPress}>
+    <Card height={96} padding={0} width="98%" onPress={onPress}>
       <View style={styles.wrapper}>
         <View style={styles.imageContainer}>
           <ImageComponent
@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
     width: 225
   },
   favContainer: {
+    position: "absolute",
+    right: 0,
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "flex-end",

@@ -26,7 +26,7 @@ const CardRecentAppointment = ({
   price,
 }: CardInterface) => {
   return (
-    <Card height={96} padding={0} width={375} onPress={onPress}>
+    <Card height={96} padding={0} width="98%" onPress={onPress}>
       <View style={styles.wrapper}>
         <View style={styles.imageContainer}>
           <ImageComponent
@@ -98,10 +98,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     display: "flex",
+    position: "absolute",
     justifyContent: "center",
-    right: 35,
+    right: 0,
     height: 30,
-    width: 80,
+    minWidth: 80,
   },
 });
 
