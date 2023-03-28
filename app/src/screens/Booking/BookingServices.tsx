@@ -1,0 +1,14 @@
+import { ScrollView } from "react-native";
+import BookingServiceContainer from "../../containers/BookingServiceContainer/BookingServiceContainer";
+
+// Props will be the businessId to get the info of services
+
+const BookingServices = () => {
+  return (
+    <ScrollView style={{ backgroundColor: "#F9F5EE", height: "100%" }}>
+      <BookingServiceContainer />
+    </ScrollView>
+  );
+};
+
+export default BookingServices;

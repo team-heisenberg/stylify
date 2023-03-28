@@ -18,13 +18,17 @@ import {
   ArrowLeftBig,
 } from "../../components/IconsComponent/IconsComponent";
 import FavButton from "../../components/FavButton/FavButton";
+import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
+import BookingServices from "./BookingServices";
+import BookingSpecialists from "./BookingSpecialists";
+import About from "./About";
 
 const Booking = ({ route }: any) => {
   const navigation = useNavigation<any>();
   console.log(route.params);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <>
       <View>
         <ImageComponent
           width="100%"
@@ -74,10 +78,26 @@ const Booking = ({ route }: any) => {
           </View>
         </View>
       </View>
-      <View>
-        <NormalText normalText="lalal" />
-      </View>
-    </ScrollView>
+      <TabViewComponent
+        routes={[
+          {
+            key: "first",
+            title: "Services",
+            Component: () => <BookingServices />,
+          },
+          {
+            key: "second",
+            title: "Specialists",
+            Component: () => <BookingSpecialists />,
+          },
+          {
+            key: "third",
+            title: "About",
+            Component: () => <About />,
+          },
+        ]}
+      />
+    </>
   );
 };
 
@@ -88,7 +108,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginLeft: 16,
     marginRight: 16,
-    marginBottom: -100
+    marginBottom: -100,
   },
   ratingContainer: {
     bottom: 120,
