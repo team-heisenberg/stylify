@@ -1,11 +1,13 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "Stylify",
+    "slug": "stylify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "ca.stylify.app",
+    "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,7 +20,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ca.stylify.app",
+      "jsEngine": "jsc"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +32,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ebd22600-10f7-406c-ac2d-7c9957b96831"
+      }
+    },
+    "owner": "zyzmoz"
   }
 }
