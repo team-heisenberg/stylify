@@ -22,7 +22,7 @@ const CardAppointment = ({
   professional,
 }: CardInterface) => {
   return (
-    <Card height={96} padding={0} width={375} onPress={onPress}>
+    <Card height={96} padding={0} width="99%" onPress={onPress}>
       <View style={styles.card}>
         <View style={styles.clock}>
           <NormalText
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   information: {
     marginLeft: 8,
     marginTop: 10,
-    width: 225,
+    width: "60%",
   },
   navigator: {
     display: "flex",

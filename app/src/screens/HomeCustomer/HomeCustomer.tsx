@@ -33,19 +33,6 @@ const HomeCustomer = () => {
     searchBusiness();
   }, []);
 
-  // const listItems = business?.map((business) => {
-  //   <View style={styles.cards}>
-  //           <CardSalon
-  //             salonImage="https://picsum.photos/200/300"
-  //             salonName={business["businessName"]}
-  //             salonLocation={business["location"]}
-  //             rating="4.6"
-  //             favState={false}
-  //           />
-  //         </View>
-  // }
-  // );
-
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
       {/* TEST IF THERE ARE UPCOMING APPOINTMENTS VVVVV */}

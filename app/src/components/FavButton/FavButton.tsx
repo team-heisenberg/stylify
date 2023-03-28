@@ -4,16 +4,21 @@ import { Heart } from "../IconsComponent/IconsComponent";
 
 interface favButtonInterface {
   onClick?: () => void;
-  height?: number;
-  width?: number;
+  height?: number | string;
+  width?: number | string;
   colorFill?: string;
 }
 
-const FavButton = ({ onClick, height, width, colorFill }: favButtonInterface) => {
-    const [isFav, setIsFav] = useState(false);
+const FavButton = ({
+  onClick,
+  height,
+  width,
+  colorFill,
+}: favButtonInterface) => {
+  const [isFav, setIsFav] = useState(false);
 
   return (
-    <View>
+    <View style={{ padding: 5 }}>
       <Pressable
         onPress={onClick}
         onPressIn={() => setIsFav(!isFav)}
@@ -35,7 +40,7 @@ FavButton.defaultProps = {
   colorFill: "#105535",
   favState: false,
   height: 20,
-  width: 20
+  width: 20,
 };
 
 export default FavButton;
