@@ -1,15 +1,25 @@
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import Card from "../Card/Card";
 import ImageComponent from "../ImageComponent/ImageComponent";
 import { Heading5, BodyBold2 } from "../NormalText/FontTypes";
 import NormalText from "../NormalText/NormalText";
 import { RedDot } from "../IconsComponent/IconsComponent";
 import { useState } from "react";
-import { Plus } from "../IconsComponent/IconsComponent";
+import { Plus, Line } from "../IconsComponent/IconsComponent";
 
-const CardService = () => {
+interface CardService {
+  serviceName: string;
+  serviceDuration: number;
+  servicePrice: number;
+}
+
+const CardService = ({
+  serviceName,
+  serviceDuration,
+  servicePrice,
+}: CardService) => {
   const [amount, setAmount] = useState(0);
-  const [buttonAppear, setButtonAppear] = useState(false);
+  // const [buttonAppear, setButtonAppear] = useState(false);
 
   return (
     <View>
@@ -25,7 +35,7 @@ const CardService = () => {
         <View style={styles.textContainer}>
           <View>
             <NormalText
-              normalText="Men's Haircut"
+              normalText={serviceName}
               fontType={BodyBold2}
               textColor="#822848"
               textAlign="left"
@@ -33,7 +43,7 @@ const CardService = () => {
           </View>
           <View style={styles.informationContainer}>
             <NormalText
-              normalText="45min"
+              normalText={`${serviceDuration}min`}
               fontType={Heading5}
               textAlign="left"
               marginTop={4}
@@ -41,7 +51,7 @@ const CardService = () => {
             />
             <RedDot style={{ marginRight: 5, top: 2 }} />
             <NormalText
-              normalText="$27.50"
+              normalText={`$${servicePrice}`}
               fontType={Heading5}
               textAlign="left"
               marginTop={4}
@@ -50,7 +60,7 @@ const CardService = () => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <View>
+          <View style={styles.buttonVisible}>
             <Pressable
               style={{
                 backgroundColor: "#105535",
@@ -59,10 +69,32 @@ const CardService = () => {
                 borderRadius: 50,
                 justifyContent: "center",
                 alignItems: "center",
-                marginLeft: "60%"
+                marginRight: 7,
               }}
               onPressIn={() => {
-                setButtonAppear(true)
+                amount === 0 ? setAmount(0) : setAmount(amount - 1);
+              }}
+            >
+              <Line stroke="white" fill="white" width={15} height={15} />
+            </Pressable>
+            <NormalText
+              normalText={amount}
+              textColor="white"
+              textAlign="center"
+              fontType={BodyBold2}
+            />
+            <Pressable
+              style={{
+                backgroundColor: "#105535",
+                width: 30,
+                height: 30,
+                borderRadius: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: 7,
+              }}
+              onPressIn={() => {
+                setAmount(amount + 1);
               }}
             >
               <Plus fill="white" width={15} height={15} />
@@ -98,6 +130,17 @@ const styles = StyleSheet.create({
     right: 35,
     height: 30,
     width: 80,
+  },
+  buttonVisible: {
+    backgroundColor: "#24313A",
+    borderRadius: 50,
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonInvisible: {
+    backgroundColor: "unset",
   },
 });
 

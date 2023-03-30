@@ -1,4 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -22,10 +23,52 @@ import TabViewComponent from "../../components/TabViewComponent/TabViewComponent
 import BookingServices from "./BookingServices";
 import BookingSpecialists from "./BookingSpecialists";
 import About from "./About";
+import { createAxiosClient } from "../../api";
 
 const Booking = ({ route }: any) => {
   const navigation = useNavigation<any>();
-  console.log(route.params);
+  // console.log(route.params);
+
+  const serviceTypeIds: any = [];
+  const serviceName: any = [];
+
+  const searchService = async () => {
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get("/servicetypebybusiness/1")
+      .then((res) => {
+        // const serviceTypeIdGet = res.data.filter((a: any) => {
+        //   if (a["businessID"] === route.params.businessId) {
+        //     serviceTypeIds.push(a["serviceTypeID"]);
+        //     serviceName.push(a["serviceName"]);
+        //   }
+        // });
+        console.log(res.data)
+        // console.log(serviceTypeIds);
+        // console.log(serviceName);
+      })
+      .catch((error) => {
+        console.log("THIS IS THE ERROR >>>>", error);
+      });
+  };
+
+  // const searchServiceType = async () => {
+  //   const { axiosClient } = await createAxiosClient();
+  //   await axiosClient
+  //     .get("/serviceType")
+  //     .then((res) => {
+  //       const serviceTypeNameGet = res.data.filter((a: any) => {
+  //         console.log(res.data)
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log("THIS IS THE ERROR >>>>", error);
+  //     });
+  // };
+
+  useEffect(() => {
+    searchService();
+  }, []);
 
   return (
     <>
@@ -83,7 +126,7 @@ const Booking = ({ route }: any) => {
           {
             key: "first",
             title: "Services",
-            Component: () => <BookingServices />,
+            Component: () => <BookingServices businessID={route.params.businessId}/>,
           },
           {
             key: "second",

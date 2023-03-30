@@ -3,10 +3,11 @@ import BookingServiceContainer from "../../containers/BookingServiceContainer/Bo
 
 // Props will be the businessId to get the info of services
 
-const BookingServices = () => {
+const BookingServices = ({ businessID }: any) => {
+  
   return (
     <ScrollView style={{ backgroundColor: "#F9F5EE", height: "100%" }}>
-      <BookingServiceContainer />
+      <BookingServiceContainer serviceCategory={businessID} />
     </ScrollView>
   );
 };

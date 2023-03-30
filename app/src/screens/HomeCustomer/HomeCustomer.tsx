@@ -164,6 +164,7 @@ const HomeCustomer = () => {
                     salonLocation: b["location"],
                     rating: "4.6",
                     favState: false,
+                    businessId: b["businessID"]
                   });
                 }}
               />
