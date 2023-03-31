@@ -4,7 +4,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import NormalText from "../NormalText/NormalText";
 import { Link } from "../NormalText/FontTypes";
 
@@ -16,6 +16,7 @@ interface ButtonComponentInterface {
   disabledColor?: string;
   isDisabled?: boolean;
   buttonText: string;
+  icon?: ReactElement;
   textColor?: string;
   value?: string;
   onPress?: () => void;
@@ -30,6 +31,7 @@ const ButtonComponent = ({
   isDisabled,
   buttonText,
   textColor,
+  icon,
   onPress,
 }: ButtonComponentInterface) => {
   const [positionTop, setPositionTop] = useState(4);
@@ -38,7 +40,7 @@ const ButtonComponent = ({
   return (
     <View
       style={{
-        width: width,
+        width: "98.5%",
         marginVertical: 8,
       }}
     >
@@ -74,11 +76,15 @@ const ButtonComponent = ({
               },
             ]}
           >
+            {icon && <View style={{width: "20%", alignItems: "flex-start" }}>{icon}</View>}
+            <View  style={icon && {width: "75%", paddingRight: "20%"}}>
             <NormalText
               normalText={buttonText}
               textColor={textColor}
               fontType={Link}
             />
+            
+            </View>
           </View>
           <View
             style={[
@@ -112,8 +118,10 @@ ButtonComponent.defaultProps = {
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: "row",
     borderRadius: 50,
     justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#000000",
     position: "absolute",

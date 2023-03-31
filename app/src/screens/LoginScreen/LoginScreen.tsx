@@ -20,6 +20,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
+import { GoogleIcon } from "../../components/IconsComponent/IconsComponent";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -64,13 +65,17 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         // @ts-ignore
         const credentials = GoogleAuthProvider.credential(idToken, accessToken);
   
-        signInWithCredential(auth, credentials);
+        await signInWithCredential(auth, credentials);
       }
 
     } catch (error) {
-      console.log(error);
+      console.log('<<<<<<', error)
     }
   };
+
+  useEffect(() => {
+    getGoogleUserInfo()
+  }, [response])
 
   const createGoogleUserFirestore = async (isCustomer: boolean) => {
     if (isCustomer) {
@@ -81,7 +86,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         password: "",
         isCustomer: true,
         avatarURL: googleUserInfo.picture,
-      });
+      }).catch(console.log);
     } else {
       await setDoc(doc(db, "users", `${googleUserInfo.email}`), {
         businessName: googleUserInfo.given_name,
@@ -92,7 +97,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         password: "",
         isCustomer: false,
         avatarURL: googleUserInfo.picture,
-      });
+      }).catch(console.log);
     }
 
     await getGoogleUserInfo()
@@ -186,7 +191,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           style={{
             padding: 15,
             flex: 1,
-            backgroundColor: "white",
+            backgroundColor: "#F9F5EE",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -219,13 +224,14 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           >
             <ButtonComponent buttonText="Login" onPress={handleLogin} />
 
-            <ButtonComponent buttonText="SignUp" onPress={handleSignUp} />
+            <ButtonComponent backgroundColor="#F9F5EE" textColor="#000" buttonText="SignUp" onPress={handleSignUp} />
 
             <ButtonComponent
+              backgroundColor="#F9F5EE" textColor="#000"
               buttonText="Google"
+              icon={<GoogleIcon width={32} height={32} fill="#000"/>}              
               onPress={async () => {
                 await promptAsync();
-                await getGoogleUserInfo();
               }}
             />
 

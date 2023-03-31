@@ -29,6 +29,7 @@ import User from "../../../assets/icons/User.svg";
 import Navigate from "../../../assets/icons/Navigate.svg";
 import RedDot from "../../../assets/icons/RedDot.svg";
 import RightChevron from "../../../assets/icons/RightChevron.svg";
+import GoogleIcon from "../../../assets/icons/GoogleIcon.svg";
 
 export {
   ArrowDown,
@@ -62,4 +63,5 @@ export {
   Navigate,
   RedDot,
   RightChevron,
+  GoogleIcon
 };

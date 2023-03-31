@@ -10,16 +10,19 @@ const Browse = () => {
   const navigation = useNavigation<any>();
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={{ height: 100 }}>
         <SearchComponent />
       </View>
-      <View style={{ zIndex: -100 }}>
+      <View style={{ zIndex: -100, }}>
+        <View style={{marginLeft: 18, backgroundColor: "#F9F5EE"}}>
+
         <NormalText
           normalText="Services"
           fontType={Heading3}
           textAlign="left"
         />
+        </View>
         <View style={styles.cardContainer}>
           <TouchableOpacity
             style={styles.card}
@@ -107,15 +110,20 @@ const Browse = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F9F5EE"
+  },
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    backgroundColor: "#F9F5EE"
   },
   card: {
     flexDirection: "column",

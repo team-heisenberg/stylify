@@ -2,8 +2,8 @@
   "name": "app",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
-    "android": "expo run:android",
+    "start": "expo start  --dev-client",
+    "android": "expo run:ios --no-build-cache",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "ios:prod": "expo run:ios --configuration Release"

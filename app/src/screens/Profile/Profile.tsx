@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { signOut } from "firebase/auth";
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { auth } from "../../../firebase";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import TableComponent from "../../components/TableComponent/TableComponent";
+import { View } from "native-base";
 
 const Profile = () => {
   const navigation = useNavigation<any>();
@@ -78,16 +79,25 @@ const Profile = () => {
     },
   ];
   return (
-    <>
-      <NormalText normalText="Profile" fontType={Heading3} textAlign="left" />
+    <View style={styles.container}>
+      <View style={{padding: 6}}>
+        <NormalText normalText="Profile" fontType={Heading3} textAlign="left" />
+      </View>
       <TableComponent
         numColumns={1}
         numRows={4}
         tableHeader={tableHeader}
         tableData={tableData}
       ></TableComponent>
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F9F5EE"
+  }
+})
 
 export default Profile;

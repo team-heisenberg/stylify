@@ -66,8 +66,8 @@ const SearchComponent = () => {
   };
 
   return (
-    <>
-      <View style={styles.input}>
+    <View style={styles.container}>
+      <View style={{ padding: 6 }}>
         <InputComponent
           value={value}
           onChangeText={handleChange}
@@ -100,7 +100,7 @@ const SearchComponent = () => {
           </View>
         </View>
       )}
-    </>
+    </View>
   );
 };
 
@@ -113,6 +113,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     zIndex: 200,
+  },
+  container: {
+    flex: 1,
+    padding: 6,
+    backgroundColor: "#F9F5EE",
   },
   list: {
     backgroundColor: "#F9F5EE",
