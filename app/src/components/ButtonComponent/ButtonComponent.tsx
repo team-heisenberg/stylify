@@ -17,6 +17,7 @@ interface ButtonComponentInterface {
   isDisabled?: boolean;
   buttonText: string;
   textColor?: string;
+  value?: string;
   onPress?: () => void;
 }
 
@@ -37,7 +38,7 @@ const ButtonComponent = ({
   return (
     <View
       style={{
-        width: '98.5%',
+        width: width,
         marginVertical: 8,
       }}
     >
@@ -56,7 +57,7 @@ const ButtonComponent = ({
         <View
           style={{
             position: "relative",
-            width: "100%"
+            width: "100%",
           }}
         >
           <View

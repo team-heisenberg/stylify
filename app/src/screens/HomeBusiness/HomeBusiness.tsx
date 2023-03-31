@@ -9,23 +9,26 @@ import { Calendar } from "react-native-calendars";
 import {
   ArrowUp,
   ArrowDown,
-  Plus,
 } from "../../components/IconsComponent/IconsComponent";
 import { ScrollView } from "native-base";
 import CardAppointment from "../../components/CardAppointment/CardAppointment";
-import { Fab } from "native-base";
+import { useRoute } from "@react-navigation/native";
 
 const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
   navigation,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
+  const route = useRoute<any>();
+  // const { appointments = [], cardData } = route.params;
+  console.log(route.params);
+
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
         {expanded ? (
           <Calendar
-            initialDate={"2023-03-16"}
+            // initialDate={"2023-03-16"}
             onDayPress={(day) => {
               console.log("selected day", day);
             }}
@@ -54,7 +57,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
           />
         ) : (
           <Calendar
-            initialDate={"2023-03-16"}
+            // initialDate={"2023-03-16"}
             onDayPress={(day) => {
               console.log("selected day", day);
             }}
@@ -115,41 +118,35 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = ({
           fontType={Heading3}
           textAlign="left"
         />
-        <ScrollView style={styles.cardAppointment}>
-          <View style={styles.cardContainer}>
-            <CardAppointment
-              time={"2:00"}
-              ampm={"pm"}
-              salonName={"Bruce Wayne"}
-              services={"Hair Cut, Beard Styling"}
-              professional={"Mike Adams"}
+        {route.params ? (
+          <ScrollView style={styles.cardAppointment}>
+            <View style={styles.cardContainer}>
+              <CardAppointment
+                time={route.params.selectedTime}
+                ampm={""}
+                salonName={route.params.customerName}
+                services={`${route.params.servicesSelected[0].name} • ${route.params.selectedSpecialist}`}
+                professional={`${route.params.selectedDate} at $${route.params.totalCost}`}
+              />
+            </View>
+          </ScrollView>
+        ) : (
+          <View style={styles.details}>
+            <NormalText
+              normalText="No upcoming appointments scheduled."
+              fontType={Heading5}
+              textAlign="left"
             />
           </View>
-          <View style={styles.cardContainer}>
-            <CardAppointment
-              time={"2:00"}
-              ampm={"pm"}
-              salonName={"Bruce Wayne"}
-              services={"Hair Cut, Beard Styling"}
-              professional={"Mike Adams"}
-            />
-          </View>
-        </ScrollView>
-        {/* <View style={styles.details}>
-          <NormalText
-            normalText="No upcoming appointments scheduled."
-            fontType={Heading5}
-            textAlign="left"
-          />
-        </View> */}
+        )}
       </View>
-        {/* <Fab size={"lg"} icon={<Plus fill="white" stroke="white" />} /> */}
+      {/* <Fab size={"lg"} icon={<Plus fill="white" stroke="white" />} /> */}
       <View style={styles.button}>
         <ButtonComponent
           buttonText="Create New Appointment"
           onPress={() =>
             navigation.navigate("Create Appointment Business", {
-              title: "Create Appointment",
+              titleCreateAppointment: "Create Appointment",
             })
           }
         />
@@ -180,6 +177,8 @@ const styles = StyleSheet.create({
     // borderRadius: 24,
     ////
     backgroundColor: "transparent",
+    paddingBottom: 5,
+    paddingTop: 5,
   },
   arrowDownUp: {
     backgroundColor: "#F9F5EE",

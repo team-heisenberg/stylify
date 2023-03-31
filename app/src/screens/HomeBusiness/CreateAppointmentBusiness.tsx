@@ -12,11 +12,29 @@ const CreateAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
   const [selectedValue, setSelectedValue] = useState("");
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
   };
+  //customer name, email, phone
   const typeOfAppointment = ["Walk-in", "Call Appointment"];
+
+  console.log(
+    "Name:",
+    customerInfo.name,
+    "Email:",
+    customerInfo.email,
+    "Phone:",
+    customerInfo.phone,
+    "Appointment type:",
+    selectedValue
+  );
 
   return (
     <View style={styles.container}>
@@ -29,16 +47,36 @@ const CreateAppointmentBusiness = () => {
         >
           <ArrowLeftBig width={24} height={17.54} fill="black" />
         </TouchableOpacity>
-        <NormalText normalText={route.params.title} fontType={Heading3} />
+        <NormalText normalText={route.params.titleCreateAppointment} fontType={Heading3} />
       </View>
       <View style={styles.inputs}>
         <InputComponent
           isRequired
           placeholder="Customer Name"
           inputLabel="Customer Name"
+          value={customerInfo.name}
+          onChangeText={(text) =>
+            setCustomerInfo({ ...customerInfo, name: text })
+          }
         />
-        <InputComponent isRequired placeholder="Email" inputLabel="Email" />
-        <InputComponent isRequired placeholder="Mobile" inputLabel="Mobile" />
+        <InputComponent
+          isRequired
+          placeholder="Email"
+          inputLabel="Email"
+          value={customerInfo.email}
+          onChangeText={(text) =>
+            setCustomerInfo({ ...customerInfo, email: text })
+          }
+        />
+        <InputComponent
+          isRequired
+          placeholder="Mobile"
+          inputLabel="Mobile"
+          value={customerInfo.phone}
+          onChangeText={(text) =>
+            setCustomerInfo({ ...customerInfo, phone: text })
+          }
+        />
       </View>
       <View style={styles.details}>
         <View style={styles.textDetails}>
@@ -63,7 +101,11 @@ const CreateAppointmentBusiness = () => {
           buttonText="Select Services"
           onPress={() =>
             navigation.navigate("Select Services Business", {
-              title: "Select Services",
+              titleSelectServices: "Select Services",
+              customerName: customerInfo.name,
+              customerEmail: customerInfo.email,
+              customerPhone: customerInfo.phone,
+              appointmentType: selectedValue
             })
           }
         />
