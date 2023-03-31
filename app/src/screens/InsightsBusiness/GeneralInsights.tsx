@@ -11,6 +11,7 @@ import {
 import { createAxiosClient } from "../../api";
 import Reviews from "./Reviews";
 import AppointmentsInsights from "./AppointmentsInsights";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface GeneralInsightsInterface {
   insightsType: "day" | "week" | "month" | "year";
@@ -20,6 +21,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [lastEarnings, setLastEarnings] = useState(0);
   const [topProfessionals, setTopProfessionals] = useState([]);
+  const [showProfessionals, setShowProfessionals] = useState(false);
 
   let today = new Date();
   let date = new Date(today);
@@ -30,9 +32,11 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   let finalDateForLastEarnings: any;
   let EarningsType;
   let EarningsPercentage;
+  let EarningsPercentageType;
 
   if (insightsType === "day") {
     EarningsType = "Daily";
+    EarningsPercentageType = "yesterday";
     initialDate = today.toLocaleDateString("en-CA");
     finalDate = today.toLocaleDateString("en-CA");
     date.setDate(date.getDate() - 2);
@@ -40,6 +44,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     finalDateForLastEarnings = date.toISOString().substring(0, 10);
   } else if (insightsType === "week") {
     EarningsType = "Weekly";
+    EarningsPercentageType = "last week";
     let first = today.getDate() - today.getDay();
     let last = first + 6;
     initialDate = new Date(today.setDate(first)).toISOString().substring(0, 10);
@@ -55,6 +60,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
       .substring(0, 10);
   } else if (insightsType === "month") {
     EarningsType = "Monthly";
+    EarningsPercentageType = "last month";
     initialDate = new Date(
       today.getFullYear(),
       today.getMonth(),
@@ -77,6 +83,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     ).toLocaleDateString("en-CA");
   } else if (insightsType === "year") {
     EarningsType = "Yearly";
+    EarningsPercentageType = "last year";
     initialDate = new Date(new Date().getFullYear(), 0, 1).toLocaleDateString(
       "en-CA"
     );
@@ -95,24 +102,28 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
     ).toLocaleDateString("en-CA");
   }
 
-  // Calculate Earnings Percentage
-  let percentage = (totalEarnings / lastEarnings - 1) * 100;
-  let rounded = Math.round(percentage * 10) / 10;
-  if (totalEarnings >= lastEarnings) {
-    EarningsPercentage = `↑ ${rounded}%`;
-  } else if (totalEarnings < lastEarnings) {
-    EarningsPercentage = `↓ ${rounded}%`;
+  // Earnings Percentage
+  if (totalEarnings != 0 && lastEarnings != 0) {
+    let percentage = (totalEarnings / lastEarnings - 1) * 100;
+    let rounded = Math.round(percentage * 10) / 10;
+    if (totalEarnings >= lastEarnings) {
+      EarningsPercentage = `↑ ${rounded}% from ${EarningsPercentageType}`;
+    } else if (totalEarnings < lastEarnings) {
+      EarningsPercentage = `↓ ${rounded}% from ${EarningsPercentageType}`;
+    }
   }
 
   // Get Total Earnings
-  const getTotalEarnings = async () => {
+  const getTotalEarnings = async (businessID: number | string) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        `/insights/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=1`
+        `/insights/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=${businessID}`
       )
       .then((res) => {
-        setTotalEarnings(res.data.Total);
+        if (res.data.Total != null) {
+          setTotalEarnings(res.data.Total);
+        }
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -120,14 +131,16 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   };
 
   // Get Last Earnings
-  const getLastEarnings = async () => {
+  const getLastEarnings = async (businessID: string | number) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        `/insights/?initialDate=${initialDateForLastEarnings}&finalDate=${finalDateForLastEarnings}&businessID=1`
+        `/insights/?initialDate=${initialDateForLastEarnings}&finalDate=${finalDateForLastEarnings}&businessID=${businessID}`
       )
       .then((res) => {
-        setLastEarnings(res.data.Total);
+        if (res.data.Total != null) {
+          setLastEarnings(res.data.Total);
+        }
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -135,11 +148,11 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   };
 
   // Get Top Professionals
-  const getTopProfessionals = async () => {
+  const getTopProfessionals = async (businessID: string | number) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get(
-        `/insights/byProfessional/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=1`
+        `/insights/byProfessional/?initialDate=${initialDate}&finalDate=${finalDate}&businessID=${businessID}`
       )
       .then((res) => {
         setTopProfessionals(res.data);
@@ -150,12 +163,21 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
   };
 
   // Show Professionals Function
-  const showAllProfessionals = () => {};
+  const showAllProfessionals = () => {
+    setShowProfessionals(true);
+  };
+  const showLessProfessionals = () => {
+    setShowProfessionals(false);
+  };
 
   useEffect(() => {
-    getTotalEarnings();
-    getLastEarnings();
-    getTopProfessionals();
+    (async () => {
+      const rawUserData = await AsyncStorage.getItem("@stylify:user");
+      const userData = JSON.parse(rawUserData || "{}");
+      getTotalEarnings(userData?.ID);
+      getLastEarnings(userData?.ID);
+      getTopProfessionals(userData?.ID);
+    })();
   }, []);
 
   return (
@@ -177,7 +199,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
           <View style={styles.cardViewStyles}>
             <NormalText normalText={`$${totalEarnings}`} fontType={Heading4} />
             <NormalText
-              normalText={`${EarningsPercentage} from last ${insightsType}`}
+              normalText={EarningsPercentage}
               fontType={captions}
               textColor="#822848"
               fontWeight="bold"
@@ -191,10 +213,17 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             { title: "Top Peofessionals", property: "professional" },
             { title: "Sale", property: "sale" },
           ]}
-          tableData={topProfessionals.map((pro: any) => ({
-            professional: `${pro.firstName} ${pro.lastName}`,
-            sale: pro.Total,
-          }))}
+          tableData={
+            !showProfessionals
+              ? topProfessionals.slice(0, 3).map((pro: any) => ({
+                  professional: `${pro.firstName} ${pro.lastName}`,
+                  sale: pro.Total,
+                }))
+              : topProfessionals.map((pro: any) => ({
+                  professional: `${pro.firstName} ${pro.lastName}`,
+                  sale: pro.Total,
+                }))
+          }
           headerBackgroundColor="#822848"
           headerTextColor="white"
           tableCellStyles={[
@@ -207,14 +236,23 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
           ]}
         />
         <View style={styles.viewAllText}>
-          <TouchableOpacity
-            style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
-            onPress={showAllProfessionals}
-          >
-            <NormalText normalText="View All" />
-          </TouchableOpacity>
+          {!showProfessionals ? (
+            <TouchableOpacity
+              style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
+              onPress={showAllProfessionals}
+            >
+              <NormalText normalText="View All" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
+              onPress={showLessProfessionals}
+            >
+              <NormalText normalText="View Less" />
+            </TouchableOpacity>
+          )}
         </View>
-        <AppointmentsInsights />
+        <AppointmentsInsights initialDate={initialDate} finalDate={finalDate} />
       </View>
       <View style={styles.divider} />
       <Reviews />

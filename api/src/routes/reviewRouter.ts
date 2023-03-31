@@ -37,6 +37,25 @@ router.get('/:reviewID', async (req, res) => {
   res.json(review)
 })
 
+router.get('/byBusiness/:businessID', async (req, res) => {
+  const { businessID } = req.params
+
+  const review = await prisma.review.findMany({
+    where: {
+      businessID: Number(businessID)
+    },
+    include: {
+      appointment: {
+        include: {
+          customer: true
+        }
+      }
+    }
+  })
+
+  res.json(review)
+})
+
 // PUT - Update Record
 router.put('/:reviewID', async (req, res) => {
   const { reviewID, ...data } = req.body
