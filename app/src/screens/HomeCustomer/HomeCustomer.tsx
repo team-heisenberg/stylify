@@ -1,7 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import CardSalon from "../../components/CardSalon/CardSalon";
@@ -65,17 +71,26 @@ const HomeCustomer = () => {
             professional="Diego Lara"
           />
         </View>
+        <View style={styles.cards}>
+          <CardAppointment
+            time="12:00"
+            ampm="am"
+            salonName="Daniel Salon"
+            services="Haircut"
+            professional="Diego Lara"
+          />
+        </View>
       </View>
 
       {/* IF THERE IS NO UPCOMMING APPOINTMENT RENDER THIS VVVVV */}
-      <View style={{ marginTop: 5 }}>
+      {/* <View style={{ marginTop: 5 }}>
         <NormalText
           normalText="No upcoming appointments"
           fontType={Heading5}
           textColor="#8E9394"
           textAlign="left"
         />
-      </View>
+      </View> */}
 
       {/* CHECK THE RECENT APPOINTMENTS VVVVV */}
       {/* NO RECENT APPOINTMENT */}
@@ -144,13 +159,13 @@ const HomeCustomer = () => {
                 rating="4.6"
                 favState={false}
                 onPress={() => {
-                  navigation.navigate("Booking",
-                    {
-                      salonName: b["businessName"],
-                      salonLocation: b["location"],
-                      rating: "4.6",
-                      favState: false
-                    });
+                  navigation.navigate("Booking", {
+                    salonName: b["businessName"],
+                    salonLocation: b["location"],
+                    rating: "4.6",
+                    favState: false,
+                    businessId: b["businessID"]
+                  });
                 }}
               />
             </View>
@@ -159,7 +174,7 @@ const HomeCustomer = () => {
       </View>
 
       {/* IF THEY HAVE FAVORITE SALONS VVVVV */}
-      <View style={{ marginBottom: 40 }}>
+      {/* <View style={{ marginBottom: 40 }}>
         <View style={styles.containerText}>
           <NormalText
             normalText="Favourite salons"
@@ -190,7 +205,7 @@ const HomeCustomer = () => {
             />
           </View>
         </View>
-      </View>
+      </View> */}
 
       {/* END OF CODE */}
     </ScrollView>
