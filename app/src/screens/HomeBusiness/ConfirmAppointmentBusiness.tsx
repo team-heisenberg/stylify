@@ -1,55 +1,3 @@
-// import { View, TouchableOpacity, StyleSheet } from "react-native";
-// import React from "react";
-// import { useNavigation, useRoute } from "@react-navigation/native";
-// import NormalText from "../../components/NormalText/NormalText";
-// import { Heading3 } from "../../components/NormalText/FontTypes";
-// import { ArrowLeftBig } from "../../components/IconsComponent/IconsComponent";
-// import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-// import Message from "../../components/Message/Message";
-
-// const ConfirmAppointmentBusiness = () => {
-//   const navigation = useNavigation<any>();
-//   const route = useRoute<any>();
-
-//   // const showConfirmation = () => {
-//   //   return <Message />;
-//   // };
-
-//   return (
-//     <>
-//       <View style={styles.navigation}>
-//         <TouchableOpacity
-//           style={styles.arrow}
-//           onPress={() => {
-//             navigation.goBack();
-//           }}
-//         >
-//           <ArrowLeftBig width={24} height={17.54} fill="black" />
-//         </TouchableOpacity>
-//         <NormalText normalText={route.params.title} fontType={Heading3} />
-//       </View>
-//       {/* <Message /> */}
-//       {/* <ButtonComponent
-//         buttonText="Confirm Booking"
-//         onPress={showConfirmation}
-//         // onPress={() => navigation.navigate("Select Professional Business")}
-//       /> */}
-//     </>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   navigation: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//   },
-//   arrow: {
-//     paddingRight: 15,
-//   },
-// });
-
-// export default ConfirmAppointmentBusiness;
-
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Link, useNavigation, useRoute } from "@react-navigation/native";
@@ -57,20 +5,25 @@ import NormalText from "../../components/NormalText/NormalText";
 import { Heading3 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
+  Edit,
   Fire,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
 import Card from "../../components/Card/Card";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
+import { Divider } from "native-base";
 
 const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
-  const showConfirmation = () => {
-    // return <Message />;
-    return <>hello</>;
-  };
+  // const showConfirmation = () => {
+  //   // return <Message />;
+  //   return <>hello</>;
+  // };
+
+  console.log(route.params);
 
   const tableHeader = [
     { title: "Services", property: "services" },
@@ -78,12 +31,8 @@ const ConfirmAppointmentBusiness = () => {
   ];
   const tableData = [
     {
-      services: "Hair Cut",
-      price: "$24",
-    },
-    {
-      services: "Hair Color",
-      price: "$24",
+      services: `${route.params.servicesSelected}`,
+      price: `$ ${parseFloat(route.params.servicesSelected)}`,
     },
     {
       services: (
@@ -112,9 +61,38 @@ const ConfirmAppointmentBusiness = () => {
         </TouchableOpacity>
         <NormalText normalText={route.params.title} fontType={Heading3} />
       </View>
+      {/* {route.params.services.map(() => ( */}
       <TableComponent tableHeader={tableHeader} tableData={tableData} />
+      {/* ))} */}
       <View style={styles.card}>
-        <Card />
+        <Card height={182}>
+          <View style={styles.cardContentContainer}>
+            <View style={styles.titleIcon}>
+              <NormalText normalText={"Specialist"} />
+              <Edit fill="black" />
+            </View>
+            <View style={styles.imageSpecialist}>
+              <ImageComponent
+                width={40}
+                height={40}
+                imageURL="https://picsum.photos/500/350"
+                borderRadius={20}
+              />
+              <NormalText
+                normalText={route.params.selectedSpecialist}
+                textAlign="left"
+              />
+            </View>
+            <Divider />
+            <View style={styles.dateTime}>
+              <NormalText normalText={"Date & Time"} textAlign="left" />
+              <NormalText
+                normalText={`${"29th Mach,2023"} ${route.params.selectedTime}`}
+                textAlign="left"
+              />
+            </View>
+          </View>
+        </Card>
       </View>
       <TouchableOpacity style={styles.coupon}>
         <View style={styles.textIcon}>
@@ -123,6 +101,11 @@ const ConfirmAppointmentBusiness = () => {
         </View>
         <NormalText normalText={">"} />
       </TouchableOpacity>
+
+      <View style={styles.total}>
+        <NormalText normalText={"Total Cost"} textAlign="left" />
+        <NormalText normalText={`${tableData[0].price}`} textAlign="right" />
+      </View>
 
       <View style={styles.button}>
         <ButtonComponent
@@ -156,12 +139,25 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 24,
     marginRight: 16,
-    paddingBottom: 24,
-    marginLeft: 16,
+    paddingBottom: 118,
+    paddingLeft: 16,
     width: "100%",
     borderBottomWidth: 1,
     borderBottomColor: "#718096",
   },
+  cardContentContainer: { flex: 1, flexDirection: "column" },
+  titleIcon: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  imageSpecialist: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: 16,
+  },
+  dateTime: { paddingTop: 16, gap: 8 },
   coupon: {
     flexDirection: "row",
     padding: 16,
@@ -174,6 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  total: {},
   button: {
     flex: 1,
     justifyContent: "flex-end",

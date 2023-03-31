@@ -1,11 +1,8 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import { View, TouchableOpacity, StyleSheet, Touchable } from "react-native";
+import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
-import {
-  Heading3,
-  Heading5,
-} from "../../components/NormalText/FontTypes";
+import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
   Plus,
@@ -14,10 +11,87 @@ import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import CardSalon from "../../components/CardSalon/CardSalon";
 import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
+import { createAxiosClient } from "../../api";
 
-const SelectServicesBusiness = () => {
+const SelectServicesBusiness = ({businessID}: any) => {
+
+    const serviceType: any = [];
+  
+    const searchService = async () => {
+      const { axiosClient } = await createAxiosClient();
+      await axiosClient
+        .get(`/serviceType/servicetypebybusiness/${businessID}`)
+        .then((res) => {
+          for (const service of res.data) {
+            serviceType.push(service["serviceType"]);
+          }
+        })
+        .catch((error) => {
+          console.log("THIS IS THE ERROR >>>>", error);
+        });
+    };
+  
+    searchService();
+
+    console.log(businessID)
+
+
+
+
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
+
+  const services = [
+    {
+      id: 1,
+      name: "Men's Haircut",
+      duration: "45min",
+      price: "27.50",
+    },
+    {
+      id: 2,
+      name: "Men's Haircolor",
+      duration: "60min",
+      price: "49.50",
+    },
+    {
+      id: 3,
+      name: "Kid's Haircut",
+      duration: "30min",
+      price: "25.50",
+    },
+  ];
+
+  // const [services, setServices] = useState({
+  //   services: [
+  //     {
+  //       id: 1,
+  //       name: "Men's Haircut",
+  //       duration: "45min",
+  //       price: "27.50",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Men's Haircolor",
+  //       duration: "60min",
+  //       price: "49.50",
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Kid's Haircut",
+  //       duration: "30min",
+  //       price: "25.50",
+  //     },
+  //   ],
+  // });
+
+  const [servicesSelected, setServicesSelected] = useState([{}]);
+  console.log(servicesSelected);
+
+  const addService = (selectedService: any) => {
+    setServicesSelected((servicesSelected) => [...servicesSelected, selectedService]);
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -40,61 +114,29 @@ const SelectServicesBusiness = () => {
           fontType={Heading5}
         />
         <View style={styles.servicesCard}>
-          <Card>
-            <ImageComponent height={69} width={69} borderRadius={4} />
-            <View>
-              <NormalText
-                normalText="Men's Haircut"
-                textColor="rgba(130, 40, 72, 1)"
-              />
-              <View style={{ flexDirection: "row" }}>
-                <NormalText normalText="45min" />
-                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
-                <NormalText normalText="$27.50" />
+          {services.map((service) => (
+            <Card>
+              <ImageComponent height={69} width={69} borderRadius={4} />
+              <View>
+                <NormalText
+                  normalText={service.name}
+                  textColor="rgba(130, 40, 72, 1)"
+                />
+                <View style={{ flexDirection: "row" }}>
+                  <NormalText normalText={service.duration} />
+                  <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
+                  <NormalText normalText={`$${service.price}`} />
+                </View>
               </View>
-            </View>
-            <View style={styles.cardIcon}>
-              <Plus fill="white" />
-            </View>
-          </Card>
-        </View>
-        <View style={styles.servicesCard}>
-          <Card>
-            <ImageComponent height={69} width={69} borderRadius={4} />
-            <View>
-              <NormalText
-                normalText="Men's Haircut"
-                textColor="rgba(130, 40, 72, 1)"
-              />
-              <View style={{ flexDirection: "row" }}>
-                <NormalText normalText="45min" />
-                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
-                <NormalText normalText="$27.50" />
-              </View>
-            </View>
-            <View style={styles.cardIcon}>
-              <Plus fill="white" />
-            </View>
-          </Card>
-        </View>
-        <View style={styles.servicesCard}>
-          <Card>
-            <ImageComponent height={69} width={69} borderRadius={4} />
-            <View>
-              <NormalText
-                normalText="Men's Haircut"
-                textColor="rgba(130, 40, 72, 1)"
-              />
-              <View style={{ flexDirection: "row" }}>
-                <NormalText normalText="45min" />
-                <NormalText normalText="•" textColor="rgba(130, 40, 72, 1)" />
-                <NormalText normalText="$27.50" />
-              </View>
-            </View>
-            <View style={styles.cardIcon}>
-              <Plus fill="white" />
-            </View>
-          </Card>
+              <TouchableOpacity
+                key={service.id}
+                onPress={() => addService(service)}
+                style={styles.cardIcon}
+              >
+                <Plus fill="white" />
+              </TouchableOpacity>
+            </Card>
+          ))}
         </View>
       </View>
 
@@ -104,6 +146,10 @@ const SelectServicesBusiness = () => {
           onPress={() =>
             navigation.navigate("Select Professional Business", {
               title: "Select Professional",
+              serviceName: services[0].name,
+              servicePrice: services[0].price,
+              servicesSelected: servicesSelected,
+              ...route.params,
             })
           }
         />
