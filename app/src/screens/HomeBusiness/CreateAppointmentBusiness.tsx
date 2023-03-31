@@ -47,7 +47,7 @@ const CreateAppointmentBusiness = () => {
         >
           <ArrowLeftBig width={24} height={17.54} fill="black" />
         </TouchableOpacity>
-        <NormalText normalText={route.params.title} fontType={Heading3} />
+        <NormalText normalText={route.params.titleCreateAppointment} fontType={Heading3} />
       </View>
       <View style={styles.inputs}>
         <InputComponent
@@ -101,7 +101,7 @@ const CreateAppointmentBusiness = () => {
           buttonText="Select Services"
           onPress={() =>
             navigation.navigate("Select Services Business", {
-              title: "Select Services",
+              titleSelectServices: "Select Services",
               customerName: customerInfo.name,
               customerEmail: customerInfo.email,
               customerPhone: customerInfo.phone,

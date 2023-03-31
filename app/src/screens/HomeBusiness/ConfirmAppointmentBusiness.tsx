@@ -2,7 +2,11 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Link, useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
-import { Heading3 } from "../../components/NormalText/FontTypes";
+import {
+  Heading3,
+  Heading4,
+  Heading5,
+} from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
   Edit,
@@ -18,35 +22,52 @@ const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
-  // const showConfirmation = () => {
-  //   // return <Message />;
-  //   return <>hello</>;
-  // };
-
   console.log(route.params);
 
   const tableHeader = [
-    { title: "Services", property: "services" },
+    { title: "Services", property: "name" },
     { title: "Price", property: "price" },
   ];
-  const tableData = [
-    {
-      services: `${route.params.servicesSelected}`,
-      price: `$ ${parseFloat(route.params.servicesSelected)}`,
-    },
-    {
-      services: (
-        <Link
-          to={{
-            screen: "Select Services Business",
-            params: { title: "Select Services" },
-          }}
-        >
-          Add Service
-        </Link>
+
+  const tableData = route.params?.servicesSelected ?? [];
+
+  const [appointments, setAppointments] = useState([]);
+
+  const handleConfirmBooking = () => {
+    const newAppointment = {
+      id: Date.now().toString(),
+      specialist: route.params.selectedSpecialist,
+      specialistPhoto: route.params.selectedSpecialistPhoto,
+      date: route.params.selectedDate,
+      time: route.params.selectedTime,
+      services: route.params.servicesSelected,
+      customer: route.params.customerName,
+      totalCost: tableData.reduce(
+        (acc: any, value: any) => acc + Number(value.price),
+        0
       ),
-    },
-  ];
+    };
+
+    setAppointments([...appointments, newAppointment]);
+
+    // const appoData = {
+    //   appointments: [...appointments, newAppointment],
+    //   cardData: {},
+      
+    // };
+
+    // navigation.navigate("Home Business", appoData);
+
+    navigation.navigate("Home Business", {
+      ...route.params,
+      appointments,
+      setAppointments,
+      totalCost: tableData.reduce(
+        (acc: any, value: any) => acc + Number(value.price),
+        0
+      ),
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -59,7 +80,10 @@ const ConfirmAppointmentBusiness = () => {
         >
           <ArrowLeftBig width={24} height={17.54} fill="black" />
         </TouchableOpacity>
-        <NormalText normalText={route.params.title} fontType={Heading3} />
+        <NormalText
+          normalText={route.params.titleConfirmation}
+          fontType={Heading3}
+        />
       </View>
       {/* {route.params.services.map(() => ( */}
       <TableComponent tableHeader={tableHeader} tableData={tableData} />
@@ -75,7 +99,7 @@ const ConfirmAppointmentBusiness = () => {
               <ImageComponent
                 width={40}
                 height={40}
-                imageURL="https://picsum.photos/500/350"
+                imageURL={route.params.selectedSpecialistPhoto}
                 borderRadius={20}
               />
               <NormalText
@@ -87,7 +111,7 @@ const ConfirmAppointmentBusiness = () => {
             <View style={styles.dateTime}>
               <NormalText normalText={"Date & Time"} textAlign="left" />
               <NormalText
-                normalText={`${"29th Mach,2023"} ${route.params.selectedTime}`}
+                normalText={`${route.params.selectedDate} at ${route.params.selectedTime}`}
                 textAlign="left"
               />
             </View>
@@ -103,18 +127,20 @@ const ConfirmAppointmentBusiness = () => {
       </TouchableOpacity>
 
       <View style={styles.total}>
-        <NormalText normalText={"Total Cost"} textAlign="left" />
-        <NormalText normalText={`${tableData[0].price}`} textAlign="right" />
+        <NormalText normalText={"Total Cost"} fontType={Heading4} />
+        <NormalText
+          normalText={`$${tableData.reduce(
+            (acc: any, value: any) => acc + Number(value.price),
+            0
+          )}`}
+          fontType={Heading4}
+        />
       </View>
 
       <View style={styles.button}>
         <ButtonComponent
           buttonText="Confirm Booking"
-          // onPress={() =>
-          //   navigation.navigate("Select Services Business", {
-          //     title: "Select Services",
-          //   })
-          // }
+          onPress={handleConfirmBooking}
         />
       </View>
     </View>
@@ -141,7 +167,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
     paddingBottom: 118,
     paddingLeft: 16,
-    width: "100%",
+    width: "105%",
     borderBottomWidth: 1,
     borderBottomColor: "#718096",
   },
@@ -170,7 +196,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  total: {},
+  total: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 24,
+  },
   button: {
     flex: 1,
     justifyContent: "flex-end",
