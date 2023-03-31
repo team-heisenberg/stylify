@@ -1,3 +1,4 @@
+
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import Card from "../Card/Card";
 import ImageComponent from "../ImageComponent/ImageComponent";
