@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import NormalText from "../NormalText/NormalText";
 import { Heading5 } from "../NormalText/FontTypes";
@@ -10,6 +10,15 @@ interface TableProps {
   tableData: any[];
   headerBackgroundColor?: string;
   headerTextColor?: string;
+  tableCellStyles?: {
+    index: number;
+    alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+    borderLeftWidthForHeader?: number;
+    borderLeftColorForHeader?: string;
+    borderLeftWidth?: number;
+    borderLeftColor?: string;
+  }[];
+  renderItems?: "top" | "all";
 }
 
 const TableComponent = (props: TableProps) => {
@@ -18,7 +27,22 @@ const TableComponent = (props: TableProps) => {
     return (
       <View style={styles.row} key={index}>
         {props.tableHeader.map((header: any, i) => (
-          <View key={i} style={styles.cell}>
+          <View
+            key={i}
+            style={[
+              styles.cell,
+              props.tableCellStyles &&
+                props.tableCellStyles.map((cell) =>
+                  cell.index === i
+                    ? {
+                        alignItems: cell.alignItems,
+                        borderLeftWidth: cell.borderLeftWidth,
+                        borderLeftColor: cell.borderLeftColor,
+                      }
+                    : { alignItems: "flex-start", borderLeftWidth: 0 }
+                ),
+            ]}
+          >
             <NormalText normalText={rowData[header.property]} />
           </View>
         ))}
@@ -32,6 +56,16 @@ const TableComponent = (props: TableProps) => {
       style={[
         styles.headerCell,
         { backgroundColor: props.headerBackgroundColor },
+        props.tableCellStyles &&
+          props.tableCellStyles.map((cell) =>
+            cell.index === index
+              ? {
+                  alignItems: cell.alignItems,
+                  borderLeftWidth: cell.borderLeftWidthForHeader,
+                  borderLeftColor: cell.borderLeftColorForHeader,
+                }
+              : { alignItems: "flex-start", borderLeftWidth: 0 }
+          ),
       ]}
     >
       <NormalText
@@ -49,6 +83,7 @@ const TableComponent = (props: TableProps) => {
       <FlatList
         style={styles.container}
         data={[...tableData]}
+        initialNumToRender={0}
         renderItem={renderItem}
         ListHeaderComponent={() => <View style={styles.header}>{header}</View>}
         stickyHeaderIndices={[0]}
@@ -70,7 +105,6 @@ const styles = StyleSheet.create({
   },
   headerCell: {
     flex: 1,
-    alignItems: "flex-start",
     justifyContent: "center",
     padding: 16,
   },
@@ -82,7 +116,6 @@ const styles = StyleSheet.create({
   },
   cell: {
     flex: 1,
-    alignItems: "flex-start",
     justifyContent: "center",
     padding: 16,
   },

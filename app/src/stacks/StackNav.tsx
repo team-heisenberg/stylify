@@ -27,7 +27,7 @@ import Profile from "../screens/Profile/Profile";
 import ServiceDetail from "../screens/Browse/ServiceDetail";
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
-import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
+// import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
 

@@ -11,7 +11,9 @@ interface CardInterface {
   flexDirection?: "row" | "row-reverse" | "column" | "column-reverse";
   padding?: number;
   onPress?: () => void;
-  justifyContent?: "center" | "space-between"
+  justifyContent?: "center" | "space-between" | "space-around" | "space-evenly";
+  alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+  marginBottom?: number;
 }
 
 const Card = ({
@@ -25,10 +27,12 @@ const Card = ({
   padding,
   onPress,
   justifyContent,
+  alignItems,
+  marginBottom,
 }: CardInterface) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={{ height: 93 }}>
+      <View style={{ height: 93, marginBottom: marginBottom }}>
         <View
           style={[
             styles.card,
@@ -41,6 +45,7 @@ const Card = ({
               flexDirection: flexDirection,
               padding: padding,
               justifyContent: justifyContent,
+              alignItems: alignItems,
             },
           ]}
         >
@@ -68,6 +73,8 @@ Card.defaultProps = {
   backgroundColor: "#FDF6E9",
   flexDirection: "row",
   padding: 10,
+  alignItems: "center",
+  marginBottom: 0,
 };
 
 const styles = StyleSheet.create({
@@ -75,7 +82,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     position: "absolute",
     zIndex: 100,
-    alignItems: "center",
   },
   shadow: {
     borderRadius: 8,
