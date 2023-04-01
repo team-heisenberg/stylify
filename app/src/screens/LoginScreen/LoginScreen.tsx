@@ -13,7 +13,6 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../../../firebase";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -21,6 +20,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
 import { GoogleIcon } from "../../components/IconsComponent/IconsComponent";
+import { createAxiosClient } from "../../api";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -105,6 +105,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const { axiosClient } = await createAxiosClient();
       if (user) {
         // Try to sync user
         const docRef = doc(db, "users", `${user.email}`);
@@ -114,9 +115,9 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           const { isCustomer, photoURL, ...usr } = docSnap.data();
           console.log("Document data:", usr);
 
-          await axios
+          await axiosClient
             .post(
-              `http://localhost:8080/${isCustomer ? "customer" : "business"}`,
+              `/${isCustomer ? "customer" : "business"}`,
               {
                 ...usr,
                 avatarURL: isCustomer
@@ -129,8 +130,8 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           console.log("No such document!");
         }
 
-        const { data, error } = (await axios
-          .post("http://localhost:8080/auth", {
+        const { data, error } = (await axiosClient
+          .post("/auth", {
             ...user,
           })
           .catch((error) => ({ error }))) as any;
