@@ -4,8 +4,6 @@ import NormalText from "../NormalText/NormalText";
 import { Heading5 } from "../NormalText/FontTypes";
 
 interface TableProps {
-  // numColumns: number;
-  // numRows: number;
   tableHeader: { title: string; property: string }[];
   tableData: any[];
   headerBackgroundColor?: string;
