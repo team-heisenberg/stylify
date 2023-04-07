@@ -3,8 +3,13 @@ import React from "react";
 import NormalText from "../NormalText/NormalText";
 import { useNavigation } from "@react-navigation/native";
 
-const SearchListItem = ({ id, title }) => {
-  const navigation = useNavigation();
+interface SearchListItemInterface {
+  id: string | number;
+  title: string;
+}
+
+const SearchListItem: React.FC<SearchListItemInterface> = ({ id, title }) => {
+  const navigation = useNavigation<any>();
 
   const onPress = () => {
     navigation.navigate("Search Results", {
@@ -25,7 +30,7 @@ export default SearchListItem;
 
 const styles = StyleSheet.create({
   button: {
-    padding: 10,
-    margin: 20,
+    padding: 15,
+    margin: 5,
   },
 });

@@ -207,8 +207,6 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
           </View>
         </Card>
         <TableComponent
-          numColumns={2}
-          numRows={3}
           tableHeader={[
             { title: "Top Peofessionals", property: "professional" },
             { title: "Sale", property: "sale" },

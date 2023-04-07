@@ -1,4 +1,3 @@
-import axios from "axios";
 import { StyleSheet, View, FlatList } from "react-native";
 import React, { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
@@ -6,47 +5,61 @@ import NormalText from "../NormalText/NormalText";
 import SearchListItem from "./SearchListItem";
 import { createAxiosClient } from "../../api";
 
+interface BusinessInterface {
+  businessID: string;
+  businessName: string;
+}
+
 const SearchComponent = () => {
   const [value, setValue] = useState("");
   const [serviceName, setServiceName] = useState([]);
-  const [filteredBusiness, setFilteredBusiness] = useState([]);
+  const [filteredBusiness, setFilteredBusiness] = useState<BusinessInterface[]>(
+    []
+  );
 
   // Search for services
-  const searchService = async (value) => {
+  const searchService = async (value: any) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
       .get("/service")
       .then((res) => {
-        const service = res.data.filter((a) => {
+        const service = res.data.filter((a: { serviceName: string }) => {
           return a.serviceName.toLowerCase().includes(value.toLowerCase());
         });
         const unique = service
-          .map((item) => item.serviceName)
-          .filter((value, index, self) => self.indexOf(value) === index);
-
-        console.log(unique);
+          .map((item: { serviceName: string }) => item.serviceName)
+          .filter(
+            (value: string, index: number, self: string) =>
+              self.indexOf(value) === index
+          );
+        console.log("service", service);
+        console.log("unique", unique);
         setServiceName(unique);
       })
       .catch((error) => {
-        console.log(JSON.stringify(error))
+        console.log(JSON.stringify(error));
       });
   };
 
   // Search for businesses
-  const searchBusiness = async (value) => {
+  const searchBusiness = async (value: any) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
-      .get("/service")
+      .get("/business")
       .then((res) => {
-        console.log(res);
-        setFilteredBusiness(res.data);
+        const business = res.data.filter((a: { businessName: string }) => {
+          return a.businessName.toLowerCase().includes(value.toLowerCase());
+        });
+        console.log("business", business);
+        setFilteredBusiness(business);
       })
       .catch((error) => {
-        console.log(error), setFilteredBusiness([]);
+        console.log(JSON.stringify(error));
+        setFilteredBusiness([]);
       });
   };
 
-  const handleChange = (value) => {
+  const handleChange = (value: any) => {
     setValue(value);
     searchService(value);
     searchBusiness(value);
@@ -54,11 +67,13 @@ const SearchComponent = () => {
 
   return (
     <>
-      <InputComponent
-        value={value}
-        onChangeText={handleChange}
-        inputLabel="Search"
-      />
+      <View style={styles.input}>
+        <InputComponent
+          value={value}
+          onChangeText={handleChange}
+          inputLabel="Search"
+        />
+      </View>
       {value && (
         <View style={styles.list}>
           <NormalText
@@ -92,13 +107,21 @@ const SearchComponent = () => {
 export default SearchComponent;
 
 const styles = StyleSheet.create({
+  input: {
+    width: "90%",
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+    zIndex: 200,
+  },
   list: {
     backgroundColor: "#F9F5EE",
     position: "absolute",
-    top: 70,
+    top: 80,
     bottom: -550,
     right: -60,
     left: -60,
     zIndex: 100,
+    padding: 15,
   },
 });

@@ -104,13 +104,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   headerCell: {
-<<<<<<< HEAD
     flex: 1,
-    justifyContent: "center",
-=======
     alignItems: "flex-start",
     justifyContent: "space-between",
->>>>>>> 96d39fa (improving style of business home page and appointment)
     padding: 16,
   },
   row: {
@@ -120,11 +116,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "#718096",
   },
   cell: {
-<<<<<<< HEAD
     flex: 1,
-=======
     alignItems: "flex-start",
->>>>>>> 96d39fa (improving style of business home page and appointment)
     justifyContent: "center",
     padding: 16,
   },

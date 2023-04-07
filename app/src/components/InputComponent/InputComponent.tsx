@@ -1,7 +1,6 @@
 import NormalText from "../NormalText/NormalText";
-import { Input, NativeBaseProvider, View } from "native-base";
+import { Input, View } from "native-base";
 import { captions } from "../NormalText/FontTypes";
-import { Dimensions, Platform } from "react-native";
 
 interface InputComponentInterface {
   value?: string;
