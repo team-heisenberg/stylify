@@ -67,7 +67,6 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   
         await signInWithCredential(auth, credentials);
       }
-
     } catch (error) {
       console.log('<<<<<<', error)
     }
@@ -100,7 +99,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
       }).catch(console.log);
     }
 
-    await getGoogleUserInfo()
+    await getGoogleUserInfo();
   };
 
   useEffect(() => {
@@ -121,7 +120,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               {
                 ...usr,
                 avatarURL: isCustomer
-                  ? user.photoURL || usr.avatarURL || photoURL ||  ""
+                  ? user.photoURL || usr.avatarURL || photoURL || ""
                   : undefined,
               }
             )
@@ -171,7 +170,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         <View>
           <TouchableOpacity
             onPress={async () => {
-              await createGoogleUserFirestore(false)
+              await createGoogleUserFirestore(false);
               setShowOauthForm(false);
             }}
           >

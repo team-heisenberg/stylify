@@ -1,8 +1,7 @@
 import { Router } from 'express'
-import { PrismaClient } from '@prisma/client'
 import { authenticateToken } from './authRouter'
+import { prisma } from '../app'
 
-const prisma = new PrismaClient()
 
 const router = Router()
 

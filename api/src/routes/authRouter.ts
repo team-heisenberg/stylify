@@ -1,9 +1,7 @@
 import 'dotenv'
 import { Router } from 'express'
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '../app'
 
 const router = Router()
 

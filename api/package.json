@@ -9,6 +9,7 @@
     "build": "dotenv -e ../.env prisma generate && rimraf -rf ./build && tsc",
     "start:docker": "dotenv -e ../.env -- docker compose -f ../.docker/docker-compose.yml -p stylify up  --detach --no-deps --build",
     "start:db": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql.yml -p stylify up --detach --no-deps --build",
+    "start:redis": "dotenv -e ../.env -- docker compose -f ../.docker/docker-redis.yml -p stylify up --detach --no-deps --build",
     "start:db:m1": "dotenv -e ../.env -- docker compose -f ../.docker/docker-mysql-apple-silicon.yml -p stylify up --detach --no-deps --build",
     "prisma:migrate": "dotenv -e ../.env npx prisma migrate dev --name",
     "prisma:deploy": "dotenv -e ../.env npx prisma migrate deploy",
@@ -48,6 +49,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
+    "@types/ioredis": "5.0.0",
     "app": "^0.1.0",
     "axios": "^1.3.3",
     "bcrypt": "^5.1.0",
@@ -55,7 +57,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "ioredis": "5.3.1",
     "jsonwebtoken": "^9.0.0",
-    "prisma": "^4.9.0"
+    "prisma": "^4.9.0",
+    "prisma-redis-middleware": "4.6.1"
   }
 }

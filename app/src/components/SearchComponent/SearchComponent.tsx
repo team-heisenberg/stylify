@@ -79,7 +79,7 @@ const SearchComponent = () => {
           <NormalText
             normalText={`Search services and businesses for ${value}`}
           />
-          <View>
+          <View style={{ backgroundColor: "#F9F5EE" }}>
             <FlatList
               data={serviceName}
               renderItem={({ item }) => (

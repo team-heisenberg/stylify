@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    marginTop: "40%"
   },
   card: {
     flexDirection: "column",
