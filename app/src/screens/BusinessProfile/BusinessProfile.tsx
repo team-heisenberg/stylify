@@ -56,7 +56,8 @@ const BusinessProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#F9F5EE"
   },
   header: {
     flexDirection: "row",

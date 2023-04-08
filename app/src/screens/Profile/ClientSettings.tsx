@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#F9F5EE"
   },
   arrow: {
     paddingRight: 15,

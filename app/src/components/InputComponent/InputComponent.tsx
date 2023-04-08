@@ -37,11 +37,12 @@ const InputComponent = ({
       <View
         style={{
           position: "absolute",
-          backgroundColor: labelBgColor,
+          backgroundColor: "#F9F5EE",
           zIndex: 100,
           paddingLeft: 8,
           paddingRight: 8,
           left: 20,
+          borderRadius: 15
         }}
       >
         <NormalText normalText={inputLabel} fontType={captions} />
@@ -64,7 +65,7 @@ const InputComponent = ({
           py="3"
           borderColor="#161D23"
           focusOutlineColor="#161D23"
-          backgroundColor={inputBgColor}
+          backgroundColor="#F9F5EE"
           borderWidth="2"
           isDisabled={isDisabled}
           isRequired={isRequired}

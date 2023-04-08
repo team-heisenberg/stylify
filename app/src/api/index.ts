@@ -5,7 +5,7 @@ export const createAxiosClient = async () => {
   const jwtToken: string = await AsyncStorage.getItem("@stylify:token") || "";
 
   const axiosClient = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: process.env.NODE_ENV === "development" ? "http://localhost:8080": "http://ec2-35-155-214-56.us-west-2.compute.amazonaws.com/api",
     headers: {
       "Authorization": `Bearer ${jwtToken}`
     }

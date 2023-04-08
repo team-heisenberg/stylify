@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 6,
+    backgroundColor: "#F9F5EE"
   },
 
   discountCode: {
