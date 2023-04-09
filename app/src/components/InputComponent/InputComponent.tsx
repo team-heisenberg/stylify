@@ -1,6 +1,12 @@
 import NormalText from "../NormalText/NormalText";
 import { Input, View } from "native-base";
-import { captions } from "../NormalText/FontTypes";
+import { captions, captionsForInput } from "../NormalText/FontTypes";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Easing, StyleSheet } from "react-native";
+import { Search } from "../IconsComponent/IconsComponent";
+
+let onBlur = () => {};
+let onFocus = () => {};
 
 interface InputComponentInterface {
   value?: string;
@@ -26,6 +32,22 @@ const InputComponent = ({
   isRequired,
   error,
 }: InputComponentInterface) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const focusAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(focusAnim, {
+      toValue: isFocused ? 1 : 0,
+      // I took duration and easing values
+      // from material.io demo page
+      duration: 150,
+      easing: Easing.bezier(0.4, 0, 0.2, 1),
+      // we'll come back to this later
+      useNativeDriver: false,
+    }).start();
+  }, [focusAnim, isFocused]);
+
   return (
     <View
       style={{
@@ -36,52 +58,97 @@ const InputComponent = ({
     >
       <View
         style={{
-          position: "absolute",
-          backgroundColor: "#F9F5EE",
+          width: "99%",
           zIndex: 100,
-          paddingLeft: 8,
-          paddingRight: 8,
-          left: 20,
-          borderRadius: 15
         }}
       >
-        <NormalText normalText={inputLabel} fontType={captions} />
+        <Animated.View
+          style={{
+            position: "absolute",
+            backgroundColor: "#F9F5EE",
+            zIndex: 100,
+            paddingLeft: 8,
+            paddingRight: 8,
+            left: 20,
+            borderRadius: 15,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 15,
+            top: focusAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [28, 0],
+            }),
+          }}
+        >
+          {!isFocused && isSearch && <Search />}
+          <NormalText
+            normalText={inputLabel}
+            fontType={isFocused ? captions : captionsForInput}
+          />
+        </Animated.View>
+        <View
+          style={{
+            top: 15,
+          }}
+        >
+          <Input
+            value={value}
+            onChangeText={onChangeText}
+            variant="rounded"
+            placeholder={placeholder}
+            w={{
+              base: "100%",
+            }}
+            height={55}
+            type={showText ? "text" : "password"}
+            py="3"
+            borderColor="#161D23"
+            focusOutlineColor="#161D23"
+            backgroundColor="#F9F5EE"
+            borderWidth="2"
+            isDisabled={isDisabled}
+            isRequired={isRequired}
+            // zIndex={100}
+            style={{
+              fontFamily: "Figtree_400Regular",
+            }}
+            onBlur={(event) => {
+              setIsFocused(false);
+              onBlur?.();
+            }}
+            onFocus={(event) => {
+              setIsFocused(true);
+              onFocus?.();
+            }}
+          />
+          {error && (
+            <NormalText
+              normalText="Error text"
+              textColor="#FF1C00"
+              marginTop={4}
+              fontType={captions}
+            />
+          )}
+        </View>
       </View>
       <View
         style={{
-          top: 15,
+          width: "99%",
+          height: 55,
+          borderRadius: 50,
+          backgroundColor: "#000000",
+          // top: -37,
+          // left: 3,
+          // top: focusAnim.interpolate({
+          //   inputRange: [0, 1],
+          //   outputRange: [28, 0],
+          // }),
+          // left: focusAnim.interpolate({
+          //   inputRange: [0, 1],
+          //   outputRange: [28, 0],
+          // }),
         }}
-      >
-        <Input
-          value={value}
-          onChangeText={onChangeText}
-          variant="rounded"
-          placeholder={placeholder}
-          w={{
-            base: "100%",
-          }}
-          size="2xl"
-          type={showText ? "text" : "password"}
-          py="3"
-          borderColor="#161D23"
-          focusOutlineColor="#161D23"
-          backgroundColor="#F9F5EE"
-          borderWidth="2"
-          isDisabled={isDisabled}
-          isRequired={isRequired}
-          style={{
-            fontFamily: "Figtree_400Regular",
-          }}
-        />
-        {error && (
-          <NormalText
-            normalText="Error text"
-            textColor="#FF1C00"
-            marginTop={4}
-            fontType={captions}
-          />
-        )}
-      </View>
+      />
     </View>
   );
 };
@@ -99,3 +166,14 @@ InputComponent.defaultProps = {
   isRequired: true,
   error: false,
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    width: "99%",
+    height: 55,
+    borderRadius: 50,
+    backgroundColor: "#000000",
+    top: -37,
+    left: 3,
+  },
+});
