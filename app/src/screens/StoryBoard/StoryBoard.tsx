@@ -132,7 +132,11 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         />
         <NormalText normalText="Haircut" />
       </Card>
-      <Message />
+      <Message
+        messageText="Message here"
+        messageButtonText="Done"
+        buttonText="Show Message"
+      />
       <Dropdown
         label="Select Item"
         labelTop="Label top"

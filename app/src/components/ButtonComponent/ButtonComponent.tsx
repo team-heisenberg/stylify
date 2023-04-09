@@ -1,9 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import React, { ReactElement, useState } from "react";
 import NormalText from "../NormalText/NormalText";
 import { Link } from "../NormalText/FontTypes";
@@ -11,6 +6,7 @@ import { Link } from "../NormalText/FontTypes";
 interface ButtonComponentInterface {
   flex?: number;
   width?: number;
+  containerWidth?: number | string;
   height?: number;
   backgroundColor?: string;
   disabledColor?: string;
@@ -25,6 +21,7 @@ interface ButtonComponentInterface {
 const ButtonComponent = ({
   flex,
   width,
+  containerWidth,
   height,
   backgroundColor,
   disabledColor,
@@ -40,7 +37,7 @@ const ButtonComponent = ({
   return (
     <View
       style={{
-        width: "98.5%",
+        width: containerWidth,
         marginVertical: 8,
       }}
     >
@@ -76,14 +73,17 @@ const ButtonComponent = ({
               },
             ]}
           >
-            {icon && <View style={{width: "20%", alignItems: "flex-start" }}>{icon}</View>}
-            <View  style={icon && {width: "75%", paddingRight: "20%"}}>
-            <NormalText
-              normalText={buttonText}
-              textColor={textColor}
-              fontType={Link}
-            />
-            
+            {icon && (
+              <View style={{ width: "20%", alignItems: "flex-start" }}>
+                {icon}
+              </View>
+            )}
+            <View style={icon && { width: "75%", paddingRight: "20%" }}>
+              <NormalText
+                normalText={buttonText}
+                textColor={textColor}
+                fontType={Link}
+              />
             </View>
           </View>
           <View
@@ -108,6 +108,7 @@ const ButtonComponent = ({
 
 ButtonComponent.defaultProps = {
   width: "98%",
+  containerWidth: "98.5%",
   height: 59,
   backgroundColor: "#105535",
   disabledColor: "#E0E5E1",
