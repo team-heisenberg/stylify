@@ -107,7 +107,7 @@ const ButtonComponent = ({
 };
 
 ButtonComponent.defaultProps = {
-  width: 300,
+  width: "98%",
   height: 59,
   backgroundColor: "#105535",
   disabledColor: "#E0E5E1",

@@ -216,8 +216,8 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: "#F9F5EE",
     height: "100%",
-    marginLeft: 16,
-    marginRight: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   cards: {
     marginTop: 16,

@@ -1,7 +1,5 @@
 import { Router } from 'express'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '../app'
 
 const router = Router()
 
@@ -30,8 +28,8 @@ router.get('/:appointmentDetailsID', async (req, res) => {
 
   const appointmentDetails = await prisma.appointmentDetails.findFirst({
     where: {
-      appointmentDetailsID: Number(appointmentDetailsID)
-    }
+      appointmentDetailsID: Number(appointmentDetailsID),
+    },
   })
 
   res.json(appointmentDetails)
@@ -42,7 +40,7 @@ router.put('/:appointmentDetailsID', async (req, res) => {
   const { appointmentDetailsID, ...data } = req.body
   const appointmentDetails = await prisma.appointmentDetails.update({
     where: {
-      appointmentDetailsID: Number (appointmentDetailsID),
+      appointmentDetailsID: Number(appointmentDetailsID),
     },
     data,
   })
@@ -56,7 +54,7 @@ router.delete('/:appointmentDetailsID', async (req, res) => {
 
   const appointmentDetails = await prisma.appointmentDetails
     .delete({
-      where: { appointmentDetailsID: Number (appointmentDetailsID) },
+      where: { appointmentDetailsID: Number(appointmentDetailsID) },
     })
     .catch((error) => error)
 

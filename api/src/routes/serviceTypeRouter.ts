@@ -1,7 +1,5 @@
 import { Router } from 'express'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '../app'
 
 const router = Router()
 
@@ -28,13 +26,13 @@ router.get('/servicetypebybusiness/:businessID', async (req, res) => {
   const serviceTypeList = await prisma.serviceType.findMany({
     select: {
       serviceTypeID: true,
-      serviceType:true,
+      serviceType: true,
       services: {
         where: {
-          businessID: Number(businessID)
-        }
-      }
-     }    
+          businessID: Number(businessID),
+        },
+      },
+    },
   })
 
   res.json(serviceTypeList)

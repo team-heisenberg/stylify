@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     alignSelf: "center",
+    backgroundColor: "#F9F5EE"
   },
   navContainer: {
     flexDirection: "row",

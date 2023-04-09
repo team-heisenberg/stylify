@@ -7,8 +7,8 @@ import GeneralInsights from "./GeneralInsights";
 
 const InsightsBusiness = () => {
   return (
-    <>
-      <View style={{ margin: 20 }}>
+    <View style={{ flex: 1, backgroundColor: "#F9F5EE" }}>
+      <View style={{ margin: 6 }}>
         <NormalText
           normalText="Insights"
           fontType={Heading3}
@@ -39,7 +39,7 @@ const InsightsBusiness = () => {
           },
         ]}
       />
-    </>
+    </View>
   );
 };
 

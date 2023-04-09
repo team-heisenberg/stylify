@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   card: {
     flexDirection: "column",
