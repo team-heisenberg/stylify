@@ -22,7 +22,6 @@ const CreateAppointmentBusiness = () => {
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
   };
-  //customer name, email, phone
   const typeOfAppointment = ["Walk-in", "Call Appointment"];
 
   console.log(

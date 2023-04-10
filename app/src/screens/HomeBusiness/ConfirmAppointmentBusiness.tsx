@@ -5,7 +5,6 @@ import NormalText from "../../components/NormalText/NormalText";
 import {
   Heading3,
   Heading4,
-  Heading5,
 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
@@ -17,10 +16,20 @@ import TableComponent from "../../components/TableComponent/TableComponent";
 import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { Divider } from "native-base";
+import { createAxiosClient } from "../../api";
 
 const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
+
+  const addAppointment = async () => {
+    const {axiosClient} = await createAxiosClient()
+    await axiosClient
+  .post("/appointment")
+  .then(response => {
+   console.log(response)
+  })
+}
 
   console.log(route.params);
 
@@ -49,14 +58,6 @@ const ConfirmAppointmentBusiness = () => {
     };
 
     setAppointments([...appointments, newAppointment]);
-
-    // const appoData = {
-    //   appointments: [...appointments, newAppointment],
-    //   cardData: {},
-      
-    // };
-
-    // navigation.navigate("Home Business", appoData);
 
     navigation.navigate("Home Business", {
       ...route.params,

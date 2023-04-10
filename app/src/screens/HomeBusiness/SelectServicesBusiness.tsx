@@ -8,12 +8,9 @@ import {
   Plus,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import CardSalon from "../../components/CardSalon/CardSalon";
 import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { createAxiosClient } from "../../api";
-import { Row } from "native-base";
-import { background } from "native-base/lib/typescript/theme/styled-system";
 
 const SelectServicesBusiness = ({ businessID }: any) => {
   const serviceType: any = [];
@@ -59,29 +56,6 @@ const SelectServicesBusiness = ({ businessID }: any) => {
       price: "25.50",
     },
   ];
-
-  // const [services, setServices] = useState({
-  //   services: [
-  //     {
-  //       id: 1,
-  //       name: "Men's Haircut",
-  //       duration: "45min",
-  //       price: "27.50",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Men's Haircolor",
-  //       duration: "60min",
-  //       price: "49.50",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Kid's Haircut",
-  //       duration: "30min",
-  //       price: "25.50",
-  //     },
-  //   ],
-  // });
 
   const [servicesSelected, setServicesSelected] = useState<
     {
@@ -164,8 +138,6 @@ const SelectServicesBusiness = ({ businessID }: any) => {
           onPress={() =>
             navigation.navigate("Select Professional Business", {
               titleProfessional: "Select Professional",
-              // serviceName: services[0].name,
-              // servicePrice: services[0].price,
               servicesSelected: servicesSelected,
               ...route.params,
             })
@@ -206,7 +178,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 1,
-    // backgroundColor: "green",
     alignItems: "center",
   },
   imageTextContaienr: { flexDirection: "row", gap: 7, alignItems: "center" },
@@ -214,7 +185,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#105535",
     padding: 12,
     borderRadius: 50,
-    // marginLeft: 150,
   },
   button: {
     flex: 1,

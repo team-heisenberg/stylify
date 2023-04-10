@@ -9,12 +9,10 @@ import {
   ArrowUp,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import { Agenda } from "react-native-calendars";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
 import { Calendar } from "react-native-calendars";
-import day from "react-native-calendars/src/calendar/day";
 
 const SelectProfessionalBusiness = () => {
   const [professionals, setProfessionals] = useState([]);
@@ -32,7 +30,6 @@ const SelectProfessionalBusiness = () => {
           }
         );
         setProfessionals(filteredProfessionals);
-        // console.log(filteredProfessionals)
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -114,24 +111,19 @@ const SelectProfessionalBusiness = () => {
           fontType={Heading3}
         />
       </View>
-      {/* <Agenda  theme={{}} /> */}
       <View style={styles.calendarContainer}>
         {expanded ? (
           <Calendar
-            // initialDate={"2023-03-16"}
             onDayPress={(day) => {
               setSelectedDate(day.dateString);
               console.log("selected day", day);
             }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
             style={styles.calendar}
             firstDay={1}
             theme={{
               textDayFontFamily: "PlayfairDisplay_400Regular",
               textMonthFontFamily: "PlayfairDisplay_700Bold",
               textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
-              // textTodayFontFamily: "PlayfairDisplay_700Bold",
               calendarBackground: "#F9F5EE",
               textDayFontWeight: "400",
               textDisabledColor: "#000000",
@@ -148,13 +140,10 @@ const SelectProfessionalBusiness = () => {
           />
         ) : (
           <Calendar
-            // initialDate={"2023-03-16"}
             onDayPress={(day) => {
               setSelectedDate(day.dateString);
               console.log("selected day", day);
             }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
             style={styles.expanded}
             firstDay={1}
             theme={{
@@ -302,15 +291,12 @@ const styles = StyleSheet.create({
   },
   specialistContainer: {
     flex: 1,
-    // flexGrow: 1.5,
     flexDirection: "row",
     marginTop: 8,
     paddingLeft: 16,
     paddingRight: 16,
-    // backgroundColor: "red",
   },
   specialistImageText: {
-    // flexGrow: 1,
     alignItems: "center",
     alignSelf: "flex-start",
     marginRight: 16,
@@ -335,7 +321,6 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   calendarContainer: {
-    // flex: 1,
     borderTopWidth: 2,
     borderTopColor: "black",
     borderBottomWidth: 2,
