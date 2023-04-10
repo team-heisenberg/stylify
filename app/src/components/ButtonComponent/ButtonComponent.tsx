@@ -13,6 +13,7 @@ interface ButtonComponentInterface {
   isDisabled?: boolean;
   buttonText: string;
   icon?: ReactElement;
+  rightIcon?: ReactElement;
   textColor?: string;
   value?: string;
   onPress?: () => void;
@@ -29,6 +30,7 @@ const ButtonComponent = ({
   buttonText,
   textColor,
   icon,
+  rightIcon,
   onPress,
 }: ButtonComponentInterface) => {
   const [positionTop, setPositionTop] = useState(4);
@@ -73,16 +75,37 @@ const ButtonComponent = ({
               },
             ]}
           >
+<<<<<<< HEAD
                <View style={icon && { width: "75%" }}>
+=======
+            {icon && (
+              <View style={{ width: "20%", alignItems: "flex-start" }}>
+                {icon}
+              </View>
+            )}
+            <View style={icon && { width: "75%", paddingRight: "20%" }}>
+            <View
+              style={
+                (icon && { width: "75%", paddingRight: "20%" }) ||
+                (rightIcon && { width: "80%" })
+              }
+            >
+>>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
               <NormalText
                 normalText={buttonText}
                 textColor={textColor}
                 fontType={Link}
               />
             </View>
+<<<<<<< HEAD
             {icon && (
               <View style={{ width: "5%", alignItems: "flex-end" }}>
                 {icon}
+=======
+            {rightIcon && (
+              <View style={{ width: "5%", alignItems: "flex-end" }}>
+                {rightIcon}
+>>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
               </View>
             )}
           </View>

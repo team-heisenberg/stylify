@@ -1,5 +1,10 @@
 import axios from "axios";
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../firebase";
@@ -9,6 +14,9 @@ import InputComponent from "../../components/InputComponent/InputComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { doc, setDoc } from "firebase/firestore";
+import NormalText from "../../components/NormalText/NormalText";
+import { ArrowLeftBig } from "../../components/IconsComponent/IconsComponent";
+import { Heading4 } from "../../components/NormalText/FontTypes";
 
 const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
   navigation,
@@ -57,46 +65,66 @@ const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={{ padding: 15 }}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <ScrollView>
-        <InputComponent
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={(text) => setFirstName(text)}
-        />
-        <InputComponent
-          placeholder="Last Name"
-          value={lastName}
-          onChangeText={(text) => setLastName(text)}
-        />
-        {/* @ts-ignore */}
-        <PhoneInput
-          style={styles.input}
-          ref={phoneRef}
-          value={phoneNumber}
-          onChangePhoneNumber={setPhoneNumber}
-        />
-        <InputComponent
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <InputComponent
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          showText={false}
-        />
-        <InputComponent
-          placeholder="Password"
-          value={passwordConfirm}
-          onChangeText={(text) => setPasswordConfrim(text)}
-          showText={false}
-        />
-        {error && <Text>Password do not match</Text>}
+        <View style={{ width: "90%", alignSelf: "center", gap: 3 }}>
+          <View style={styles.navContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <ArrowLeftBig width={24} height={20} fill="black" />
+            </TouchableOpacity>
+            <NormalText normalText="Sign up" fontType={Heading4} />
+          </View>
+          <InputComponent
+            inputLabel="First Name"
+            value={firstName}
+            onChangeText={(text) => setFirstName(text)}
+          />
+          <InputComponent
+            inputLabel="Last Name"
+            value={lastName}
+            onChangeText={(text) => setLastName(text)}
+          />
+          {/* @ts-ignore */}
+          <PhoneInput
+            style={styles.input}
+            ref={phoneRef}
+            value={phoneNumber}
+            onChangePhoneNumber={setPhoneNumber}
+          />
+          <InputComponent
+            inputLabel="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <InputComponent
+            inputLabel="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            showText={false}
+          />
+          <InputComponent
+            inputLabel="Confirm Password"
+            value={passwordConfirm}
+            onChangeText={(text) => setPasswordConfrim(text)}
+            showText={false}
+          />
+          <View style={styles.error}>
+            {error && (
+              <NormalText
+                normalText="Password do not match"
+                textColor="red"
+                textAlign="left"
+              />
+            )}
+          </View>
+        </View>
 
-        <View style={{ marginVertical: 15 }}>
-          <ButtonComponent buttonText="SignUp" onPress={handleSignUp} />
+        <View style={{ width: "80%", alignSelf: "center" }}>
+          <ButtonComponent buttonText="Sign up" onPress={handleSignUp} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -106,6 +134,18 @@ const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
 export default SignUpCustomer;
 
 const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#F9F5EE",
+  },
+  navContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 15,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
   input: {
     height: 50,
     margin: 0,
@@ -114,4 +154,5 @@ const styles = StyleSheet.create({
     marginTop: 8,
     borderRadius: 50,
   },
+  error: { height: 30, width: "100%", marginTop: 5, marginLeft: 20 },
 });
