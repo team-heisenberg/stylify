@@ -102,11 +102,16 @@ const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({
             onChangeText={(text) => setBusinessAddress(text)}
           />
           {/* @ts-ignore */}
-          <PhoneInput
+          {/* <PhoneInput
             style={styles.input}
             ref={phoneRef}
             value={phoneNumber}
             onChangePhoneNumber={setPhoneNumber}
+          /> */}
+          <InputComponent
+            inputLabel="Phone Number"
+            value={phoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
           />
           <InputComponent
             inputLabel="Business Type"
@@ -141,7 +146,7 @@ const SignUpBusiness: React.FC<NativeStackScreenProps<any>> = ({
           </View>
         </View>
 
-        <View style={{ width: "80%", alignSelf: "center" }}>
+        <View style={{ width: "80%", alignSelf: "center", paddingBottom: 30 }}>
           <ButtonComponent buttonText="SignUp" onPress={handleSignUp} />
         </View>
       </ScrollView>

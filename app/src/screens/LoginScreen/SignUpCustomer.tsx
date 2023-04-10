@@ -89,11 +89,16 @@ const SignUpCustomer: React.FC<NativeStackScreenProps<any>> = ({
             onChangeText={(text) => setLastName(text)}
           />
           {/* @ts-ignore */}
-          <PhoneInput
+          {/* <PhoneInput
             style={styles.input}
             ref={phoneRef}
             value={phoneNumber}
             onChangePhoneNumber={setPhoneNumber}
+          /> */}
+          <InputComponent
+            inputLabel="Phone Number"
+            value={phoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
           />
           <InputComponent
             inputLabel="Email"
