@@ -4,6 +4,7 @@ import { captions, captionsForInput } from "../NormalText/FontTypes";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Easing, StyleSheet } from "react-native";
 import { Search } from "../IconsComponent/IconsComponent";
+import { EmailAuthCredential } from "firebase/auth/react-native";
 
 let onBlur = () => {};
 let onFocus = () => {};
@@ -41,7 +42,7 @@ const InputComponent = ({
       toValue: isFocused ? 1 : 0,
       // I took duration and easing values
       // from material.io demo page
-      duration: 150,
+      duration: 400,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
       // we'll come back to this later
       useNativeDriver: false,
@@ -52,7 +53,7 @@ const InputComponent = ({
     <View
       style={{
         position: "relative",
-        marginBottom: 20,
+        marginBottom: 25,
         width: "100%",
       }}
     >
@@ -70,13 +71,16 @@ const InputComponent = ({
             paddingLeft: 8,
             paddingRight: 8,
             left: 20,
-            borderRadius: 15,
+            // borderRadius: 15,
             flexDirection: "row",
             alignItems: "center",
             gap: 15,
+            // position: "absolute",
+
+            // color: !isFocused ? "#aaa" : "#000",
             top: focusAnim.interpolate({
               inputRange: [0, 1],
-              outputRange: [28, 0],
+              outputRange: [30, 0],
             }),
           }}
         >
@@ -84,6 +88,7 @@ const InputComponent = ({
           <NormalText
             normalText={inputLabel}
             fontType={isFocused ? captions : captionsForInput}
+            // textColor={isFocused ? "#24313A" : "#A8B1BD"}
           />
         </Animated.View>
         <View
@@ -131,22 +136,21 @@ const InputComponent = ({
           )}
         </View>
       </View>
-      <View
+      <Animated.View
         style={{
           width: "99%",
           height: 55,
           borderRadius: 50,
           backgroundColor: "#000000",
-          // top: -37,
-          // left: 3,
-          // top: focusAnim.interpolate({
-          //   inputRange: [0, 1],
-          //   outputRange: [28, 0],
-          // }),
-          // left: focusAnim.interpolate({
-          //   inputRange: [0, 1],
-          //   outputRange: [28, 0],
-          // }),
+          position: "absolute",
+          top: focusAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [15, 19],
+          }),
+          left: focusAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 4],
+          }),
         }}
       />
     </View>
