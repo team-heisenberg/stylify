@@ -136,6 +136,7 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         messageText="Message here"
         messageButtonText="Done"
         buttonText="Show Message"
+        navigateTitle="Login"
       />
       <Dropdown
         label="Select Item"
