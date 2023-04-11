@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import {
   ArrowRight,
-  Logo,
+  // Logo,
 } from "../../components/IconsComponent/IconsComponent";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading4, BodyRegular } from "../../components/NormalText/FontTypes";
@@ -21,7 +21,7 @@ const GetStarted = () => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Logo />
+        {/* <Logo /> */}
         <NormalText
           normalText="Your one-stop beauty destination"
           fontType={Heading4}

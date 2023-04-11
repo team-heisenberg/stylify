@@ -83,7 +83,6 @@ const ButtonComponent = ({
                 {icon}
               </View>
             )}
-            <View style={icon && { width: "75%", paddingRight: "20%" }}>
             <View
               style={
                 (icon && { width: "75%", paddingRight: "20%" }) ||
