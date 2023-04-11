@@ -33,12 +33,11 @@ const InputComponent = ({
   isSearch,
 }: InputComponentInterface) => {
   const [isFocused, setIsFocused] = useState(false);
-  // const [isSearch, setIsSearch] = useState(false);
   const focusAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(focusAnim, {
-      toValue: isFocused ? 1 : 0,
+      toValue: isFocused || value != "" ? 1 : 0,
       duration: 400,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
       useNativeDriver: false,
@@ -70,10 +69,10 @@ const InputComponent = ({
             },
           ]}
         >
-          {isSearch && !isFocused && <Search />}
+          {isSearch && !isFocused && value === "" ? <Search /> : null}
           <NormalText
             normalText={inputLabel}
-            fontType={isFocused ? captions : captionsForInput}
+            fontType={isFocused || value != "" ? captions : captionsForInput}
           />
         </Animated.View>
         <View
@@ -86,6 +85,7 @@ const InputComponent = ({
             onChangeText={onChangeText}
             variant="rounded"
             placeholder={placeholder}
+            size="xl"
             w={{
               base: "100%",
             }}

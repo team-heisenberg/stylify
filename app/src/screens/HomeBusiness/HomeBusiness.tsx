@@ -186,6 +186,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
             value={value}
             onChangeText={handleChange}
             inputLabel="Search"
+            isSearch
           />
         </View>
 
