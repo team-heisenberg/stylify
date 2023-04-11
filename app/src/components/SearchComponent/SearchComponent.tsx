@@ -72,6 +72,7 @@ const SearchComponent = () => {
           value={value}
           onChangeText={handleChange}
           inputLabel="Search"
+          isSearch
         />
       </View>
       {value && (
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: "#F9F5EE",
     position: "absolute",
-    top: 80,
+    top: 90,
     bottom: -550,
     right: -60,
     left: -60,
