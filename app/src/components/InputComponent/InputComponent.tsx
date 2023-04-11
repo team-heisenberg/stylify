@@ -6,9 +6,6 @@ import { Animated, Easing, StyleSheet } from "react-native";
 import { Search } from "../IconsComponent/IconsComponent";
 import { EmailAuthCredential } from "firebase/auth/react-native";
 
-let onBlur = () => {};
-let onFocus = () => {};
-
 interface InputComponentInterface {
   value?: string;
   onChangeText?: (e: any) => void;
@@ -20,6 +17,7 @@ interface InputComponentInterface {
   isDisabled?: boolean;
   isRequired?: boolean;
   error?: boolean;
+  isSearch?: boolean;
 }
 const InputComponent = ({
   value,
@@ -32,19 +30,17 @@ const InputComponent = ({
   isDisabled,
   isRequired,
   error,
+  isSearch,
 }: InputComponentInterface) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
+  // const [isSearch, setIsSearch] = useState(false);
   const focusAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(focusAnim, {
       toValue: isFocused ? 1 : 0,
-      // I took duration and easing values
-      // from material.io demo page
       duration: 400,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
-      // we'll come back to this later
       useNativeDriver: false,
     }).start();
   }, [focusAnim, isFocused]);
@@ -64,31 +60,20 @@ const InputComponent = ({
         }}
       >
         <Animated.View
-          style={{
-            position: "absolute",
-            backgroundColor: "#F9F5EE",
-            zIndex: 100,
-            paddingLeft: 8,
-            paddingRight: 8,
-            left: 20,
-            // borderRadius: 15,
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 15,
-            // position: "absolute",
-
-            // color: !isFocused ? "#aaa" : "#000",
-            top: focusAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [30, 0],
-            }),
-          }}
+          style={[
+            styles.labelContainer,
+            {
+              top: focusAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [30, 0],
+              }),
+            },
+          ]}
         >
-          {!isFocused && isSearch && <Search />}
+          {isSearch && !isFocused && <Search />}
           <NormalText
             normalText={inputLabel}
             fontType={isFocused ? captions : captionsForInput}
-            // textColor={isFocused ? "#24313A" : "#A8B1BD"}
           />
         </Animated.View>
         <View
@@ -113,17 +98,14 @@ const InputComponent = ({
             borderWidth="2"
             isDisabled={isDisabled}
             isRequired={isRequired}
-            // zIndex={100}
             style={{
               fontFamily: "Figtree_400Regular",
             }}
-            onBlur={(event) => {
+            onBlur={() => {
               setIsFocused(false);
-              onBlur?.();
             }}
-            onFocus={(event) => {
+            onFocus={() => {
               setIsFocused(true);
-              onFocus?.();
             }}
           />
           {error && (
@@ -137,21 +119,19 @@ const InputComponent = ({
         </View>
       </View>
       <Animated.View
-        style={{
-          width: "99%",
-          height: 55,
-          borderRadius: 50,
-          backgroundColor: "#000000",
-          position: "absolute",
-          top: focusAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [15, 19],
-          }),
-          left: focusAnim.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 4],
-          }),
-        }}
+        style={[
+          styles.shadow,
+          {
+            top: focusAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [15, 19],
+            }),
+            left: focusAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 4],
+            }),
+          },
+        ]}
       />
     </View>
   );
@@ -172,12 +152,22 @@ InputComponent.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+  labelContainer: {
+    position: "absolute",
+    backgroundColor: "#F9F5EE",
+    zIndex: 100,
+    paddingLeft: 8,
+    paddingRight: 8,
+    left: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 15,
+  },
   shadow: {
     width: "99%",
     height: 55,
     borderRadius: 50,
     backgroundColor: "#000000",
-    top: -37,
-    left: 3,
+    position: "absolute",
   },
 });
