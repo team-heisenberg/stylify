@@ -8,7 +8,7 @@ import GeneralInsights from "./GeneralInsights";
 const InsightsBusiness = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "#F9F5EE" }}>
-      <View style={{ margin: 6 }}>
+      <View style={{ width: "90%", alignSelf: "center", marginVertical: 15 }}>
         <NormalText
           normalText="Insights"
           fontType={Heading3}
