@@ -74,3 +74,5 @@ dist/
 ios/
 
 # @end expo-cli
+
+.env

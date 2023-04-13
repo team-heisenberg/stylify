@@ -6,15 +6,47 @@ import {
   initializeAuth,
   getReactNativePersistence,
 } from "firebase/auth/react-native";
+import {
+  REACT_APP_DEV_FIREBASE_APP_ID,
+  REACT_APP_DEV_FIREBASE_DOMAIN,
+  REACT_APP_DEV_FIREBASE_BUCKET,
+  REACT_APP_DEV_FIREBASE_KEY,
+  REACT_APP_DEV_FIREBASE_PROJECT_ID,
+  REACT_APP_DEV_FIREBASE_SENDER_ID,
+  REACT_APP_PROD_FIREBASE_APP_ID,
+  REACT_APP_PROD_FIREBASE_DOMAIN,
+  REACT_APP_PROD_FIREBASE_BUCKET,
+  REACT_APP_PROD_FIREBASE_KEY,
+  REACT_APP_PROD_FIREBASE_PROJECT_ID,
+  REACT_APP_PROD_FIREBASE_SENDER_ID,
+} from "@env";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC_2R9KVic3eaewBe7igvgRWTQZwGz1bkc",
-  authDomain: "stylify-179be.firebaseapp.com",
-  projectId: "stylify-179be",
-  storageBucket: "stylify-179be.appspot.com",
-  messagingSenderId: "626592737693",
-  appId: "1:626592737693:web:0fcda884059351a111e774",
+  apiKey:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_KEY
+      : REACT_APP_PROD_FIREBASE_KEY,
+  authDomain:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_DOMAIN
+      : REACT_APP_PROD_FIREBASE_DOMAIN,
+  projectId:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_PROJECT_ID
+      : REACT_APP_PROD_FIREBASE_PROJECT_ID,
+  storageBucket:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_BUCKET
+      : REACT_APP_PROD_FIREBASE_BUCKET,
+  messagingSenderId:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_SENDER_ID
+      : REACT_APP_PROD_FIREBASE_SENDER_ID,
+  appId:
+    process.env.NODE_ENV === "development"
+      ? REACT_APP_DEV_FIREBASE_APP_ID
+      : REACT_APP_PROD_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

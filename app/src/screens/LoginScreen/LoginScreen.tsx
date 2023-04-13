@@ -21,6 +21,12 @@ import * as Google from "expo-auth-session/providers/google";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
 import { GoogleIcon } from "../../components/IconsComponent/IconsComponent";
 import { createAxiosClient } from "../../api";
+import {
+  REACT_APP_DEV_IOS_GOOGLE_CLIENT_ID,
+  REACT_APP_DEV_EXPO_GOOGLE_CLIENT_ID,
+  REACT_APP_PROD_IOS_GOOGLE_CLIENT_ID,
+  REACT_APP_PROD_EXPO_GOOGLE_CLIENT_ID,
+} from "@env";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -33,9 +39,13 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
-      "626592737693-ngplfmavld7qcsv9qaml6h33t6p6q027.apps.googleusercontent.com",
+      process.env.NODE_ENV === "development"
+        ? REACT_APP_DEV_IOS_GOOGLE_CLIENT_ID
+        : REACT_APP_PROD_IOS_GOOGLE_CLIENT_ID,
     expoClientId:
-      "626592737693-fc8ghl8561rutqhmgbiurln8g5kd2umn.apps.googleusercontent.com",
+      process.env.NODE_ENV === "development"
+        ? REACT_APP_DEV_EXPO_GOOGLE_CLIENT_ID
+        : REACT_APP_PROD_EXPO_GOOGLE_CLIENT_ID,
   });
 
   const getGoogleUserInfo = async () => {
@@ -64,17 +74,17 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
       } else {
         // @ts-ignore
         const credentials = GoogleAuthProvider.credential(idToken, accessToken);
-  
+
         await signInWithCredential(auth, credentials);
       }
     } catch (error) {
-      console.log('<<<<<<', error)
+      console.log("<<<<<<", error);
     }
   };
 
   useEffect(() => {
-    getGoogleUserInfo()
-  }, [response])
+    getGoogleUserInfo();
+  }, [response]);
 
   const createGoogleUserFirestore = async (isCustomer: boolean) => {
     if (isCustomer) {
@@ -115,15 +125,12 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           console.log("Document data:", usr);
 
           await axiosClient
-            .post(
-              `/${isCustomer ? "customer" : "business"}`,
-              {
-                ...usr,
-                avatarURL: isCustomer
-                  ? user.photoURL || usr.avatarURL || photoURL || ""
-                  : undefined,
-              }
-            )
+            .post(`/${isCustomer ? "customer" : "business"}`, {
+              ...usr,
+              avatarURL: isCustomer
+                ? user.photoURL || usr.avatarURL || photoURL || ""
+                : undefined,
+            })
             .catch((error) => console.log(error));
         } else {
           console.log("No such document!");
@@ -224,12 +231,18 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           >
             <ButtonComponent buttonText="Login" onPress={handleLogin} />
 
-            <ButtonComponent backgroundColor="#F9F5EE" textColor="#000" buttonText="SignUp" onPress={handleSignUp} />
+            <ButtonComponent
+              backgroundColor="#F9F5EE"
+              textColor="#000"
+              buttonText="SignUp"
+              onPress={handleSignUp}
+            />
 
             <ButtonComponent
-              backgroundColor="#F9F5EE" textColor="#000"
+              backgroundColor="#F9F5EE"
+              textColor="#000"
               buttonText="Google"
-              icon={<GoogleIcon width={32} height={32} fill="#000"/>}              
+              icon={<GoogleIcon width={32} height={32} fill="#000" />}
               onPress={async () => {
                 await promptAsync();
               }}

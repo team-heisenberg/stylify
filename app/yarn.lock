@@ -7918,6 +7918,13 @@ react-native-codegen@^0.71.5:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-dotenv@^3.4.8:
+  version "3.4.8"
+  resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-3.4.8.tgz#42284070a9994076cd700805c2dd28051c9e1432"
+  integrity sha512-fg9F8X/cG1kDTwRLgLz3t+AMbsULoFHbUVltdQarmrJ3kNllD1Zq7ZgY85bp8BnPwk0DnYQzKbooiLsUoKd10w==
+  dependencies:
+    dotenv "^16.0.3"
+
 react-native-expo-pie-chart@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-expo-pie-chart/-/react-native-expo-pie-chart-1.0.0.tgz#1ebbc185481fffb663ee26c44bb18f238d8ce466"
