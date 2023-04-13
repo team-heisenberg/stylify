@@ -1,13 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, TouchableOpacity, StyleSheet, Touchable } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
-  Plus,
-  RedDot,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { createAxiosClient } from "../../api";
@@ -179,24 +177,6 @@ const styles = StyleSheet.create({
   servicesCard: {
     marginBottom: 16,
     width: "100%",
-  },
-  cardContentContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flex: 1,
-    alignItems: "center",
-  },
-  imageTextContaienr: { flexDirection: "row", gap: 7, alignItems: "center" },
-  timePriceService: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 9,
-  },
-  redDotIcon: { paddingLeft: 10, paddingRight: 10 },
-  cardIcon: {
-    backgroundColor: "#105535",
-    padding: 12,
-    borderRadius: 50,
   },
   button: {
     flex: 1,

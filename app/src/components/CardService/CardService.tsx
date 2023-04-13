@@ -90,7 +90,7 @@ const CardService = ({
                   serviceID: serviceID,
                   name: serviceName,
                   duration: serviceDuration,
-                  price: servicePrice * amount,
+                  price: servicePrice,
                   amount: amount + 1,
                 });
               }}
@@ -143,8 +143,8 @@ const CardService = ({
                     serviceID: serviceID,
                     name: serviceName,
                     duration: serviceDuration,
-                    price: servicePrice * amount,
-                    amount: amount + 1,
+                    price: servicePrice,
+                    amount: amount,
                   });
                 }}
               >

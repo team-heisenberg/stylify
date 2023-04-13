@@ -16,7 +16,6 @@ import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { Divider, ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
-import { err } from "react-native-svg/lib/typescript/xml";
 
 const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
@@ -33,7 +32,9 @@ const ConfirmAppointmentBusiness = () => {
     } = route.params;
     console.log(
       "<<<<<<<>>>>>><<<<<<<<<<<<<",
-      JSON.stringify(appointmentDetails)
+      JSON.stringify(appointmentDetails),
+      JSON.stringify(appointmentDateTime)
+
     );
     await axiosClient
       .post("/appointment", {
@@ -73,34 +74,6 @@ const ConfirmAppointmentBusiness = () => {
 
   const [appointments, setAppointments] = useState([]);
 
-  const handleConfirmBooking = () => {
-    const newAppointment = {
-      id: Date.now().toString(),
-      specialist: route.params.selectedSpecialist,
-      specialistPhoto: route.params.selectedSpecialistPhoto,
-      date: route.params.selectedDate,
-      time: route.params.selectedTime,
-      services: route.params.servicesSelected,
-      customer: route.params.customerName,
-      totalCost: tableData.reduce(
-        (acc: any, value: any) => acc + Number(value.price),
-        0
-      ),
-    };
-
-    setAppointments([...appointments, newAppointment]);
-
-    navigation.navigate("Home Business", {
-      ...route.params,
-      appointments,
-      setAppointments,
-      totalCost: tableData.reduce(
-        (acc: any, value: any) => acc + Number(value.price),
-        0
-      ),
-    });
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 1, flexGrow: 8 }}>
@@ -118,9 +91,7 @@ const ConfirmAppointmentBusiness = () => {
             fontType={Heading3}
           />
         </View>
-        {/* {route.params.services.map(() => ( */}
         <TableComponent tableHeader={tableHeader} tableData={tableData} />
-        {/* ))} */}
         <TouchableOpacity
           style={styles.coupon}
           onPress={() => navigation.navigate("Select Services Business")}
