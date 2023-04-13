@@ -25,17 +25,14 @@ import {
   Logo,
 } from "../../components/IconsComponent/IconsComponent";
 import { createAxiosClient } from "../../api";
-<<<<<<< HEAD
 import {
   REACT_APP_DEV_IOS_GOOGLE_CLIENT_ID,
   REACT_APP_DEV_EXPO_GOOGLE_CLIENT_ID,
   REACT_APP_PROD_IOS_GOOGLE_CLIENT_ID,
   REACT_APP_PROD_EXPO_GOOGLE_CLIENT_ID,
 } from "@env";
-=======
 import NormalText from "../../components/NormalText/NormalText";
 import { BodyBold, BodyRegular } from "../../components/NormalText/FontTypes";
->>>>>>> e9be932 (feature/HB-218-Create-Splash-Screen)
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -252,16 +249,15 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               width: "100%",
             }}
           >
-<<<<<<< HEAD
-            <ButtonComponent buttonText="Login" onPress={handleLogin} />
+            {/* <ButtonComponent buttonText="Login" onPress={handleLogin} /> */}
 
-            <ButtonComponent
+            {/* <ButtonComponent
               backgroundColor="#F9F5EE"
               textColor="#000"
               buttonText="SignUp"
               onPress={handleSignUp}
-            />
-
+            /> */}
+{/* 
             <ButtonComponent
               backgroundColor="#F9F5EE"
               textColor="#000"
@@ -269,7 +265,8 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               icon={<GoogleIcon width={32} height={32} fill="#000" />}
               onPress={async () => {
                 await promptAsync();
-=======
+              }}
+            /> */}
             <View style={styles.borderContainer}>
               <View style={styles.border} />
               <View style={styles.borderTextContainer}>
@@ -283,7 +280,6 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               style={{
                 width: "90%",
                 alignSelf: "center",
->>>>>>> e9be932 (feature/HB-218-Create-Splash-Screen)
               }}
             >
               <ButtonComponent

@@ -1,9 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
-import {
-  ArrowRight,
-  // Logo,
-} from "../../components/IconsComponent/IconsComponent";
+import { ArrowRight } from "../../components/IconsComponent/IconsComponent";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading4, BodyRegular } from "../../components/NormalText/FontTypes";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
@@ -12,16 +9,19 @@ import { useNavigation } from "@react-navigation/native";
 const GetStarted = () => {
   const navigation = useNavigation<any>();
   const onPressCustomer = () => {
-    navigation.navigate("SignUpCustomer");
+    navigation.navigate("LoginScreen");
   };
   const onPressBusiness = () => {
-    navigation.navigate("SignUpBusiness");
+    navigation.navigate("LoginScreen");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        {/* <Logo /> */}
+        <Image
+          style={{ width: 300, height: 250 }}
+          source={require("../../../assets/logo/LogoAnimation.gif")}
+        />
         <NormalText
           normalText="Your one-stop beauty destination"
           fontType={Heading4}
@@ -69,8 +69,6 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
-    gap: 20,
-    marginTop: 100,
   },
   buttonsContainer: { width: "90%", alignItems: "center", marginBottom: 50 },
   borderContainer: {

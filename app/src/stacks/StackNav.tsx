@@ -77,9 +77,10 @@ const StackNav = () => {
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
-            component={LoginScreen}
+            component={GetStarted}
           />
           <Stack.Screen name="GetStarted" component={GetStarted} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
           <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
