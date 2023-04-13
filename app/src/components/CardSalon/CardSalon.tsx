@@ -55,9 +55,9 @@ const CardSalon = ({ onPress, onClick, salonImage, salonName, salonLocation, rat
             <Star width={21} height={19} />
           </View>
         </View>
-        <View style={styles.favContainer}>
+        {/* <View style={styles.favContainer}>
           <FavButton colorFill="#822848" onClick={onClick} favState={favState} />
-        </View>
+        </View> */}
       </View>
     </Card>
   );
