@@ -1,4 +1,3 @@
-
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import Card from "../Card/Card";
 import ImageComponent from "../ImageComponent/ImageComponent";
@@ -12,15 +11,20 @@ interface CardService {
   serviceName: string;
   serviceDuration: number;
   servicePrice: number;
+  businessID: any;
+  serviceID: number;
+  serviceTypeID: number;
 }
 
 const CardService = ({
   serviceName,
   serviceDuration,
   servicePrice,
+  businessID,
+  serviceID,
+  serviceTypeID
 }: CardService) => {
   const [amount, setAmount] = useState(0);
-  // const [buttonAppear, setButtonAppear] = useState(false);
 
   return (
     <View>
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
-    right: 35,
+    right: 45,
     height: 30,
     width: 80,
   },
