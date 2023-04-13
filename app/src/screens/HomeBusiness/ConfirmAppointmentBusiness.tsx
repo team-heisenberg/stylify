@@ -1,30 +1,71 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { Link, useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
-import {
-  Heading3,
-  Heading4,
-  Heading5,
-} from "../../components/NormalText/FontTypes";
+import { Heading3, Heading4 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
+  ArrowRight,
   Edit,
   Fire,
+  Plus,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import TableComponent from "../../components/TableComponent/TableComponent";
 import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
-import { Divider } from "native-base";
+import { Divider, ScrollView } from "native-base";
+import { createAxiosClient } from "../../api";
 
 const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
+  const addAppointment = async () => {
+    const { axiosClient } = await createAxiosClient();
+    const {
+      businessID,
+      professionalID,
+      appointmentDateTime,
+      appointmentDetails,
+      appointmentType,
+    } = route.params;
+    console.log(
+      "<<<<<<<>>>>>><<<<<<<<<<<<<",
+      JSON.stringify(appointmentDetails),
+      JSON.stringify(appointmentDateTime)
+
+    );
+    await axiosClient
+      .post("/appointment", {
+        customerID: 1,
+        businessID: businessID,
+        professionalID: professionalID,
+        appointmentDateTime: appointmentDateTime,
+        appointmentType: appointmentType,
+        appointmentDetails: appointmentDetails,
+      })
+      .then((response) => {
+        console.log(response);
+        navigation.navigate("Home Business", {
+          ...route.params,
+          appointments,
+          setAppointments,
+          totalCost: tableData.reduce(
+            (acc: any, value: any) => acc + Number(value.price),
+            0
+          ),
+        });
+      })
+      .catch((err) => {
+        console.log("You have an error", err);
+      });
+  };
+
   console.log(route.params);
 
   const tableHeader = [
+    { title: "Qty", property: "amount" },
     { title: "Services", property: "name" },
     { title: "Price", property: "price" },
   ];
@@ -33,114 +74,88 @@ const ConfirmAppointmentBusiness = () => {
 
   const [appointments, setAppointments] = useState([]);
 
-  const handleConfirmBooking = () => {
-    const newAppointment = {
-      id: Date.now().toString(),
-      specialist: route.params.selectedSpecialist,
-      specialistPhoto: route.params.selectedSpecialistPhoto,
-      date: route.params.selectedDate,
-      time: route.params.selectedTime,
-      services: route.params.servicesSelected,
-      customer: route.params.customerName,
-      totalCost: tableData.reduce(
-        (acc: any, value: any) => acc + Number(value.price),
-        0
-      ),
-    };
-
-    setAppointments([...appointments, newAppointment]);
-
-    // const appoData = {
-    //   appointments: [...appointments, newAppointment],
-    //   cardData: {},
-      
-    // };
-
-    // navigation.navigate("Home Business", appoData);
-
-    navigation.navigate("Home Business", {
-      ...route.params,
-      appointments,
-      setAppointments,
-      totalCost: tableData.reduce(
-        (acc: any, value: any) => acc + Number(value.price),
-        0
-      ),
-    });
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.navigation}>
-        <TouchableOpacity
-          style={styles.arrow}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <ArrowLeftBig width={24} height={17.54} fill="black" />
-        </TouchableOpacity>
-        <NormalText
-          normalText={route.params.titleConfirmation}
-          fontType={Heading3}
-        />
-      </View>
-      {/* {route.params.services.map(() => ( */}
-      <TableComponent tableHeader={tableHeader} tableData={tableData} />
-      {/* ))} */}
-      <View style={styles.card}>
-        <Card height={182}>
-          <View style={styles.cardContentContainer}>
-            <View style={styles.titleIcon}>
-              <NormalText normalText={"Specialist"} />
-              <Edit fill="black" />
-            </View>
-            <View style={styles.imageSpecialist}>
-              <ImageComponent
-                width={40}
-                height={40}
-                imageURL={route.params.selectedSpecialistPhoto}
-                borderRadius={20}
-              />
-              <NormalText
-                normalText={route.params.selectedSpecialist}
-                textAlign="left"
-              />
-            </View>
-            <Divider />
-            <View style={styles.dateTime}>
-              <NormalText normalText={"Date & Time"} textAlign="left" />
-              <NormalText
-                normalText={`${route.params.selectedDate} at ${route.params.selectedTime}`}
-                textAlign="left"
-              />
-            </View>
-          </View>
-        </Card>
-      </View>
-      <TouchableOpacity style={styles.coupon}>
-        <View style={styles.textIcon}>
-          <Fire fill="black" />
-          <NormalText normalText={"Add Coupon"} />
+      <ScrollView style={{ flex: 1, flexGrow: 8 }}>
+        <View style={styles.navigation}>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <ArrowLeftBig width={24} height={17.54} fill="black" />
+          </TouchableOpacity>
+          <NormalText
+            normalText={route.params.titleConfirmation}
+            fontType={Heading3}
+          />
         </View>
-        <NormalText normalText={">"} />
-      </TouchableOpacity>
+        <TableComponent tableHeader={tableHeader} tableData={tableData} />
+        <TouchableOpacity
+          style={styles.coupon}
+          onPress={() => navigation.navigate("Select Services Business")}
+        >
+          <View style={styles.textIcon}>
+            <Plus fill="black" />
+            <NormalText normalText={"Add Service"} />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.card}>
+          <Card height={182}>
+            <View style={styles.cardContentContainer}>
+              <View style={styles.titleIcon}>
+                <NormalText normalText={"Specialist"} />
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                  <Edit fill="black" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.imageSpecialist}>
+                <ImageComponent
+                  width={40}
+                  height={40}
+                  imageURL={route.params.selectedSpecialistPhoto}
+                  borderRadius={20}
+                />
+                <NormalText
+                  normalText={route.params.selectedSpecialist}
+                  textAlign="left"
+                />
+              </View>
+              <Divider />
+              <View style={styles.dateTime}>
+                <NormalText normalText={"Date & Time"} textAlign="left" />
+                <NormalText
+                  normalText={`${route.params.selectedDate} at ${route.params.selectedTime}`}
+                  textAlign="left"
+                />
+              </View>
+            </View>
+          </Card>
+        </View>
+        <TouchableOpacity style={styles.coupon}>
+          <View style={styles.textIcon}>
+            <Fire fill="black" />
+            <NormalText normalText={"Add Coupon"} />
+          </View>
+          <ArrowRight width={"5.5px"} height={"9.5px"} />
+        </TouchableOpacity>
 
-      <View style={styles.total}>
-        <NormalText normalText={"Total Cost"} fontType={Heading4} />
-        <NormalText
-          normalText={`$${tableData.reduce(
-            (acc: any, value: any) => acc + Number(value.price),
-            0
-          )}`}
-          fontType={Heading4}
-        />
-      </View>
-
+        <View style={styles.total}>
+          <NormalText normalText={"Total Cost"} fontType={Heading4} />
+          <NormalText
+            normalText={`$${tableData.reduce(
+              (acc: any, value: any) => acc + Number(value.price),
+              0
+            )}`}
+            fontType={Heading4}
+          />
+        </View>
+      </ScrollView>
       <View style={styles.button}>
         <ButtonComponent
           buttonText="Confirm Booking"
-          onPress={handleConfirmBooking}
+          onPress={addAppointment}
         />
       </View>
     </View>
@@ -182,6 +197,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingBottom: 16,
+    gap: 8,
   },
   dateTime: { paddingTop: 16, gap: 8 },
   coupon: {
@@ -195,6 +211,7 @@ const styles = StyleSheet.create({
   textIcon: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 8.75,
   },
   total: {
     flexDirection: "row",

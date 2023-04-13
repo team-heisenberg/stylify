@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, TouchableOpacity, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import {
   BodyBold,
@@ -11,20 +11,16 @@ import {
 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Calendar } from "react-native-calendars";
-import {
-  ArrowUp,
-  ArrowDown,
-} from "../../components/IconsComponent/IconsComponent";
 import { ScrollView } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { createAxiosClient } from "../../api";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Card from "../../components/Card/Card";
+import { ArrowRightBig } from "../../components/IconsComponent/IconsComponent";
+import CalendarComponent from "../../components/CalendarComponent/CalendarComponent";
 
 const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
-  const [expanded, setExpanded] = useState(false);
   const [value, setValue] = useState("");
   const [appointments, setAppointments] = useState([]);
   const [businessID, setBusinessID] = useState("");
@@ -95,91 +91,16 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
     });
   };
 
+  // Handle date selection from calendar component
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const handleDateSelection = (date: string) => {
+    setSelectedDate(date);
+    console.log('date here: ',date)
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.calendarContainer}>
-        {expanded ? (
-          <Calendar
-            // initialDate={"2023-03-16"}
-            onDayPress={(day) => {
-              console.log("selected day", day);
-            }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
-            style={styles.calendar}
-            firstDay={1}
-            theme={{
-              textDayFontFamily: "PlayfairDisplay_400Regular",
-              textMonthFontFamily: "PlayfairDisplay_700Bold",
-              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
-              // textTodayFontFamily: "PlayfairDisplay_700Bold",
-              calendarBackground: "#F9F5EE",
-              textDayFontWeight: "400",
-              textDisabledColor: "#000000",
-              textSectionTitleColor: "#105535",
-              textDayHeaderFontWeight: "700",
-              textDayHeaderFontSize: 16,
-              selectedDayBackgroundColor: "#105535",
-              selectedDayTextColor: "#105535",
-              todayTextColor: "#ffffff",
-              todayBackgroundColor: "#105535",
-              textMonthFontWeight: "700",
-              textMonthFontSize: 18,
-            }}
-          />
-        ) : (
-          <Calendar
-            // initialDate={"2023-03-16"}
-            onDayPress={(day) => {
-              console.log("selected day", day);
-            }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
-            style={styles.expanded}
-            firstDay={1}
-            theme={{
-              textDayFontFamily: "PlayfairDisplay_400Regular",
-              textMonthFontFamily: "PlayfairDisplay_700Bold",
-              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
-              calendarBackground: "#F9F5EE",
-              textDayFontWeight: "400",
-              textDisabledColor: "#000000",
-              textSectionTitleColor: "#105535",
-              textDayHeaderFontWeight: "700",
-              textDayHeaderFontSize: 14,
-              selectedDayBackgroundColor: "#105535",
-              selectedDayTextColor: "#105535",
-              todayTextColor: "#ffffff",
-              todayBackgroundColor: "#105535",
-              arrowColor: "#000000",
-              textMonthFontWeight: "700",
-              textMonthFontSize: 18,
-            }}
-          />
-        )}
-      </View>
-      <TouchableOpacity
-        onPress={() => setExpanded(!expanded)}
-        style={styles.arrowDownUpContainer}
-      >
-        {expanded ? (
-          <ArrowUp
-            width={20}
-            height={24}
-            fill={"black"}
-            stroke={"black"}
-            style={styles.arrowDownUp}
-          />
-        ) : (
-          <ArrowDown
-            width={20}
-            height={20}
-            fill={"black"}
-            stroke={"black"}
-            style={styles.arrowDownUp}
-          />
-        )}
-      </TouchableOpacity>
+      <CalendarComponent onDateSelect={handleDateSelection} />
       <ScrollView>
         <View style={styles.searchContainer}>
           <InputComponent
@@ -189,7 +110,6 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
             isSearch
           />
         </View>
-
         <View style={styles.appointments}>
           <NormalText
             normalText="Appointments"
@@ -279,19 +199,18 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
             </View>
           )}
         </View>
-        {/* <Fab size={"lg"} icon={<Plus fill="white" stroke="white" />} /> */}
-        <View style={styles.button}>
-          <ButtonComponent
-            buttonText="Create New Appointment"
-            onPress={() =>
-              navigation.navigate("Create Appointment Business", {
-                titleCreateAppointment: "Create Appointment",
-              })
-            }
-          />
-          {/* <ButtonComponent onPress={handleSignOut} buttonText="Sign Out" /> */}
-        </View>
       </ScrollView>
+      <View style={styles.button}>
+        <ButtonComponent
+          buttonText="Create New Appointment"
+          icon={<ArrowRightBig fill="white" />}
+          onPress={() =>
+            navigation.navigate("Create Appointment Business", {
+              titleCreateAppointment: "Create Appointment",
+            })
+          }
+        />
+      </View>
     </View>
   );
 };
@@ -300,34 +219,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F9F5EE",
-  },
-  calendarContainer: {
-    borderBottomWidth: 2,
-    borderBottomColor: "black",
-  },
-  calendar: {},
-  expanded: {
-    height: 130,
-    overflow: "hidden",
-  },
-  arrowDownUpContainer: {
-    // position: "absolute",
-    // top: 80,
-    // right: "50%",
-    // borderRadius: 24,
-    ////
-    backgroundColor: "transparent",
-    paddingBottom: 5,
-    paddingTop: 5,
-  },
-  arrowDownUp: {
-    backgroundColor: "#F9F5EE",
-    ////
-    padding: 10,
-    position: "absolute",
-    top: -10,
-    right: "47.5%",
-    borderRadius: 24,
   },
   searchContainer: { marginTop: 10, marginLeft: 16, marginRight: 16 },
   appointments: { marginTop: 16, marginLeft: 16, marginRight: 16 },

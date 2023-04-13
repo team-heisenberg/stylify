@@ -1,5 +1,4 @@
-
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import Card from "../Card/Card";
 import ImageComponent from "../ImageComponent/ImageComponent";
 import { Heading5, BodyBold2 } from "../NormalText/FontTypes";
@@ -8,19 +7,33 @@ import { RedDot } from "../IconsComponent/IconsComponent";
 import { useState } from "react";
 import { Plus, Line } from "../IconsComponent/IconsComponent";
 
-interface CardService {
+interface CardServiceProps {
+  serviceID: number;
   serviceName: string;
   serviceDuration: number;
   servicePrice: number;
+  addService: (service: {
+    serviceID: number;
+    name: string;
+    duration: number;
+    price: number;
+  }) => void;
+  removeService: (service: {
+    name: string;
+    duration: number;
+    price: number;
+  }) => void;
 }
 
 const CardService = ({
+  serviceID,
   serviceName,
   serviceDuration,
   servicePrice,
-}: CardService) => {
+  addService,
+  removeService,
+}: CardServiceProps) => {
   const [amount, setAmount] = useState(0);
-  // const [buttonAppear, setButtonAppear] = useState(false);
 
   return (
     <View>
@@ -61,7 +74,7 @@ const CardService = ({
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <View style={styles.buttonVisible}>
+          {amount === 0 ? (
             <Pressable
               style={{
                 backgroundColor: "#105535",
@@ -70,37 +83,75 @@ const CardService = ({
                 borderRadius: 50,
                 justifyContent: "center",
                 alignItems: "center",
-                marginRight: 7,
-              }}
-              onPressIn={() => {
-                amount === 0 ? setAmount(0) : setAmount(amount - 1);
-              }}
-            >
-              <Line stroke="white" fill="white" width={15} height={15} />
-            </Pressable>
-            <NormalText
-              normalText={amount}
-              textColor="white"
-              textAlign="center"
-              fontType={BodyBold2}
-            />
-            <Pressable
-              style={{
-                backgroundColor: "#105535",
-                width: 30,
-                height: 30,
-                borderRadius: 50,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: 7,
               }}
               onPressIn={() => {
                 setAmount(amount + 1);
+                addService({
+                  serviceID: serviceID,
+                  name: serviceName,
+                  duration: serviceDuration,
+                  price: servicePrice,
+                  amount: amount + 1,
+                });
               }}
             >
               <Plus fill="white" width={15} height={15} />
             </Pressable>
-          </View>
+          ) : (
+            <View style={styles.buttonVisible}>
+              <Pressable
+                style={{
+                  backgroundColor: "#105535",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginRight: 7,
+                }}
+                onPressIn={() => {
+                  amount === 0 ? setAmount(0) : setAmount(amount - 1);
+                  removeService({
+                    name: serviceName,
+                    duration: serviceDuration,
+                    price: servicePrice * (amount - 1),
+                    amount: amount - 1,
+                  });
+                }}
+              >
+                <Line stroke="white" fill="white" width={15} height={15} />
+              </Pressable>
+              <NormalText
+                normalText={amount}
+                textColor="white"
+                textAlign="center"
+                fontType={BodyBold2}
+              />
+              <Pressable
+                style={{
+                  backgroundColor: "#105535",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginLeft: 7,
+                }}
+                onPressIn={() => {
+                  setAmount(amount + 1);
+                  addService({
+                    serviceID: serviceID,
+                    name: serviceName,
+                    duration: serviceDuration,
+                    price: servicePrice,
+                    amount: amount,
+                  });
+                }}
+              >
+                <Plus fill="white" width={15} height={15} />
+              </Pressable>
+            </View>
+          )}
         </View>
       </Card>
     </View>
@@ -128,7 +179,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     display: "flex",
     justifyContent: "center",
-    right: 35,
+    alignItems: "flex-end",
+    right: 48,
     height: 30,
     width: 80,
   },

@@ -1,162 +1,138 @@
-import { View, TouchableOpacity, StyleSheet, Touchable } from "react-native";
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
-  Plus,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import CardSalon from "../../components/CardSalon/CardSalon";
-import Card from "../../components/Card/Card";
-import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { createAxiosClient } from "../../api";
-import { Row } from "native-base";
-import { background } from "native-base/lib/typescript/theme/styled-system";
+import CardService from "../../components/CardService/CardService";
+import { ScrollView } from "native-base";
 
-const SelectServicesBusiness = ({ businessID }: any) => {
+let businessID: any;
+
+const SelectServicesBusiness = () => {
+  const [services, setServices] = useState<any[]>([]);
   const serviceType: any = [];
 
   const searchService = async () => {
+    const rawUserData = await AsyncStorage.getItem("@stylify:user");
+
+    const userData = JSON.parse(rawUserData || "{}");
     const { axiosClient } = await createAxiosClient();
+    businessID = userData.ID;
     await axiosClient
-      .get(`/serviceType/servicetypebybusiness/${businessID}`)
+      .get(`/service/byBusinessId/${businessID}`)
       .then((res) => {
-        for (const service of res.data) {
-          serviceType.push(service["serviceType"]);
-        }
+        setServices(res.data);
       })
       .catch((error) => {
         console.log("THIS IS THE ERROR >>>>", error);
       });
   };
 
-  searchService();
-
-  console.log(businessID);
+  useEffect(() => {
+    searchService();
+  }, []);
 
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
-  const services = [
-    {
-      id: 1,
-      name: "Men's Haircut",
-      duration: "45min",
-      price: "27.50",
-    },
-    {
-      id: 2,
-      name: "Men's Haircolor",
-      duration: "60min",
-      price: "49.50",
-    },
-    {
-      id: 3,
-      name: "Kid's Haircut",
-      duration: "30min",
-      price: "25.50",
-    },
-  ];
-
-  // const [services, setServices] = useState({
-  //   services: [
-  //     {
-  //       id: 1,
-  //       name: "Men's Haircut",
-  //       duration: "45min",
-  //       price: "27.50",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Men's Haircolor",
-  //       duration: "60min",
-  //       price: "49.50",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Kid's Haircut",
-  //       duration: "30min",
-  //       price: "25.50",
-  //     },
-  //   ],
-  // });
-
   const [servicesSelected, setServicesSelected] = useState<
     {
+      serviceID: number;
       name: string;
       price: number;
+      amount: number;
     }[]
   >([]);
   console.log(servicesSelected);
 
   const addService = (selectedService: any) => {
-    setServicesSelected((servicesSelected) => [
-      ...servicesSelected,
-      selectedService,
-    ]);
+    let arr = Array.from(servicesSelected || []);
+    const itemIndex = arr.findIndex((a) => selectedService.name === a.name);
+    if (itemIndex > -1) {
+      const { price } = selectedService;
+      let { amount } = arr[itemIndex];
+      amount = amount + 1;
+      arr[itemIndex] = {
+        ...arr[itemIndex],
+        price: price * amount,
+        amount,
+      };
+      setServicesSelected(arr);
+    } else {
+      arr.push(selectedService);
+      setServicesSelected(arr);
+    }
+  };
+
+  const removeService = (selectedService: any) => {
+    let arr = Array.from(servicesSelected || []);
+    const itemIndex = arr.findIndex((a) => selectedService.name === a.name);
+    if (itemIndex > -1) {
+      const { price } = selectedService;
+      let { amount } = arr[itemIndex];
+      amount = amount - 1;
+      arr[itemIndex] = {
+        ...arr[itemIndex],
+        price: price * amount,
+        amount,
+      };
+      if (amount === 0) {
+        arr.splice(itemIndex, 1);
+      }
+
+      setServicesSelected(arr);
+    } else {
+      arr.splice(itemIndex, 1);
+      setServicesSelected(arr);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.navigation}>
-        <TouchableOpacity
-          style={styles.arrow}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <ArrowLeftBig width={24} height={17.54} fill="black" />
-        </TouchableOpacity>
-        <NormalText
-          normalText={route.params.titleSelectServices}
-          fontType={Heading3}
-        />
-      </View>
-
-      <View style={styles.servicesContainer}>
-        <View style={styles.titleContainer}>
-          <NormalText normalText="Hair" textAlign="left" fontType={Heading5} />
+      <ScrollView>
+        <View style={styles.navigation}>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <ArrowLeftBig width={24} height={17.54} fill="black" />
+          </TouchableOpacity>
+          <NormalText
+            normalText={route.params.titleSelectServices}
+            fontType={Heading3}
+          />
         </View>
-        {services.map((service) => (
-          <View style={styles.servicesCard}>
-            <Card>
-              <View style={styles.cardContentContainer}>
-                <View style={styles.imageTextContaienr}>
-                  <ImageComponent
-                    height={69}
-                    width={69}
-                    borderRadius={4}
-                    imageURL={"https://picsum.photos/200/300"}
-                  />
-                  <View>
-                    <NormalText
-                      normalText={service.name}
-                      textColor="rgba(130, 40, 72, 1)"
-                    />
-                    <View style={{ flexDirection: "row" }}>
-                      <NormalText normalText={service.duration} />
-                      <NormalText
-                        normalText="•"
-                        textColor="rgba(130, 40, 72, 1)"
-                      />
-                      <NormalText normalText={`${service.price}`} />
-                    </View>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  key={service.id}
-                  onPress={() => addService(service)}
-                  style={styles.cardIcon}
-                >
-                  <Plus fill="white" />
-                </TouchableOpacity>
-              </View>
-            </Card>
+
+        <View style={styles.servicesContainer}>
+          <View style={styles.titleContainer}>
+            <NormalText
+              normalText="Hair"
+              textAlign="left"
+              fontType={Heading5}
+            />
           </View>
-        ))}
-      </View>
+          {services?.map((service) => (
+            <View style={styles.servicesCard}>
+              <CardService
+                serviceID={service?.serviceID}
+                serviceName={service.serviceName}
+                serviceDuration={parseInt(service.durationInMinutes)}
+                servicePrice={parseFloat(service.servicePrice)}
+                addService={addService}
+                removeService={removeService}
+              />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
 
       <View style={styles.button}>
         <ButtonComponent
@@ -164,9 +140,9 @@ const SelectServicesBusiness = ({ businessID }: any) => {
           onPress={() =>
             navigation.navigate("Select Professional Business", {
               titleProfessional: "Select Professional",
-              // serviceName: services[0].name,
-              // servicePrice: services[0].price,
               servicesSelected: servicesSelected,
+              appointmentDetails: servicesSelected,
+              businessID: businessID,
               ...route.params,
             })
           }
@@ -200,21 +176,7 @@ const styles = StyleSheet.create({
   titleContainer: { marginBottom: 13 },
   servicesCard: {
     marginBottom: 16,
-    width: "110%",
-  },
-  cardContentContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flex: 1,
-    // backgroundColor: "green",
-    alignItems: "center",
-  },
-  imageTextContaienr: { flexDirection: "row", gap: 7, alignItems: "center" },
-  cardIcon: {
-    backgroundColor: "#105535",
-    padding: 12,
-    borderRadius: 50,
-    // marginLeft: 150,
+    width: "100%",
   },
   button: {
     flex: 1,

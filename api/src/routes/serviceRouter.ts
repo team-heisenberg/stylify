@@ -34,6 +34,19 @@ router.get('/:serviceID', async (req, res) => {
   res.json(service)
 })
 
+// GET - Retrieve Record
+router.get('/byBusinessId/:businessID', async (req, res) => {
+  const { businessID } = req.params
+
+  const service = await prisma.service.findMany({
+    where: {
+      businessID: Number(businessID),
+    },
+  })
+
+  res.json(service)
+})
+
 // PUT - Update Record
 router.put('/:serviceID', async (req, res) => {
   const { serviceID, ...data } = req.body

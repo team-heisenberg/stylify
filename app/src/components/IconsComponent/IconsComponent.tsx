@@ -30,6 +30,8 @@ import Navigate from "../../../assets/icons/Navigate.svg";
 import RedDot from "../../../assets/icons/RedDot.svg";
 import RightChevron from "../../../assets/icons/RightChevron.svg";
 import GoogleIcon from "../../../assets/icons/GoogleIcon.svg";
+import DownChevronCircle from "../../../assets/icons/DownChevronCircle.svg";
+import UpChevronCircle from "../../../assets/icons/UpChevronCircle.svg";
 
 export {
   ArrowDown,
@@ -63,5 +65,7 @@ export {
   Navigate,
   RedDot,
   RightChevron,
-  GoogleIcon
+  GoogleIcon,
+  DownChevronCircle,
+  UpChevronCircle
 };

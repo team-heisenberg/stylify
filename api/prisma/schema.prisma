@@ -33,10 +33,21 @@ model Professional {
   business            Business               @relation(fields: [businessID], references: [businessID])
   firstName           String
   lastName            String
+  photoURL            String                 @default("https://i.pravatar.cc/300")
   professionalService ProfessionalServices[]
   appointment         Appointment[]
+  timeSlots           TimeSlot[]
 
   @@index([businessID])
+}
+
+model TimeSlot {
+  timeSlotID     Int          @id @default(autoincrement())
+  professionalID Int
+  professional   Professional @relation(fields: [professionalID], references: [professionalID])
+  slot           String
+
+  @@index([professionalID])
 }
 
 model Service {
@@ -46,6 +57,7 @@ model Service {
   serviceTypeID       Int
   servicePrice        Float
   businessID          Int
+  durationInMinutes   Int?
   professionalService ProfessionalServices[]
   serviceType         ServiceType            @relation(fields: [serviceTypeID], references: [serviceTypeID])
   deal                Deal[]
@@ -115,7 +127,7 @@ model Appointment {
   dealID              Int?
   appointmentDateTime DateTime
   appointmentDetails  AppointmentDetails[]
-  appointmentType     AppointmentType @default(ONLINE)
+  appointmentType     AppointmentType      @default(ONLINE)
 
   @@index([customerID])
   @@index([businessID])
@@ -130,6 +142,7 @@ model AppointmentDetails {
   service              Service     @relation(fields: [serviceID], references: [serviceID])
   serviceID            Int
   price                Float
+  amount               Int?
 
   @@index([appointmentID])
   @@index([serviceID])

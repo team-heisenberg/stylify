@@ -4,35 +4,28 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
 import {
-  ArrowDown,
   ArrowLeftBig,
-  ArrowUp,
+  Check,
 } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
-import { Agenda } from "react-native-calendars";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
-import { Calendar } from "react-native-calendars";
-import day from "react-native-calendars/src/calendar/day";
+import CalendarComponent from "../../components/CalendarComponent/CalendarComponent";
 
 const SelectProfessionalBusiness = () => {
-  const [professionals, setProfessionals] = useState([]);
-  const [expanded, setExpanded] = useState(false);
+  const [professionals, setProfessionals] = useState<any[]>([]);
+  const navigation = useNavigation<any>();
+  const route = useRoute<any>();
 
   const getProfessionals = async () => {
     const { axiosClient } = await createAxiosClient();
+    const { businessID } = route.params;
+    console.log("<><><><><><><><><", businessID);
     await axiosClient
-      .get("/professional")
+      .get(`/professional/byBusinessId/${businessID}`)
       .then((res) => {
-        console.log(res.data);
-        const filteredProfessionals = res.data.filter(
-          (a: { businessID: number }) => {
-            return a.businessID === 2;
-          }
-        );
-        setProfessionals(filteredProfessionals);
-        // console.log(filteredProfessionals)
+        setProfessionals(res.data);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -43,53 +36,16 @@ const SelectProfessionalBusiness = () => {
     getProfessionals();
   }, []);
 
-  const navigation = useNavigation<any>();
-  const route = useRoute<any>();
-
   console.log(route.params);
 
-  const [professionalSelection, setProfesionalSelection] = useState({
-    date: "",
-    specialist: [
-      {
-        name: "Kaho",
-        photo: "https://i.pravatar.cc/300",
-        timeSlots: ["9:00 am", "10:00 am", "11:00 am", "12:00 pm", "3:00 pm"],
-        date: "",
-      },
-      {
-        name: "Gabriel",
-        photo: "https://i.pravatar.cc/300",
-        timeSlots: ["11:15 am", "12:00 pm", "12:45 pm", "2:45 pm", "4:00 pm"],
-      },
-      {
-        name: "Daniel",
-        photo: "https://i.pravatar.cc/300",
-        timeSlots: ["1:00 pm", "2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm"],
-      },
-      {
-        name: "Diego",
-        photo: "https://i.pravatar.cc/300",
-        timeSlots: ["2:00 pm", "3:00 pm", "4:00 pm", "5:00 pm", "6:00 pm"],
-      },
-    ],
-  });
+  const [selectedSpecialist, setSelectedSpecialist] = useState<any>({});
 
-  const [selectedDate, setSelectedDate] = useState<string | undefined>();
-
-  const [selectedSpecialist, setSelectedSpecialist] = useState<{
-    name: string;
-    photo: string;
-    timeSlots: string[];
-  } | null>(null);
-
-  const handleSpecialistSelection = (specialist: {
-    name: string;
-    photo: string;
-    timeSlots: string[];
-  }) => {
-    setSelectedSpecialist(specialist);
-    console.log(specialist.name);
+  const handleSpecialistSelection = (professional: any) => {
+    if (selectedSpecialist === professional) {
+      setSelectedSpecialist(null);
+    }
+    setSelectedSpecialist(professional);
+    setSelectedTimeSlot("");
   };
 
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
@@ -98,172 +54,116 @@ const SelectProfessionalBusiness = () => {
     console.log(slot);
   };
 
+  // Handle date selection from calendar component
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const handleDateSelection = (date: string) => {
+    setSelectedDate(date);
+  };
+
+  const dedupeArray = (arr: any[]) => {
+    arr = arr.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.slot === value.slot)
+    );
+    return arr;
+  };
+
+  console.log("selected date >>>>>>>>", selectedDate);
+
   return (
     <View style={styles.container}>
-      <View style={styles.navigation}>
-        <TouchableOpacity
-          style={styles.arrow}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <ArrowLeftBig width={24} height={17.54} fill="black" />
-        </TouchableOpacity>
-        <NormalText
-          normalText={route.params.titleProfessional}
-          fontType={Heading3}
-        />
-      </View>
-      {/* <Agenda  theme={{}} /> */}
-      <View style={styles.calendarContainer}>
-        {expanded ? (
-          <Calendar
-            // initialDate={"2023-03-16"}
-            onDayPress={(day) => {
-              setSelectedDate(day.dateString);
-              console.log("selected day", day);
-            }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
-            style={styles.calendar}
-            firstDay={1}
-            theme={{
-              textDayFontFamily: "PlayfairDisplay_400Regular",
-              textMonthFontFamily: "PlayfairDisplay_700Bold",
-              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
-              // textTodayFontFamily: "PlayfairDisplay_700Bold",
-              calendarBackground: "#F9F5EE",
-              textDayFontWeight: "400",
-              textDisabledColor: "#000000",
-              textSectionTitleColor: "#105535",
-              textDayHeaderFontWeight: "700",
-              textDayHeaderFontSize: 16,
-              selectedDayBackgroundColor: "#105535",
-              selectedDayTextColor: "#105535",
-              todayTextColor: "#ffffff",
-              todayBackgroundColor: "#105535",
-              textMonthFontWeight: "700",
-              textMonthFontSize: 18,
-            }}
-          />
-        ) : (
-          <Calendar
-            // initialDate={"2023-03-16"}
-            onDayPress={(day) => {
-              setSelectedDate(day.dateString);
-              console.log("selected day", day);
-            }}
-            // hideArrows
-            // customHeaderTitle={<NormalText normalText="" />}
-            style={styles.expanded}
-            firstDay={1}
-            theme={{
-              textDayFontFamily: "PlayfairDisplay_400Regular",
-              textMonthFontFamily: "PlayfairDisplay_700Bold",
-              textDayHeaderFontFamily: "PlayfairDisplay_700Bold",
-              calendarBackground: "#F9F5EE",
-              textDayFontWeight: "400",
-              textDisabledColor: "#000000",
-              textSectionTitleColor: "#105535",
-              textDayHeaderFontWeight: "700",
-              textDayHeaderFontSize: 14,
-              selectedDayBackgroundColor: "#105535",
-              selectedDayTextColor: "#105535",
-              todayTextColor: "#ffffff",
-              todayBackgroundColor: "#105535",
-              arrowColor: "#000000",
-              textMonthFontWeight: "700",
-              textMonthFontSize: 18,
-            }}
-          />
-        )}
-      </View>
-      <TouchableOpacity
-        onPress={() => setExpanded(!expanded)}
-        style={styles.arrowDownUpContainer}
-      >
-        {expanded ? (
-          <ArrowUp
-            width={20}
-            height={24}
-            fill={"black"}
-            stroke={"black"}
-            style={styles.arrowDownUp}
-          />
-        ) : (
-          <ArrowDown
-            width={20}
-            height={20}
-            fill={"black"}
-            stroke={"black"}
-            style={styles.arrowDownUp}
-          />
-        )}
-      </TouchableOpacity>
-
-      <View style={{ paddingLeft: 16 }}>
-        <NormalText
-          normalText={"Select Specialist"}
-          textAlign="left"
-          fontType={Heading5}
-        />
-      </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.specialistContainer}
-      >
-        {professionalSelection.specialist.map((specialist, index) => (
+      <ScrollView>
+        <View style={styles.navigation}>
           <TouchableOpacity
-            style={styles.specialistImageText}
-            key={index}
-            onPress={() => handleSpecialistSelection(specialist)}
+            style={styles.arrow}
+            onPress={() => {
+              navigation.goBack();
+            }}
           >
-            <ImageComponent
-              width={100}
-              height={100}
-              imageURL={specialist.photo}
-              borderRadius={4}
-            />
-            <View style={styles.specialistTextMargin}>
-              <NormalText normalText={specialist.name} textAlign="center" />
-            </View>
+            <ArrowLeftBig width={24} height={17.54} fill="black" />
           </TouchableOpacity>
-        ))}
+          <NormalText
+            normalText={route.params.titleProfessional}
+            fontType={Heading3}
+          />
+        </View>
+        <CalendarComponent onDateSelect={handleDateSelection} />
+
+        <View style={{ paddingLeft: 16 }}>
+          <NormalText
+            normalText={"Select Specialist"}
+            textAlign="left"
+            fontType={Heading5}
+          />
+        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.specialistContainer}
+        >
+          {professionals?.map((specialist, index) => (
+            <TouchableOpacity
+              style={styles.specialistImageText}
+              key={index}
+              onPress={() => handleSpecialistSelection(specialist)}
+            >
+              <ImageComponent
+                width={100}
+                height={100}
+                imageURL={specialist.photoURL}
+                borderRadius={4}
+              />
+              {selectedSpecialist === specialist && (
+                <View style={styles.checkIcon}>
+                  <Check fill="white" height={20} width={20} />
+                </View>
+              )}
+
+              <View style={styles.specialistTextMargin}>
+                <NormalText
+                  normalText={`${specialist.firstName} ${specialist.lastName}`}
+                  textAlign="center"
+                />
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        <View style={{ paddingLeft: 16 }}>
+          <NormalText
+            normalText={"Available Slots"}
+            textAlign="left"
+            fontType={Heading5}
+          />
+        </View>
+
+        <View style={styles.timeSlotContainer}>
+          {dedupeArray(selectedSpecialist?.timeSlots || []).map(
+            (timeSlot: any) => (
+              <View style={styles.buttonContainer}>
+                <ButtonComponent
+                  key={timeSlot.id}
+                  containerWidth={100}
+                  height={32}
+                  backgroundColor={
+                    selectedTimeSlot === timeSlot.slot
+                      ? "rgba(130, 40, 72, 1)"
+                      : "rgba(249, 245, 238, 1)"
+                  }
+                  buttonText={timeSlot.slot}
+                  value={timeSlot.id}
+                  textColor={
+                    selectedTimeSlot === timeSlot.slot
+                      ? "rgba(255, 255, 255, 1)"
+                      : "rgba(18, 20, 23, 1)"
+                  }
+                  onPress={() => setTimeSlot(timeSlot?.slot)}
+                />
+              </View>
+            )
+          )}
+        </View>
       </ScrollView>
-
-      <View style={{ paddingLeft: 16 }}>
-        <NormalText
-          normalText={"Available Slots"}
-          textAlign="left"
-          fontType={Heading5}
-        />
-      </View>
-
-      <View style={styles.timeSlotContainer}>
-        {selectedSpecialist?.timeSlots.map((timeSlot) => (
-          <View style={styles.buttonContainer}>
-            <ButtonComponent
-              key={timeSlot}
-              height={32}
-              width={96}
-              backgroundColor={
-                selectedTimeSlot === timeSlot
-                  ? "rgba(130, 40, 72, 1)"
-                  : "rgba(249, 245, 238, 1)"
-              }
-              buttonText={timeSlot}
-              value={timeSlot}
-              textColor={
-                selectedTimeSlot === timeSlot
-                  ? "rgba(255, 255, 255, 1)"
-                  : "rgba(18, 20, 23, 1)"
-              }
-              onPress={() => setTimeSlot(timeSlot)}
-            />
-          </View>
-        ))}
-      </View>
 
       <View style={styles.button}>
         <ButtonComponent
@@ -271,10 +171,14 @@ const SelectProfessionalBusiness = () => {
           onPress={() =>
             navigation.navigate("Confirm Appointment Business", {
               titleConfirmation: "Confirm Appointment",
-              selectedSpecialist: selectedSpecialist?.name,
-              selectedSpecialistPhoto: selectedSpecialist?.photo,
+              selectedSpecialist: `${selectedSpecialist?.firstName} ${selectedSpecialist?.lastName}`,
+              professionalID: selectedSpecialist.professionalID,
+              selectedSpecialistPhoto: selectedSpecialist?.photoURL,
               selectedTime: selectedTimeSlot,
               selectedDate: selectedDate,
+              appointmentDateTime: new Date(
+                selectedDate + selectedTimeSlot
+              ).toString(),
               ...route.params,
             })
           }
@@ -302,29 +206,37 @@ const styles = StyleSheet.create({
   },
   specialistContainer: {
     flex: 1,
-    // flexGrow: 1.5,
     flexDirection: "row",
     marginTop: 8,
     paddingLeft: 16,
     paddingRight: 16,
-    // backgroundColor: "red",
   },
   specialistImageText: {
-    // flexGrow: 1,
     alignItems: "center",
     alignSelf: "flex-start",
     marginRight: 16,
   },
   specialistTextMargin: { marginTop: 8 },
+  checkIcon: {
+    backgroundColor: "#105535",
+    borderRadius: 50,
+    width: 28,
+    height: 28,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 5,
+    right: 5,
+  },
   timeSlotContainer: {
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 8,
     paddingLeft: 16,
     paddingRight: 16,
+    marginTop: 8,
   },
-  buttonContainer: { marginRight: 16 },
+  buttonContainer: { paddingLeft: 16 },
   button: {
     flex: 1,
     justifyContent: "flex-end",
@@ -333,31 +245,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     paddingLeft: 16,
     paddingRight: 16,
-  },
-  calendarContainer: {
-    // flex: 1,
-    borderTopWidth: 2,
-    borderTopColor: "black",
-    borderBottomWidth: 2,
-    borderBottomColor: "black",
-  },
-  calendar: {},
-  expanded: {
-    height: 130,
-    overflow: "hidden",
-  },
-  arrowDownUpContainer: {
-    backgroundColor: "transparent",
-    paddingBottom: 5,
-    paddingTop: 5,
-  },
-  arrowDownUp: {
-    backgroundColor: "#F9F5EE",
-    padding: 10,
-    position: "absolute",
-    top: -10,
-    right: "47.5%",
-    borderRadius: 24,
   },
 });
 

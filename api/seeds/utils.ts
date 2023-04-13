@@ -30,6 +30,40 @@ export const genProfessionals = (n: number, businesses: Array<number>) => {
   return arr
 }
 
+export const genTimeSlots = (n: number, professionals: Array<number>) => {
+  const slots = [
+    '8:00 AM',
+    '9:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '1:00 PM',
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM',
+    '7:00 PM',
+    '8:00 PM',
+  ]
+  const arr: any[] = []
+  let id = 1
+  for (let i = 1; i <= n; i++) {
+    const slotsToCreate = Math.floor(Math.random() * (slots.length + 1 - 1)) + 1
+
+    for (let l = 0; l < slotsToCreate; l++) {
+      arr.push({
+        timeSlotID: id,
+        professionalID: professionals[Math.floor(Math.random() * professionals.length)],
+        slot: slots[l],
+      })
+
+      id++
+    }
+  }
+
+  return arr
+}
+
 export const genBusinesses = (n: number) => {
   const arr: any[] = []
   for (let i = 1; i <= n; i++) {
@@ -70,6 +104,7 @@ export const genServices = (n: number, serviceTypes: Array<number>, businesses: 
       servicePrice: 10 * i,
       serviceTypeID: serviceTypes[Math.floor(Math.random() * serviceTypes.length)],
       businessID: b[Math.floor(Math.random() * b.length)],
+      durationInMinutes: Math.floor(Math.random() * (60 - 10)) + 10,
     })
   }
 
@@ -102,7 +137,9 @@ export const genAppointments = (n: number, professionals: number, businesses: nu
       businessID: bId,
       professionalID: p[Math.floor(Math.random() * p.length)],
       isConfirmed: true,
-      appointmentDateTime: new Date(new Date(2023, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(2023, 0, 1).getTime())),
+      appointmentDateTime: new Date(
+        new Date(2023, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(2023, 0, 1).getTime())
+      ),
       appointmentType: AppointmentType[aType[Math.floor(Math.random() * aType.length)]],
       reviews: {
         create: {

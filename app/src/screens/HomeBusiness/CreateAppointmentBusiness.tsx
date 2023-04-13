@@ -22,8 +22,7 @@ const CreateAppointmentBusiness = () => {
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
   };
-  //customer name, email, phone
-  const typeOfAppointment = ["Walk-in", "Call Appointment"];
+  const typeOfAppointment = ["WALKIN", "CALL"];
 
   console.log(
     "Name:",
@@ -47,7 +46,10 @@ const CreateAppointmentBusiness = () => {
         >
           <ArrowLeftBig width={24} height={17.54} fill="black" />
         </TouchableOpacity>
-        <NormalText normalText={route.params.titleCreateAppointment} fontType={Heading3} />
+        <NormalText
+          normalText={route.params.titleCreateAppointment}
+          fontType={Heading3}
+        />
       </View>
       <View style={styles.inputs}>
         <InputComponent
@@ -105,7 +107,7 @@ const CreateAppointmentBusiness = () => {
               customerName: customerInfo.name,
               customerEmail: customerInfo.email,
               customerPhone: customerInfo.phone,
-              appointmentType: selectedValue
+              appointmentType: selectedValue,
             })
           }
         />
