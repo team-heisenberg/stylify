@@ -73,18 +73,18 @@ const ButtonComponent = ({
               },
             ]}
           >
-            {icon && (
-              <View style={{ width: "20%", alignItems: "flex-start" }}>
-                {icon}
-              </View>
-            )}
-            <View style={icon && { width: "75%", paddingRight: "20%" }}>
+               <View style={icon && { width: "75%" }}>
               <NormalText
                 normalText={buttonText}
                 textColor={textColor}
                 fontType={Link}
               />
             </View>
+            {icon && (
+              <View style={{ width: "5%", alignItems: "flex-end" }}>
+                {icon}
+              </View>
+            )}
           </View>
           <View
             style={[

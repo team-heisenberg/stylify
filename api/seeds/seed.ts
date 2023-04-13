@@ -7,6 +7,7 @@ import {
   genProfessionalServices,
   genServices,
   genServiceTypes,
+  genTimeSlots
 } from './utils'
 const prisma = new PrismaClient()
 
@@ -17,6 +18,10 @@ async function main() {
 
   await prisma.professional.createMany({
     data: genProfessionals(5, [1, 2]),
+  })
+
+  await prisma.timeSlot.createMany({
+    data: genTimeSlots(10, [1, 2, 3, 4, 5]),
   })
 
   await prisma.business.createMany({
@@ -36,7 +41,6 @@ async function main() {
   })
 
   const pr = genAppointments(20, 5, 2, 10).map(async (a) => {
-
     await prisma.appointment.create({
       data: a,
     })

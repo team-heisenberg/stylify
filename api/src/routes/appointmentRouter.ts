@@ -5,14 +5,34 @@ const router = Router()
 
 // POST - Create Record
 router.post('/', async (req, res) => {
+  const { customerID, businessID, professionalID, appointmentDateTime, appointmentType, appointmentDetails } = req.body
   const appointment = await prisma.appointment.create({
     data: {
-      ...req.body,
+      customerID,
+      businessID,
+      professionalID,
+      isConfirmed: true,
+      appointmentDateTime: new Date(),
+      appointmentType,
+      appointmentDetails: {
+        createMany: {
+          data: appointmentDetails.map(({ name, duration, ...rest }) => rest),
+        },
+      },
     },
   })
 
   res.json(appointment)
 })
+
+/*
+customerID
+businessID
+professionalID
+appointmentDateTime
+appointmentType
+appointmentDetails: [{ServiceID, price}]
+*/
 
 // GET - Retrieve Records
 router.get('/', async (_, res) => {

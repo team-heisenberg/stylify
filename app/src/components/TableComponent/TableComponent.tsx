@@ -102,10 +102,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   headerCell: {
-<<<<<<< HEAD
     flex: 1,
-=======
->>>>>>> 55a21ee (working on progress)
     alignItems: "flex-start",
     justifyContent: "space-between",
     padding: 16,
@@ -117,10 +114,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#718096",
   },
   cell: {
-<<<<<<< HEAD
     flex: 1,
-=======
->>>>>>> 55a21ee (working on progress)
     alignItems: "flex-start",
     justifyContent: "center",
     padding: 16,
