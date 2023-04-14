@@ -119,7 +119,7 @@ const HomeCustomer = () => {
             <CardRecentAppointment
               salonImage="https://picsum.photos/200/300"
               salonName="Daniel Salon"
-              services="Haircut, Beard Styling, +3 more"
+              services="Haircut, Beard Styling"
               duration="45min"
               price="$27.90"
               favState={false}

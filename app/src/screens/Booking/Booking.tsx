@@ -24,6 +24,7 @@ import BookingServices from "./BookingServices";
 import BookingSpecialists from "./BookingSpecialists";
 import About from "./About";
 import { createAxiosClient } from "../../api";
+import { background } from "native-base/lib/typescript/theme/styled-system";
 
 const Booking = ({ route }: any) => {
   const navigation = useNavigation<any>();
@@ -71,7 +72,7 @@ const Booking = ({ route }: any) => {
   }, []);
 
   return (
-    <>
+    <View style={{ backgroundColor: "#F9F5EE", height: "100%" }}>
       <View>
         <ImageComponent
           width="100%"
@@ -112,12 +113,12 @@ const Booking = ({ route }: any) => {
             >
               <ArrowLeftBig width={24} height={17.54} fill="white" />
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={styles.buttonTopLeft}
             >
               <FavButton colorFill="#822848" height={18.23} width={22} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>
@@ -140,7 +141,7 @@ const Booking = ({ route }: any) => {
           },
         ]}
       />
-    </>
+    </View>
   );
 };
 

@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     display: "flex",
     position: "absolute",
     justifyContent: "center",
-    right: 0,
+    right: -20,
     height: 30,
     minWidth: 80,
   },

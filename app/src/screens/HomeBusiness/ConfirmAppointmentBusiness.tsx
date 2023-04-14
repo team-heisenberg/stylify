@@ -34,7 +34,6 @@ const ConfirmAppointmentBusiness = () => {
       "<<<<<<<>>>>>><<<<<<<<<<<<<",
       JSON.stringify(appointmentDetails),
       JSON.stringify(appointmentDateTime)
-
     );
     await axiosClient
       .post("/appointment", {
@@ -47,15 +46,19 @@ const ConfirmAppointmentBusiness = () => {
       })
       .then((response) => {
         console.log(response);
-        navigation.navigate("Home Business", {
-          ...route.params,
-          appointments,
-          setAppointments,
-          totalCost: tableData.reduce(
-            (acc: any, value: any) => acc + Number(value.price),
-            0
-          ),
-        });
+        if (route.params?.isCustomer) {
+          navigation.navigate("Home Customer");
+        } else {
+          navigation.navigate("Home Business", {
+            ...route.params,
+            appointments,
+            setAppointments,
+            totalCost: tableData.reduce(
+              (acc: any, value: any) => acc + Number(value.price),
+              0
+            ),
+          });
+        }
       })
       .catch((err) => {
         console.log("You have an error", err);
