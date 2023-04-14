@@ -1,6 +1,6 @@
 // import { NativeBaseProvider } from "native-base";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import StackNav from "./src/stacks/StackNav";
 import { NativeBaseProvider } from "native-base";
 import {
@@ -30,16 +30,16 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <StatusBar style="auto" />
-      <StackNav />
+      <View style={styles.container}>
+        <StackNav />
+      </View>
     </NativeBaseProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
     backgroundColor: "#F9F5EE",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

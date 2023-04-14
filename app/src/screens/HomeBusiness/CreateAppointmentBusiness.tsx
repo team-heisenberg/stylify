@@ -24,17 +24,6 @@ const CreateAppointmentBusiness = () => {
   };
   const typeOfAppointment = ["WALKIN", "CALL"];
 
-  console.log(
-    "Name:",
-    customerInfo.name,
-    "Email:",
-    customerInfo.email,
-    "Phone:",
-    customerInfo.phone,
-    "Appointment type:",
-    selectedValue
-  );
-
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
@@ -54,7 +43,6 @@ const CreateAppointmentBusiness = () => {
       <View style={styles.inputs}>
         <InputComponent
           isRequired
-          placeholder="Customer Name"
           inputLabel="Customer Name"
           value={customerInfo.name}
           onChangeText={(text) =>
@@ -63,7 +51,6 @@ const CreateAppointmentBusiness = () => {
         />
         <InputComponent
           isRequired
-          placeholder="Email"
           inputLabel="Email"
           value={customerInfo.email}
           onChangeText={(text) =>
@@ -72,7 +59,6 @@ const CreateAppointmentBusiness = () => {
         />
         <InputComponent
           isRequired
-          placeholder="Mobile"
           inputLabel="Mobile"
           value={customerInfo.phone}
           onChangeText={(text) =>

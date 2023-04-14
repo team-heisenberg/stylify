@@ -7,8 +7,13 @@ import {
   User,
   Browse as BrowseIcon,
   Fire,
+  HomeFilled,
+  BrowseIconFilled,
+  FireFilled,
+  UserFilled,
 } from "../components/IconsComponent/IconsComponent";
 import HomeCustomer from "../screens/HomeCustomer/HomeCustomer";
+import { View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,10 +24,8 @@ const TabNavigatorClient = () => {
         tabBarStyle: {
           backgroundColor: "rgba(22, 29, 35, 1)",
           height: 98,
+          paddingBottom: 0,
         },
-        tabBarActiveBackgroundColor: "rgba(244, 210, 81, 1)",
-        tabBarActiveTintColor: "rgba(22, 29, 35, 1)",
-        tabBarInactiveTintColor: "rgba(253, 246, 233, 1)",
       }}
     >
       <Tab.Screen
@@ -32,14 +35,21 @@ const TabNavigatorClient = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <Home
-              width={16.7}
-              height={18.34}
-              fill={focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"}
-              stroke={
-                focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"
-              }
-            />
+            <View
+              style={{
+                backgroundColor: focused
+                  ? "rgba(244, 210, 81, 1)"
+                  : "rgba(22, 29, 35, 1)",
+                padding: 19,
+                borderRadius: 8,
+              }}
+            >
+              {focused ? (
+                <HomeFilled width={16.7} height={18.34} />
+              ) : (
+                <Home fill="white" />
+              )}
+            </View>
           ),
         }}
       />
@@ -50,14 +60,21 @@ const TabNavigatorClient = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <BrowseIcon
-              width={17.76}
-              height={17.77}
-              fill={focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"}
-              stroke={
-                focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"
-              }
-            />
+            <View
+              style={{
+                backgroundColor: focused
+                  ? "rgba(244, 210, 81, 1)"
+                  : "rgba(22, 29, 35, 1)",
+                padding: 19,
+                borderRadius: 8,
+              }}
+            >
+              {focused ? (
+                <BrowseIconFilled width={17.76} height={17.77} />
+              ) : (
+                <BrowseIcon width={17.76} height={17.77} fill="white" />
+              )}
+            </View>
           ),
         }}
       />
@@ -68,14 +85,24 @@ const TabNavigatorClient = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <Fire
-              width={14.5}
-              height={20.32}
-              fill={focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"}
-              stroke={
-                focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"
-              }
-            />
+            <View
+              style={{
+                backgroundColor: focused
+                  ? "rgba(244, 210, 81, 1)"
+                  : "rgba(22, 29, 35, 1)",
+                paddingTop: 19,
+                paddingBottom: 19,
+                paddingLeft: 21,
+                paddingRight: 21,
+                borderRadius: 8,
+              }}
+            >
+              {focused ? (
+                <FireFilled width={14.5} height={20.32} />
+              ) : (
+                <Fire width={14.5} height={20.32} fill="white" />
+              )}
+            </View>
           ),
         }}
       />
@@ -86,14 +113,21 @@ const TabNavigatorClient = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <User
-              width={18}
-              height={19.72}
-              fill={focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"}
-              stroke={
-                focused ? "rgba(22, 29, 35, 1)" : "rgba(253, 246, 233, 1)"
-              }
-            />
+            <View
+              style={{
+                backgroundColor: focused
+                  ? "rgba(244, 210, 81, 1)"
+                  : "rgba(22, 29, 35, 1)",
+                padding: 19,
+                borderRadius: 8,
+              }}
+            >
+              {focused ? (
+                <UserFilled width={18} height={19.72} />
+              ) : (
+                <User width={18} height={19.72} fill="white" />
+              )}
+            </View>
           ),
         }}
       />
