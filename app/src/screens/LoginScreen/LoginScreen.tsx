@@ -33,6 +33,7 @@ import {
 } from "@env";
 import NormalText from "../../components/NormalText/NormalText";
 import { BodyBold, BodyRegular } from "../../components/NormalText/FontTypes";
+import { useRoute } from "@react-navigation/native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -42,6 +43,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showOauthForm, setShowOauthForm] = useState(false);
+  const route = useRoute<any>();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
@@ -165,7 +167,11 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   }, []);
 
   const handleSignUp = () => {
-    navigation.navigate("GetStarted");
+    if (route.params.account === "customer") {
+      navigation.navigate("SignUpCustomer");
+    } else {
+      navigation.navigate("SignUpBusiness");
+    }
   };
 
   const handleLogin = () => {
@@ -257,7 +263,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               buttonText="SignUp"
               onPress={handleSignUp}
             /> */}
-{/* 
+            {/* 
             <ButtonComponent
               backgroundColor="#F9F5EE"
               textColor="#000"

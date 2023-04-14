@@ -9,18 +9,18 @@ import { useNavigation } from "@react-navigation/native";
 const GetStarted = () => {
   const navigation = useNavigation<any>();
   const onPressCustomer = () => {
-    navigation.navigate("LoginScreen");
+    navigation.navigate("LoginScreen", { account: "customer" });
   };
   const onPressBusiness = () => {
-    navigation.navigate("LoginScreen");
+    navigation.navigate("LoginScreen", { account: "business" });
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          style={{ width: 300, height: 250 }}
-          source={require("../../../assets/logo/LogoAnimation.gif")}
+          style={{ width: 250, height: 200 }}
+          source={require("../../../assets/logo/LogoAnimationFull.gif")}
         />
         <NormalText
           normalText="Your one-stop beauty destination"
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
+    marginTop: 10,
   },
   buttonsContainer: { width: "90%", alignItems: "center", marginBottom: 50 },
   borderContainer: {

@@ -75,9 +75,6 @@ const ButtonComponent = ({
               },
             ]}
           >
-<<<<<<< HEAD
-               <View style={icon && { width: "75%" }}>
-=======
             {icon && (
               <View style={{ width: "20%", alignItems: "flex-start" }}>
                 {icon}
@@ -89,22 +86,15 @@ const ButtonComponent = ({
                 (rightIcon && { width: "80%" })
               }
             >
->>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
               <NormalText
                 normalText={buttonText}
                 textColor={textColor}
                 fontType={Link}
               />
             </View>
-<<<<<<< HEAD
-            {icon && (
-              <View style={{ width: "5%", alignItems: "flex-end" }}>
-                {icon}
-=======
             {rightIcon && (
               <View style={{ width: "5%", alignItems: "flex-end" }}>
                 {rightIcon}
->>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
               </View>
             )}
           </View>

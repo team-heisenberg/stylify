@@ -30,16 +30,13 @@ import Navigate from "../../../assets/icons/Navigate.svg";
 import RedDot from "../../../assets/icons/RedDot.svg";
 import RightChevron from "../../../assets/icons/RightChevron.svg";
 import GoogleIcon from "../../../assets/icons/GoogleIcon.svg";
-<<<<<<< HEAD
 import DownChevronCircle from "../../../assets/icons/DownChevronCircle.svg";
 import UpChevronCircle from "../../../assets/icons/UpChevronCircle.svg";
 import HomeFilled from "../../../assets/icons/HomeFilled.svg";
 import BrowseIconFilled from "../../../assets/icons/BrowseIconFilled.svg";
 import FireFilled from "../../../assets/icons/FireFilled.svg";
 import UserFilled from "../../../assets/icons/UserFilled.svg";
-=======
 import Logo from "../../../assets/logo/Logo.svg";
->>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
 
 export {
   ArrowDown,
@@ -74,14 +71,11 @@ export {
   RedDot,
   RightChevron,
   GoogleIcon,
-<<<<<<< HEAD
   DownChevronCircle,
   UpChevronCircle,
   HomeFilled,
   BrowseIconFilled,
   FireFilled,
   UserFilled,
-=======
   Logo,
->>>>>>> 0c175ba (feature/HB-218-Create-Splash-Screen)
 };
