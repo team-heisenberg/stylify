@@ -2,85 +2,66 @@ import { View } from "react-native";
 import NormalText from "../../components/NormalText/NormalText";
 import CardService from "../../components/CardService/CardService";
 import { Heading5 } from "../../components/NormalText/FontTypes";
-import { createAxiosClient } from "../../api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 
 interface BookingServiceContainer {
   serviceCategory: string;
-  businessID: any;
-  serviceTypeID: number;
+  services: any[];
+  servicesSelected: any[],
+  setServicesSelected: Function
 }
 
 const BookingServiceContainer = ({
   serviceCategory,
-  businessID,
-  serviceTypeID,
+  services,
+  servicesSelected, 
+  setServicesSelected
 }: BookingServiceContainer) => {
-  const [services, setServices] = useState([]);
-  const servicesArray: any = [];
-
-  const testServiceTypeID = serviceTypeID;
-
-  class Service {
-    serviceName: string;
-    serviceID: number;
-    serviceTypeID: number;
-    servicePrice: number;
-    businessID: number;
-    constructor(
-      serviceName: string,
-      serviceID: number,
-      serviceTypeID: number,
-      servicePrice: number,
-      businessID: number
-    ) {
-      this.serviceName = serviceName;
-      this.serviceID = serviceID;
-      this.serviceTypeID = serviceTypeID;
-      this.servicePrice = servicePrice;
-      this.businessID = businessID;
+  
+  const addService = (selectedService: any) => {
+    let arr = Array.from(servicesSelected || []);
+    const itemIndex = arr.findIndex((a) => selectedService.name === a.name);
+    if (itemIndex > -1) {
+      const { price } = selectedService;
+      let { amount } = arr[itemIndex];
+      amount = amount + 1;
+      arr[itemIndex] = {
+        ...arr[itemIndex],
+        price: price * amount,
+        amount,
+      };
+      setServicesSelected(arr);
+    } else {
+      arr.push(selectedService);
+      setServicesSelected(arr);
     }
-  }
-
-  const searchServices = async () => {
-    const { axiosClient } = await createAxiosClient();
-    await axiosClient
-      .get(`serviceType/servicetypebybusiness/1`)
-      .then((res) => {
-        const response = res.data;
-        // console.log(response[0]["services"]);
-
-        for (let i of response) {
-          for (let b of i["services"]) {
-            if (b["serviceTypeID"] === testServiceTypeID) {
-              let serviceName = b["serviceName"];
-              let serviceID = b["serviceID"];
-              let serviceTypeID = b["serviceTypeID"];
-              let servicePrice = b["servicePrice"];
-              let businessID = b["businessID"];
-
-              const service = new Service(
-                serviceName,
-                serviceID,
-                serviceTypeID,
-                servicePrice,
-                businessID
-              );
-
-              servicesArray.push(service);
-            }
-          }
-        }
-        setServices(servicesArray);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
-  useEffect(() => {
-    searchServices();
-  }, []);
+  const removeService = (selectedService: any) => {
+    let arr = Array.from(servicesSelected || []);
+    const itemIndex = arr.findIndex((a) => selectedService.name === a.name);
+    if (itemIndex > -1) {
+      const { price } = selectedService;
+      let { amount } = arr[itemIndex];
+      amount = amount - 1;
+      arr[itemIndex] = {
+        ...arr[itemIndex],
+        price: price * amount,
+        amount,
+      };
+      if (amount === 0) {
+        arr.splice(itemIndex, 1);
+      }
+
+      setServicesSelected(arr);
+    } else {
+      arr.splice(itemIndex, 1);
+      setServicesSelected(arr);
+    }
+  };
+
+  console.log('AQUAMAN', servicesSelected);
 
   return (
     <View style={{ margin: 16 }}>
@@ -89,16 +70,15 @@ const BookingServiceContainer = ({
         textAlign="left"
         fontType={Heading5}
       />
-      {}
       <View style={{ marginTop: 12 }}>
         {services?.map((s) => (
           <CardService
-            serviceDuration={45}
+            serviceDuration={s?.durationInMinutes}
             serviceName={s["serviceName"]}
             servicePrice={s["servicePrice"]}
             serviceID={s["serviceID"]}
-            serviceTypeID={s["serviceTypeID"]}
-            businessID={s["businessID"]}
+            addService={addService}
+            removeService={removeService}
           />
         ))}
       </View>

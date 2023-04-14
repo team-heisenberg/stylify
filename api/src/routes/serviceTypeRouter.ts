@@ -35,7 +35,7 @@ router.get('/servicetypebybusiness/:businessID', async (req, res) => {
     },
   })
 
-  res.json(serviceTypeList)
+  res.json(serviceTypeList.filter(s => s.services.length !== 0))
 })
 
 // GET - Retrieve Record

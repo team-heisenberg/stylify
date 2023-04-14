@@ -26,7 +26,7 @@ const TabNavigatorClient = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Home Customer"
         component={HomeCustomer}
         options={{
           headerShown: false,
