@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
       businessID,
       professionalID,
       isConfirmed: true,
-      appointmentDateTime: new Date(),
+      appointmentDateTime,
       appointmentType,
       appointmentDetails: {
         createMany: {

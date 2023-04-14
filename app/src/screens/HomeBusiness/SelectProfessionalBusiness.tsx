@@ -68,7 +68,7 @@ const SelectProfessionalBusiness = () => {
     return arr;
   };
 
-  console.log("selected date >>>>>>>>", selectedDate);
+  console.log("JJJJJJJJJJ", selectedDate + ' ' + selectedTimeSlot);
 
   return (
     <View style={styles.container}>
@@ -177,8 +177,8 @@ const SelectProfessionalBusiness = () => {
               selectedTime: selectedTimeSlot,
               selectedDate: selectedDate,
               appointmentDateTime: new Date(
-                selectedDate + selectedTimeSlot
-              ).toString(),
+                selectedDate + ' ' + selectedTimeSlot
+              ).toLocaleString(),
               ...route.params,
             })
           }
