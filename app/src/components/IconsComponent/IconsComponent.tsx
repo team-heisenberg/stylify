@@ -32,6 +32,10 @@ import RightChevron from "../../../assets/icons/RightChevron.svg";
 import GoogleIcon from "../../../assets/icons/GoogleIcon.svg";
 import DownChevronCircle from "../../../assets/icons/DownChevronCircle.svg";
 import UpChevronCircle from "../../../assets/icons/UpChevronCircle.svg";
+import HomeFilled from "../../../assets/icons/HomeFilled.svg";
+import BrowseIconFilled from "../../../assets/icons/BrowseIconFilled.svg";
+import FireFilled from "../../../assets/icons/FireFilled.svg";
+import UserFilled from "../../../assets/icons/UserFilled.svg";
 
 export {
   ArrowDown,
@@ -67,5 +71,9 @@ export {
   RightChevron,
   GoogleIcon,
   DownChevronCircle,
-  UpChevronCircle
+  UpChevronCircle,
+  HomeFilled,
+  BrowseIconFilled,
+  FireFilled,
+  UserFilled,
 };

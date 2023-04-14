@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native";
+import { View } from "react-native";
 import StoryBoard from "../screens/StoryBoard/StoryBoard";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
@@ -27,11 +27,15 @@ import Profile from "../screens/Profile/Profile";
 import ServiceDetail from "../screens/Browse/ServiceDetail";
 import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 // import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
 
 const StackNav = () => {
+  const insets = useSafeAreaInsets();
+
   const [serviceTypes, setServiceTypes] = useState([]);
 
   const getServiceTypes = async () => {
@@ -59,7 +63,7 @@ const StackNav = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingTop: insets.top }}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -138,7 +142,7 @@ const StackNav = () => {
           <Stack.Screen name="Search Results" component={SearchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   );
 };
 

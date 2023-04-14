@@ -95,7 +95,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
   const handleDateSelection = (date: string) => {
     setSelectedDate(date);
-    console.log('date here: ',date)
+    console.log("date here: ", date);
   };
 
   return (

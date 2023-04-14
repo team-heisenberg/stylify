@@ -30,7 +30,7 @@ const CalendarComponent: React.FC<Props> = ({ onDateSelect }) => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.calendarContainer}>
         {expanded ? (
           <Calendar
@@ -93,11 +93,12 @@ const CalendarComponent: React.FC<Props> = ({ onDateSelect }) => {
           <DownChevronCircle style={styles.arrowDown} />
         )}
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
 const styles = {
+  container: { marginBottom: 10 },
   calendarContainer: {
     borderBottomWidth: 2,
     borderBottomColor: "black",
