@@ -31,16 +31,15 @@ const ConfirmAppointmentBusiness = () => {
       appointmentType,
     } = route.params;
     console.log(
-      "<<<<<<<>>>>>><<<<<<<<<<<<<",
-      JSON.stringify(appointmentDetails),
-      JSON.stringify(appointmentDateTime)
+      "MACARENA",
+      new Date(appointmentDateTime)
     );
     await axiosClient
       .post("/appointment", {
         customerID: 1,
         businessID: businessID,
         professionalID: professionalID,
-        appointmentDateTime: appointmentDateTime,
+        appointmentDateTime: new Date(appointmentDateTime),
         appointmentType: appointmentType,
         appointmentDetails: appointmentDetails,
       })
