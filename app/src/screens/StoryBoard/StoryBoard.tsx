@@ -25,6 +25,7 @@ import TabViewExample from "../../components/TabViewComponent/TabViewComponent";
 import TabViewComponent from "../../components/TabViewComponent/TabViewComponent";
 import StarComponent from "../../components/StarComponent/StarComponent";
 import Ratings from "../../components/Ratings/Ratings";
+import ModalSheet from "../../components/ModalSheet/ModalSheet";
 // import { useNavigation } from "@react-navigation/native";
 
 const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
@@ -148,6 +149,7 @@ const StoryBoard: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
       <StarComponent ratings={4.5} />
       <NormalText normalText="Ratings Component" textAlign="left" />
       <Ratings ratings={4.5} />
+      <ModalSheet />
     </ScrollView>
   );
 };
