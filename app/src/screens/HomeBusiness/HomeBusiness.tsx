@@ -19,6 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Card from "../../components/Card/Card";
 import { ArrowRightBig } from "../../components/IconsComponent/IconsComponent";
 import CalendarComponent from "../../components/CalendarComponent/CalendarComponent";
+import { removeYear } from "../../utils";
 
 const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
   const [value, setValue] = useState("");
@@ -98,6 +99,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
     console.log("date here: ", date);
   };
 
+
   return (
     <View style={styles.container}>
       <CalendarComponent onDateSelect={handleDateSelection} />
@@ -131,9 +133,9 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                       >
                         <View style={styles.appointmentTimeContainer}>
                           <NormalText
-                            normalText={item.appointmentDateTime}
+                            normalText={removeYear(item?.dateAndTime || "")}
                             textColor="white"
-                            fontType={Heading4}
+                            fontType={Heading5}
                           />
                         </View>
                         <View

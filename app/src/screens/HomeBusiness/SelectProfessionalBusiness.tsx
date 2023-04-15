@@ -176,6 +176,7 @@ const SelectProfessionalBusiness = () => {
               selectedSpecialistPhoto: selectedSpecialist?.photoURL,
               selectedTime: selectedTimeSlot,
               selectedDate: selectedDate,
+              dateAndTime: `${selectedDate} ${selectedTimeSlot}`,
               appointmentDateTime: new Date(
                 selectedDate + ' ' + selectedTimeSlot
               ).toLocaleString(),

@@ -126,6 +126,7 @@ model Appointment {
   deal                Deal?                @relation(fields: [dealID], references: [dealID])
   dealID              Int?
   appointmentDateTime DateTime
+  dateAndTime         String?
   appointmentDetails  AppointmentDetails[]
   appointmentType     AppointmentType      @default(ONLINE)
 
