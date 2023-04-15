@@ -6,7 +6,6 @@ import {
   BodyRegular,
   captions,
   Heading3,
-  Heading4,
   Heading5,
 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
@@ -49,6 +48,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
       const userData = JSON.parse(rawUserData || "{}");
       getAppointments(userData?.ID, value);
       setBusinessID(userData?.ID);
+      console.log(userData?.ID)
       setbusinessName(userData?.Name);
     })();
   }, [value]);

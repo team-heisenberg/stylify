@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
-import { captions, Heading2, Heading5 } from "../NormalText/FontTypes";
+import { captions, Heading5 } from "../NormalText/FontTypes";
 import { Navigate } from "../IconsComponent/IconsComponent";
 
 interface CardInterface {
@@ -27,7 +27,7 @@ const CardAppointment = ({
         <View style={styles.clock}>
           <NormalText
             normalText={time}
-            fontType={Heading2}
+            fontType={Heading5}
             textColor="white"
             textAlign="center"
           />
@@ -61,7 +61,7 @@ const CardAppointment = ({
           />
         </View>
         <View style={styles.navigator}>
-            <Navigate width={27} height={27} fill="black" />
+          <Navigate width={27} height={27} fill="black" />
         </View>
       </View>
     </Card>

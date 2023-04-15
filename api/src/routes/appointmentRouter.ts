@@ -147,6 +147,59 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
   res.json(result)
 })
 
+// GET - Retrieve Records by Customer
+router.get('/upcomingByCustomer/:customerID', async (req, res) => {
+  const { customerID } = req.params
+
+  const upcomingAppointments: UpcomingAppointments[] = await prisma.$queryRawUnsafe(
+    `SELECT a.appointmentID,  CONCAT(c.firstName, ' ', c.lastName) as customerName,
+      b.businessName,
+      CONCAT(p.firstName, ' ', p.lastName) as professionalName,
+      a.dateAndTime,
+      SUM(ad.price) as total
+      FROM Appointment a 
+      JOIN Customer c ON c.customerID = a.customerID 
+      JOIN Business b ON b.businessID = a.businessID 
+      JOIN Professional p ON p.professionalID  = a.professionalID 
+      JOIN AppointmentDetails ad ON ad.appointmentID  = a.appointmentID 
+      WHERE  a.customerID = ?
+      
+      GROUP BY 1,2,3,4,5`,
+    customerID
+  )
+
+  const pr = upcomingAppointments.map(async (ap) => {
+    const servicesArr: any[] = await prisma.$queryRawUnsafe(
+      `SELECT s.serviceName FROM AppointmentDetails ad 
+        LEFT JOIN Service s ON s.serviceID = ad.serviceID 
+        
+        WHERE ad.appointmentID = ?`,
+      ap.appointmentID
+    )
+
+    console.log('>>>>>>>>>>>>>>>>>', servicesArr)
+
+    const services = servicesArr.reduce((acc, value) => {
+      if (acc && acc.length > 0) {
+        acc = acc + `, ${value.serviceName}`
+      } else {
+        acc = value.serviceName
+      }
+      return acc
+    }, '')
+    return { ...ap, services }
+  })
+
+  const result = await Promise.all(pr)
+
+  if (result?.length === 0) {
+    res.status(400).end()
+    return
+  }
+
+  res.json(result)
+})
+
 // PUT - Update Record
 router.put('/:appointmentID', async (req, res) => {
   const { appointmentID, ...data } = req.body
