@@ -5,7 +5,7 @@ const router = Router()
 
 // POST - Create Record
 router.post('/', async (req, res) => {
-  const { customerID, businessID, professionalID, appointmentDateTime, appointmentType, appointmentDetails } = req.body
+  const { customerID, businessID, professionalID, appointmentDateTime, appointmentType, appointmentDetails, dateAndTime } = req.body
   const appointment = await prisma.appointment.create({
     data: {
       customerID,
@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {
       isConfirmed: true,
       appointmentDateTime,
       appointmentType,
+      dateAndTime,
       appointmentDetails: {
         createMany: {
           data: appointmentDetails.map(({ name, duration, ...rest }) => rest),
@@ -74,6 +75,67 @@ router.get('/byBusiness/:businessID', async (req, res) => {
   })
 
   res.json(appointments)
+})
+
+type UpcomingAppointments = {
+  appointmentID: number
+  customerName: string
+  professionalName: string
+  dateAndTime: string
+  services?: string
+  total: number
+}
+
+// GET - Retrieve Records by Business
+router.get('/upcomingByBusiness/:businessID', async (req, res) => {
+  const { businessID } = req.params
+
+  const upcomingAppointments: UpcomingAppointments[] = await prisma.$queryRawUnsafe(
+    `SELECT a.appointmentID,  CONCAT(c.firstName, ' ', c.lastName) as customerName,
+      b.businessName,
+      CONCAT(p.firstName, ' ', p.lastName) as professionalName,
+      a.dateAndTime,
+      SUM(ad.price) as total
+      FROM Appointment a 
+      JOIN Customer c ON c.customerID = a.customerID 
+      JOIN Business b ON b.businessID = a.businessID 
+      JOIN Professional p ON p.professionalID  = a.professionalID 
+      JOIN AppointmentDetails ad ON ad.appointmentID  = a.appointmentID 
+      WHERE  a.businessID = ?
+      
+      GROUP BY 1,2,3,4,5`,
+      businessID
+  )
+
+  const pr = upcomingAppointments.map(async (ap) => {
+    const servicesArr: any[] = await prisma.$queryRawUnsafe(
+      `SELECT s.serviceName FROM AppointmentDetails ad 
+        LEFT JOIN Service s ON s.serviceID = ad.serviceID 
+        
+        WHERE ad.appointmentID = ?`,
+      ap.appointmentID
+    )
+
+    console.log('>>>>>>>>>>>>>>>>>', servicesArr)
+
+    const services = servicesArr.reduce((acc, value) => {
+      if (acc && acc.length > 0) {
+        acc = acc + `, ${value.serviceName}`
+      }
+      acc = value.serviceName
+      return acc
+    }, '')
+    return { ...ap, services }
+  })
+
+  const result = await Promise.all(pr)
+
+  if (result?.length === 0) {
+    res.status(400).end()
+    return
+  }
+
+  res.json(result)
 })
 
 // PUT - Update Record
