@@ -6,11 +6,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 interface AppointmentsInsightsInterface {
   initialDate: string;
   finalDate: string;
+  totalEarnings?: number;
 }
 
 const AppointmentsInsights = ({
   initialDate,
   finalDate,
+  totalEarnings,
 }: AppointmentsInsightsInterface) => {
   const [online, setOnline] = useState(0);
   const [call, setCall] = useState(0);
@@ -75,6 +77,7 @@ const AppointmentsInsights = ({
       onlineAmount={online}
       callAmount={call}
       walkinAmount={walkin}
+      totalEarnings={totalEarnings}
     />
   );
 };

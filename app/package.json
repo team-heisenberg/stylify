@@ -27,6 +27,7 @@
     "expo": "~48.0.10",
     "expo-auth-session": "~4.0.3",
     "expo-checkbox": "~2.3.1",
+    "expo-constants": "^14.2.1",
     "expo-crypto": "~12.2.1",
     "expo-font": "~11.1.1",
     "expo-linear-gradient": "~12.1.2",

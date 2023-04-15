@@ -44,9 +44,14 @@ const Reviews = () => {
       const rawUserData = await AsyncStorage.getItem("@stylify:user");
       const userData = JSON.parse(rawUserData || "{}");
       getReviews(userData?.ID);
-      getOverallRatings();
     })();
   }, []);
+
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      getOverallRatings();
+    }
+  }, [reviews]);
 
   return (
     <View style={{ padding: 20 }}>

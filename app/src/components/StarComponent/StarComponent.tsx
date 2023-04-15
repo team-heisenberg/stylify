@@ -2,16 +2,22 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Star } from "../IconsComponent/IconsComponent";
 import NormalText from "../NormalText/NormalText";
-import { Heading5 } from "../NormalText/FontTypes";
+import { Heading4 } from "../NormalText/FontTypes";
 
 interface StarComponentInterface {
   ratings: number;
+  textColor?: string;
 }
 
-const StarComponent = ({ ratings }: StarComponentInterface) => {
+const StarComponent = ({ ratings, textColor }: StarComponentInterface) => {
   return (
     <View style={styles.container}>
-      <NormalText normalText={ratings} fontType={Heading5} marginRight={3} />
+      <NormalText
+        normalText={ratings}
+        fontType={Heading4}
+        marginRight={3}
+        textColor={textColor}
+      />
       <Star fill="#F4D251" />
     </View>
   );

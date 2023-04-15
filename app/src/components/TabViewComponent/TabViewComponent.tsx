@@ -35,7 +35,7 @@ const TabViewComponent: React.FC<{ routes: IScene[] }> = ({ routes }) => {
               borderRadius="50"
               borderColor="#105535"
               backgroundColor="#F9F5EE"
-              width="95%"
+              width="89%"
               height="31"
               margin="auto"
               zIndex="100"
@@ -73,14 +73,14 @@ const TabViewComponent: React.FC<{ routes: IScene[] }> = ({ routes }) => {
               })}
             </Box>
             <Box
-              width="95%"
+              width="89%"
               height="30"
               margin="auto"
               backgroundColor="black"
               borderRadius="50"
               position="absolute"
-              top="1"
-              right="1"
+              top={1}
+              right={4}
             />
           </>
         );

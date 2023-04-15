@@ -7,6 +7,7 @@ import {
   captions,
   Heading4,
   Heading5,
+  BodyRegular,
 } from "../../components/NormalText/FontTypes";
 import { createAxiosClient } from "../../api";
 import Reviews from "./Reviews";
@@ -182,7 +183,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
 
   return (
     <ScrollView style={{ marginTop: 5 }}>
-      <View style={{ margin: 20 }}>
+      <View style={{ width: "90%", alignSelf: "center", marginVertical: 20 }}>
         <Card
           flexDirection="column"
           alignItems="flex-start"
@@ -197,7 +198,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             />
           </View>
           <View style={styles.cardViewStyles}>
-            <NormalText normalText={`$${totalEarnings}`} fontType={Heading4} />
+            <NormalText normalText={`$ ${totalEarnings}`} fontType={Heading4} />
             <NormalText
               normalText={EarningsPercentage}
               fontType={captions}
@@ -208,7 +209,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
         </Card>
         <TableComponent
           tableHeader={[
-            { title: "Top Peofessionals", property: "professional" },
+            { title: "Top Professionals", property: "professional" },
             { title: "Sale", property: "sale" },
           ]}
           tableData={
@@ -233,24 +234,37 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             },
           ]}
         />
-        <View style={styles.viewAllText}>
-          {!showProfessionals ? (
-            <TouchableOpacity
-              style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
-              onPress={showAllProfessionals}
-            >
-              <NormalText normalText="View All" />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
-              onPress={showLessProfessionals}
-            >
-              <NormalText normalText="View Less" />
-            </TouchableOpacity>
-          )}
-        </View>
-        <AppointmentsInsights initialDate={initialDate} finalDate={finalDate} />
+        {totalEarnings != 0 ? (
+          <View style={styles.viewAllText}>
+            {!showProfessionals ? (
+              <TouchableOpacity
+                style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
+                onPress={showAllProfessionals}
+              >
+                <NormalText normalText="View All" fontType={BodyRegular} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={{ borderBottomWidth: 1, borderColor: "#24313A" }}
+                onPress={showLessProfessionals}
+              >
+                <NormalText normalText="View Less" fontType={BodyRegular} />
+              </TouchableOpacity>
+            )}
+          </View>
+        ) : (
+          <View style={{ marginTop: 10 }}>
+            <NormalText
+              normalText="No professionals to show"
+              fontType={BodyRegular}
+            />
+          </View>
+        )}
+        <AppointmentsInsights
+          initialDate={initialDate}
+          finalDate={finalDate}
+          totalEarnings={totalEarnings}
+        />
       </View>
       <View style={styles.divider} />
       <Reviews />
