@@ -21,6 +21,7 @@ const Browse = () => {
           normalText="Services"
           fontType={Heading3}
           textAlign="left"
+          marginBottom={10}
         />
         </View>
         <View style={styles.cardContainer}>

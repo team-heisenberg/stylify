@@ -22,54 +22,54 @@ const Profile = () => {
   };
 
   const tableData = [
-    {
-      profile: (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Client Profile", { title: "User Name" })
-          }
-        >
-          <NormalText normalText="User Name" />
-        </TouchableOpacity>
-      ),
-    },
-    {
-      profile: (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Client Appointments", {
-              title: "Appointments",
-            })
-          }
-        >
-          <NormalText normalText="Appointments" />
-        </TouchableOpacity>
-      ),
-    },
-    {
-      profile: (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Client Favourites", {
-              title: "Favourite Salons",
-            })
-          }
-        >
-          <NormalText normalText="Favourite Salons" />
-        </TouchableOpacity>
-      ),
-    },
-    {
-      profile: (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("Client Settings", { title: "Settings" })
-          }
-        >
-          <NormalText normalText="Settings" />
-        </TouchableOpacity>
-      ),
-    },
+    // {
+    //   profile: (
+    //     <TouchableOpacity
+    //       onPress={() =>
+    //         navigation.navigate("Client Profile", { title: "User Name" })
+    //       }
+    //     >
+    //       <NormalText normalText="User Name" />
+    //     </TouchableOpacity>
+    //   ),
+    // },
+    // {
+    //   profile: (
+    //     <TouchableOpacity
+    //       onPress={() =>
+    //         navigation.navigate("Client Appointments", {
+    //           title: "Appointments",
+    //         })
+    //       }
+    //     >
+    //       <NormalText normalText="Appointments" />
+    //     </TouchableOpacity>
+    //   ),
+    // },
+    // {
+    //   profile: (
+    //     <TouchableOpacity
+    //       onPress={() =>
+    //         navigation.navigate("Client Favourites", {
+    //           title: "Favourite Salons",
+    //         })
+    //       }
+    //     >
+    //       <NormalText normalText="Favourite Salons" />
+    //     </TouchableOpacity>
+    //   ),
+    // },
+    // {
+    //   profile: (
+    //     <TouchableOpacity
+    //       onPress={() =>
+    //         navigation.navigate("Client Settings", { title: "Settings" })
+    //       }
+    //     >
+    //       <NormalText normalText="Settings" />
+    //     </TouchableOpacity>
+    //   ),
+    // },
     {
       profile: (
         <TouchableOpacity onPress={handleSignOut}>
@@ -80,8 +80,15 @@ const Profile = () => {
   ];
   return (
     <View style={styles.container}>
-      <View style={{padding: 6}}>
-        <NormalText normalText="Profile" fontType={Heading3} textAlign="left" />
+      <View style={{ padding: 6 }}>
+        <NormalText
+          normalText="Profile"
+          fontType={Heading3}
+          textAlign="left"
+          marginBottom={-30}
+          marginTop={35}
+          marginLeft={10}
+        />
       </View>
       <TableComponent
         numColumns={1}
@@ -96,8 +103,8 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9F5EE"
-  }
-})
+    backgroundColor: "#F9F5EE",
+  },
+});
 
 export default Profile;
