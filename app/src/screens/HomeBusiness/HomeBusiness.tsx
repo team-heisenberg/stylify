@@ -69,10 +69,9 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
   };
 
   // Navigate to Appointment Detail
-  const onPress = () => {
-    navigation.navigate("BusinessProfile", {
-      businessID: businessID,
-      businessName: businessName,
+  const onPress = (appointment: {}) => {
+    navigation.navigate("Appointment Details", {
+      appointment: appointment,
     });
   };
 
@@ -138,7 +137,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                         marginBottom={10}
                         width="99%"
                         padding={0}
-                        onPress={onPress}
+                        onPress={() => onPress(item)}
                       >
                         <View style={styles.appointmentTimeContainer}>
                           <NormalText

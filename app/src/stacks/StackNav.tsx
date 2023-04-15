@@ -32,6 +32,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import LogoScreen from "../screens/SplashScreen/LogoScreen";
 import GetStarted from "../screens/SplashScreen/GetStarted";
+import AppointmentDetails from "../screens/HomeBusiness/AppointmentDetails";
 // import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
@@ -138,6 +139,10 @@ const StackNav = () => {
           <Stack.Screen
             name="Confirm Appointment Business"
             component={ConfirmAppointmentBusiness}
+          />
+          <Stack.Screen
+            name="Appointment Details"
+            component={AppointmentDetails}
           />
           <Stack.Screen name="Browse" component={Browse} />
           <Stack.Screen name="Deals" component={Deals} />
