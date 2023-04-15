@@ -36,6 +36,7 @@ import HomeFilled from "../../../assets/icons/HomeFilled.svg";
 import BrowseIconFilled from "../../../assets/icons/BrowseIconFilled.svg";
 import FireFilled from "../../../assets/icons/FireFilled.svg";
 import UserFilled from "../../../assets/icons/UserFilled.svg";
+import Logo from "../../../assets/logo/Logo.svg";
 
 export {
   ArrowDown,
@@ -76,4 +77,5 @@ export {
   BrowseIconFilled,
   FireFilled,
   UserFilled,
+  Logo,
 };

@@ -29,6 +29,9 @@ import SearchScreen from "../screens/SearchScreen/SearchScreen";
 import TabNavigatorBusiness from "./TabNavigatorBusiness";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import SplashScreen from "../screens/SplashScreen/SplashScreen";
+import LogoScreen from "../screens/SplashScreen/LogoScreen";
+import GetStarted from "../screens/SplashScreen/GetStarted";
 // import topProfessionalsDetails from "../screens/InsightsBusiness/topProfessionalsDetails";
 
 const Stack = createNativeStackNavigator();
@@ -74,9 +77,10 @@ const StackNav = () => {
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"
-            component={LoginScreen}
+            component={GetStarted}
           />
-
+          <Stack.Screen name="GetStarted" component={GetStarted} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="SignUpBusiness" component={SignUpBusiness} />
           <Stack.Screen name="SignUpCustomer" component={SignUpCustomer} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />

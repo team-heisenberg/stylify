@@ -13,6 +13,7 @@ interface ButtonComponentInterface {
   isDisabled?: boolean;
   buttonText: string;
   icon?: ReactElement;
+  rightIcon?: ReactElement;
   textColor?: string;
   value?: string;
   onPress?: () => void;
@@ -29,6 +30,7 @@ const ButtonComponent = ({
   buttonText,
   textColor,
   icon,
+  rightIcon,
   onPress,
 }: ButtonComponentInterface) => {
   const [positionTop, setPositionTop] = useState(4);
@@ -73,16 +75,26 @@ const ButtonComponent = ({
               },
             ]}
           >
-               <View style={icon && { width: "75%" }}>
+            {icon && (
+              <View style={{ width: "20%", alignItems: "flex-start" }}>
+                {icon}
+              </View>
+            )}
+            <View
+              style={
+                (icon && { width: "75%", paddingRight: "20%" }) ||
+                (rightIcon && { width: "80%" })
+              }
+            >
               <NormalText
                 normalText={buttonText}
                 textColor={textColor}
                 fontType={Link}
               />
             </View>
-            {icon && (
+            {rightIcon && (
               <View style={{ width: "5%", alignItems: "flex-end" }}>
-                {icon}
+                {rightIcon}
               </View>
             )}
           </View>

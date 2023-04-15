@@ -1,5 +1,6 @@
 import {
   KeyboardAvoidingView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -19,7 +20,10 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { GoogleAuthProvider } from "firebase/auth/react-native";
-import { GoogleIcon } from "../../components/IconsComponent/IconsComponent";
+import {
+  GoogleIcon,
+  Logo,
+} from "../../components/IconsComponent/IconsComponent";
 import { createAxiosClient } from "../../api";
 import {
   REACT_APP_DEV_IOS_GOOGLE_CLIENT_ID,
@@ -27,6 +31,9 @@ import {
   REACT_APP_PROD_IOS_GOOGLE_CLIENT_ID,
   REACT_APP_PROD_EXPO_GOOGLE_CLIENT_ID,
 } from "@env";
+import NormalText from "../../components/NormalText/NormalText";
+import { BodyBold, BodyRegular } from "../../components/NormalText/FontTypes";
+import { useRoute } from "@react-navigation/native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -36,6 +43,7 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showOauthForm, setShowOauthForm] = useState(false);
+  const route = useRoute<any>();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId:
@@ -159,7 +167,11 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   }, []);
 
   const handleSignUp = () => {
-    navigation.navigate("SignUp", {});
+    if (route.params.account === "customer") {
+      navigation.navigate("SignUpCustomer");
+    } else {
+      navigation.navigate("SignUpBusiness");
+    }
   };
 
   const handleLogin = () => {
@@ -193,51 +205,65 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       ) : (
-        <KeyboardAvoidingView
-          behavior="padding"
-          style={{
-            padding: 15,
-            flex: 1,
-            backgroundColor: "#F9F5EE",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <InputComponent
-            inputLabel="Email"
-            showText={true}
-            error={false}
-            labelBgColor="white"
-            inputBgColor="white"
-            onChangeText={setEmail}
-            value={email}
-          />
-
-          <InputComponent
-            inputLabel="Password"
-            showText={false}
-            error={false}
-            labelBgColor="white"
-            inputBgColor="white"
-            onChangeText={setPassword}
-            value={password}
-          />
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+          <Logo />
+          <View
+            style={{
+              width: "100%",
+              marginBottom: 10,
+            }}
+          >
+            <InputComponent
+              inputLabel="Email"
+              showText={true}
+              error={false}
+              labelBgColor="white"
+              inputBgColor="white"
+              onChangeText={setEmail}
+              value={email}
+            />
+            <InputComponent
+              inputLabel="Password"
+              showText={false}
+              error={false}
+              labelBgColor="white"
+              inputBgColor="white"
+              onChangeText={setPassword}
+              value={password}
+            />
+            <TouchableOpacity>
+              <NormalText
+                normalText="Forgot password?"
+                fontType={BodyRegular}
+                textAlign="left"
+                marginLeft={20}
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                width: "90%",
+                alignSelf: "center",
+                marginTop: 10,
+              }}
+            >
+              <ButtonComponent buttonText="Sign in" onPress={handleLogin} />
+            </View>
+          </View>
 
           <View
             style={{
               width: "100%",
-              marginTop: 25,
             }}
           >
-            <ButtonComponent buttonText="Login" onPress={handleLogin} />
+            {/* <ButtonComponent buttonText="Login" onPress={handleLogin} /> */}
 
-            <ButtonComponent
+            {/* <ButtonComponent
               backgroundColor="#F9F5EE"
               textColor="#000"
               buttonText="SignUp"
               onPress={handleSignUp}
-            />
-
+            /> */}
+            {/* 
             <ButtonComponent
               backgroundColor="#F9F5EE"
               textColor="#000"
@@ -246,15 +272,60 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               onPress={async () => {
                 await promptAsync();
               }}
-            />
-
-            {process.env.NODE_ENV === "development" && (
+            /> */}
+            <View style={styles.borderContainer}>
+              <View style={styles.border} />
+              <View style={styles.borderTextContainer}>
+                <NormalText
+                  normalText="Or sign in with"
+                  fontType={BodyRegular}
+                />
+              </View>
+            </View>
+            <View
+              style={{
+                width: "90%",
+                alignSelf: "center",
+              }}
+            >
               <ButtonComponent
-                backgroundColor="red"
-                buttonText="Storybook"
-                onPress={() => navigation.navigate("StoryBook")}
+                backgroundColor="#F9F5EE"
+                textColor="#000"
+                buttonText="Google"
+                icon={<GoogleIcon width={32} height={32} fill="#000" />}
+                onPress={async () => {
+                  await promptAsync();
+                }}
               />
-            )}
+              {process.env.NODE_ENV === "development" && (
+                <ButtonComponent
+                  backgroundColor="red"
+                  buttonText="Storybook"
+                  onPress={() => navigation.navigate("StoryBook")}
+                />
+              )}
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 5,
+              alignSelf: "center",
+              marginTop: 20,
+            }}
+          >
+            <NormalText
+              normalText="Don't have an account?"
+              fontType={BodyRegular}
+              textColor="#24313A"
+            />
+            <TouchableOpacity onPress={handleSignUp}>
+              <NormalText
+                normalText="Sign up"
+                fontType={BodyBold}
+                textColor="#822848"
+              />
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       )}
@@ -263,3 +334,28 @@ const LoginScreen: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
 };
 
 export default LoginScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    gap: 30,
+    paddingTop: 20,
+    height: "100%",
+    backgroundColor: "#F9F5EE",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  borderContainer: {
+    width: "100%",
+    position: "relative",
+    marginTop: 30,
+  },
+  border: { borderBottomWidth: 1, borderColor: "#24313A" },
+  borderTextContainer: {
+    backgroundColor: "#F9F5EE",
+    alignSelf: "center",
+    justifyContent: "center",
+    bottom: 15,
+    width: 130,
+  },
+});

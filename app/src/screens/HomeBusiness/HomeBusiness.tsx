@@ -203,7 +203,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
       <View style={styles.button}>
         <ButtonComponent
           buttonText="Create New Appointment"
-          icon={<ArrowRightBig fill="white" />}
+          rightIcon={<ArrowRightBig fill="white" />}
           onPress={() =>
             navigation.navigate("Create Appointment Business", {
               titleCreateAppointment: "Create Appointment",

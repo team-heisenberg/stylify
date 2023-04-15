@@ -9,9 +9,9 @@
     "scheme": "ca.stylify.app",
     "jsEngine": "hermes",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo/LogoAnimation.gif",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F9F5EE"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
