@@ -1,5 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   View,
@@ -14,13 +15,30 @@ import CardSalon from "../../components/CardSalon/CardSalon";
 import CardAppointment from "../../components/CardAppointment/CardAppointment";
 import CardRecentAppointment from "../../components/CardRecentAppointment/CardRecentAppointment";
 import { createAxiosClient } from "../../api";
+import { removeYear } from "../../utils";
 
 const HomeCustomer = () => {
-  const navigation = useNavigation<any>();
+  const [customerID, setCustomerID] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [value, setValue] = useState("");
+  const [appointments, setAppointments] = useState([]);
   const [business, setBusiness] = useState([]);
   const route = useRoute();
+  const navigation = useNavigation<any>();
 
   console.log(business);
+
+  const getAppointments = async (customerID: string | number, value: any) => {
+    const { axiosClient } = await createAxiosClient();
+    await axiosClient
+      .get(`/appointment/upcomingByCustomer/${customerID}`)
+      .then((res) => {
+        setAppointments(res.data);
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+      });
+  };
 
   const searchBusiness = async () => {
     const { axiosClient } = await createAxiosClient();
@@ -36,8 +54,19 @@ const HomeCustomer = () => {
   };
 
   useEffect(() => {
-    searchBusiness();
-  }, []);
+    (async () => {
+      const rawUserData = await AsyncStorage.getItem("@stylify:user");
+      const userData = JSON.parse(rawUserData || "{}");
+      getAppointments(userData?.ID, value);
+      setCustomerID(userData?.ID);
+      setCustomerName(userData?.Name);
+      searchBusiness();
+    })();
+  }, [value]);
+
+  // useEffect(() => {}, []);
+
+  console.log("appointment >>>>>>>>>>", appointments);
 
   return (
     <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
@@ -62,35 +91,29 @@ const HomeCustomer = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.cards}>
-          <CardAppointment
-            time="12:00"
-            ampm="am"
-            salonName="Daniel Salon"
-            services="Haircut"
-            professional="Diego Lara"
-          />
-        </View>
-        <View style={styles.cards}>
-          <CardAppointment
-            time="12:00"
-            ampm="am"
-            salonName="Daniel Salon"
-            services="Haircut"
-            professional="Diego Lara"
-          />
-        </View>
+        {appointments !== [] ? (
+          appointments?.map((a) => (
+            <View style={styles.cards}>
+              <CardAppointment
+                time={removeYear(a["dateAndTime"])}
+                ampm=""
+                salonName={a["businessName"]}
+                services={a["services"]}
+                professional={a["professionalName"]}
+              />
+            </View>
+          ))
+        ) : (
+          <View style={{ marginTop: 5 }}>
+            <NormalText
+              normalText="No upcoming appointments"
+              fontType={Heading5}
+              textColor="#8E9394"
+              textAlign="left"
+            />
+          </View>
+        )}
       </View>
-
-      {/* IF THERE IS NO UPCOMMING APPOINTMENT RENDER THIS VVVVV */}
-      {/* <View style={{ marginTop: 5 }}>
-        <NormalText
-          normalText="No upcoming appointments"
-          fontType={Heading5}
-          textColor="#8E9394"
-          textAlign="left"
-        />
-      </View> */}
 
       {/* CHECK THE RECENT APPOINTMENTS VVVVV */}
       {/* NO RECENT APPOINTMENT */}
@@ -164,7 +187,7 @@ const HomeCustomer = () => {
                     salonLocation: b["location"],
                     rating: "4.6",
                     favState: false,
-                    businessId: b["businessID"]
+                    businessId: b["businessID"],
                   });
                 }}
               />
