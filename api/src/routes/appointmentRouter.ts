@@ -5,7 +5,15 @@ const router = Router()
 
 // POST - Create Record
 router.post('/', async (req, res) => {
-  const { customerID, businessID, professionalID, appointmentDateTime, appointmentType, appointmentDetails, dateAndTime } = req.body
+  const {
+    customerID,
+    businessID,
+    professionalID,
+    appointmentDateTime,
+    appointmentType,
+    appointmentDetails,
+    dateAndTime,
+  } = req.body
   const appointment = await prisma.appointment.create({
     data: {
       customerID,
@@ -104,7 +112,7 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
       WHERE  a.businessID = ?
       
       GROUP BY 1,2,3,4,5`,
-      businessID
+    businessID
   )
 
   const pr = upcomingAppointments.map(async (ap) => {
@@ -121,8 +129,9 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
     const services = servicesArr.reduce((acc, value) => {
       if (acc && acc.length > 0) {
         acc = acc + `, ${value.serviceName}`
+      } else {
+        acc = value.serviceName
       }
-      acc = value.serviceName
       return acc
     }, '')
     return { ...ap, services }

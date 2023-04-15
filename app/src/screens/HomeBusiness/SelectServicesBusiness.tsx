@@ -4,9 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
-import {
-  ArrowLeftBig,
-} from "../../components/IconsComponent/IconsComponent";
+import { ArrowLeftBig } from "../../components/IconsComponent/IconsComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { createAxiosClient } from "../../api";
 import CardService from "../../components/CardService/CardService";
@@ -181,9 +179,10 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     justifyContent: "flex-end",
-    marginLeft: 29,
-    marginRight: 29,
-    marginBottom: 24,
+    marginLeft: 45,
+    marginRight: 45,
+    marginTop: 16,
+    marginBottom: 64,
   },
 });
 
