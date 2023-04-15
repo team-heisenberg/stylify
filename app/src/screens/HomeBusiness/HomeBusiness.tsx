@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import {
   BodyBold,
@@ -150,17 +150,30 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                             fontType={Heading5}
                             textAlign="left"
                           />
-                          {item.appointmentDetails.map(
-                            (a: { service: { serviceName: string } }) => {
-                              return (
-                                <NormalText
-                                  normalText={a.service.serviceName}
-                                  fontType={captions}
-                                  textAlign="left"
-                                />
-                              );
-                            }
-                          )}
+                          <View style={{ flexDirection: "row", gap: 5 }}>
+                            {item.appointmentDetails.map(
+                              (
+                                a: { service: { serviceName: string } },
+                                index: number
+                              ) => {
+                                return (
+                                  <NormalText
+                                    key={index}
+                                    normalText={
+                                      a.service.serviceName +
+                                      (index !==
+                                      item.appointmentDetails.length - 1
+                                        ? ", "
+                                        : ".")
+                                    }
+                                    fontType={captions}
+                                    textAlign="left"
+                                  />
+                                );
+                              }
+                            )}
+                          </View>
+
                           <View
                             style={{
                               flexDirection: "row",
@@ -169,9 +182,16 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                           >
                             {item.appointmentDetails.map(
                               (a: { price: any }) => {
+                                const totalPrice =
+                                  item.appointmentDetails.reduce(
+                                    (total: string, a: any) => {
+                                      return total + parseFloat(a.price);
+                                    },
+                                    0
+                                  );
                                 return (
                                   <NormalText
-                                    normalText={`$${a.price}`}
+                                    normalText={`$${totalPrice}`}
                                     fontType={BodyBold}
                                   />
                                 );
@@ -179,9 +199,12 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                             )}
                             <View style={{ paddingLeft: 10 }}>
                               <NormalText
-                                normalText={`${item.professional.firstName} ${item.professional.lastName}`}
+                                normalText={`${item.customer.firstName} ${item.customer.lastName}`}
                                 fontType={BodyRegular}
                               />
+                              <Text
+                                style={{ display: "none" }}
+                              >{`${item.professional.firstName} ${item.professional.lastName}`}</Text>
                             </View>
                           </View>
                         </View>
@@ -241,7 +264,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     marginLeft: 45,
     marginRight: 45,
-    marginBottom: 24,
+    marginTop: 16,
+    marginBottom: 64,
   },
 });
 
