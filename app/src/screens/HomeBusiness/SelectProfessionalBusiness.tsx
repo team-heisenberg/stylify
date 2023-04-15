@@ -16,6 +16,7 @@ import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { ScrollView, useDisclose, Actionsheet } from "native-base";
 import { createAxiosClient } from "../../api";
 import CalendarComponent from "../../components/CalendarComponent/CalendarComponent";
+import * as Linking from "expo-linking";
 
 const SelectProfessionalBusiness = () => {
   const [professionals, setProfessionals] = useState<any[]>([]);
@@ -43,7 +44,15 @@ const SelectProfessionalBusiness = () => {
 
   console.log(route.params);
 
+  const [modalSheetSpecialist, setModalSheetSpecialist] = useState<any>({});
   const [selectedSpecialist, setSelectedSpecialist] = useState<any>({});
+
+  const showModalSheet = (professional: any) => {
+    if (modalSheetSpecialist === professional) {
+      setModalSheetSpecialist(null);
+    }
+    setModalSheetSpecialist(professional);
+  };
 
   const handleSpecialistSelection = (professional: any) => {
     if (selectedSpecialist === professional) {
@@ -110,13 +119,10 @@ const SelectProfessionalBusiness = () => {
             <TouchableOpacity
               style={styles.specialistImageText}
               key={index}
-              onPress={
-                onOpen
-                //   () => {
-                //   // handleSpecialistSelection(specialist), console.log("CONSOLE");
-                //   onOpen;
-                // }
-              }
+              onPress={() => {
+                showModalSheet(specialist);
+                onOpen();
+              }}
             >
               <ImageComponent
                 width={100}
@@ -144,20 +150,27 @@ const SelectProfessionalBusiness = () => {
           <Actionsheet.Content>
             <View style={{ width: "90%", gap: 20 }}>
               <NormalText
-                normalText={`aaa`}
+                normalText={`${modalSheetSpecialist.firstName} ${modalSheetSpecialist.lastName}`}
                 fontType={Heading4}
                 textAlign="left"
               />
               <View style={{ width: "90%", alignSelf: "center" }}>
                 <ButtonComponent
                   buttonText="Select Professional"
-                  onPress={() => {}}
+                  onPress={() => {
+                    handleSpecialistSelection(modalSheetSpecialist);
+                    onClose();
+                  }}
                 />
                 <ButtonComponent
                   buttonText="View Portfolio"
                   backgroundColor="#F9F5EE"
                   textColor="#24313A"
-                  // onPress={viewPortfolioHandler}
+                  onPress={() => {
+                    Linking.openURL(
+                      "https://instagram.com/explore/tags/haircut"
+                    );
+                  }}
                 />
               </View>
             </View>
