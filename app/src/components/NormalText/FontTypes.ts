@@ -13,6 +13,13 @@ export const Heading1 = {
   fontFamily: "PlayfairDisplay_400Regular",
 };
 
+export const Heading1Bold = {
+  fontSize: 24,
+  lineHeight: 30,
+  fontWeight: "bold",
+  fontFamily: "PlayfairDisplay_700Bold",
+};
+
 export const Heading2 = {
   fontSize: 28,
   lineHeight: 35,
