@@ -33,35 +33,9 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
   const getAppointments = async (businessID: string | number, value: any) => {
     const { axiosClient } = await createAxiosClient();
     await axiosClient
-      .get(`/appointment/byBusiness/${businessID}`)
+      .get(`/appointment/upcomingByBusiness/${businessID}`)
       .then((res) => {
-        const filteredAppointments = res.data.filter(
-          (a: {
-            customer: { firstName: string; lastName: string };
-            professional: { firstName: string; lastName: string };
-            appointmentDetails: [];
-          }) => {
-            // Get Appointment Details
-            const appointmentDetails = a.appointmentDetails.map(
-              (detail: { service: { serviceName: string } }) => {
-                return detail.service.serviceName
-                  .toLowerCase()
-                  .includes(value.toLowerCase());
-              }
-            );
-
-            return (
-              `${a.customer.firstName.toLowerCase()} ${a.customer.lastName.toLowerCase()}`.includes(
-                value.toLowerCase()
-              ) ||
-              `${a.professional.firstName.toLowerCase()} ${a.professional.lastName.toLowerCase()}`.includes(
-                value.toLowerCase()
-              ) ||
-              appointmentDetails[0]
-            );
-          }
-        );
-        setAppointments(filteredAppointments);
+        setAppointments(res.data);
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -99,7 +73,6 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
     console.log("date here: ", date);
   };
 
-
   return (
     <View style={styles.container}>
       <CalendarComponent onDateSelect={handleDateSelection} />
@@ -122,7 +95,11 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
             <ScrollView style={styles.cardAppointment}>
               <View style={styles.cardContainer}>
                 <FlatList
-                  data={appointments}
+                  data={appointments.filter(
+                    (a) =>
+                      a.businessName.includes(value) ||
+                      a.services.includes(value)
+                  )}
                   renderItem={({ item }: any) => {
                     return (
                       <Card
@@ -145,33 +122,17 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                           }}
                         >
                           <NormalText
-                            normalText={businessName}
+                            normalText={item.businessName}
                             textColor="#822848"
                             fontType={Heading5}
                             textAlign="left"
                           />
                           <View style={{ flexDirection: "row", gap: 5 }}>
-                            {item.appointmentDetails.map(
-                              (
-                                a: { service: { serviceName: string } },
-                                index: number
-                              ) => {
-                                return (
-                                  <NormalText
-                                    key={index}
-                                    normalText={
-                                      a.service.serviceName +
-                                      (index !==
-                                      item.appointmentDetails.length - 1
-                                        ? ", "
-                                        : ".")
-                                    }
-                                    fontType={captions}
-                                    textAlign="left"
-                                  />
-                                );
-                              }
-                            )}
+                            <NormalText
+                              normalText={item?.services}
+                              fontType={captions}
+                              textAlign="left"
+                            />
                           </View>
 
                           <View
@@ -180,31 +141,18 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
                               alignItems: "center",
                             }}
                           >
-                            {item.appointmentDetails.map(
-                              (a: { price: any }) => {
-                                const totalPrice =
-                                  item.appointmentDetails.reduce(
-                                    (total: string, a: any) => {
-                                      return total + parseFloat(a.price);
-                                    },
-                                    0
-                                  );
-                                return (
-                                  <NormalText
-                                    normalText={`$${totalPrice}`}
-                                    fontType={BodyBold}
-                                  />
-                                );
-                              }
-                            )}
+                            <NormalText
+                              normalText={`$${item?.total}`}
+                              fontType={BodyBold}
+                            />
                             <View style={{ paddingLeft: 10 }}>
                               <NormalText
-                                normalText={`${item.customer.firstName} ${item.customer.lastName}`}
+                                normalText={item.customerName}
                                 fontType={BodyRegular}
                               />
-                              <Text
-                                style={{ display: "none" }}
-                              >{`${item.professional.firstName} ${item.professional.lastName}`}</Text>
+                              <Text style={{ display: "none" }}>
+                                {item.professionalName}
+                              </Text>
                             </View>
                           </View>
                         </View>
