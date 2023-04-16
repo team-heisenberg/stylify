@@ -25,15 +25,6 @@ const ConfirmAppointmentBusiness = () => {
   const [value, setValue] = useState("");
   const [customerID, setCustomerID] = useState("");
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const rawUserData = await AsyncStorage.getItem("@stylify:user");
-  //     const userData = JSON.parse(rawUserData || "{}");
-  //     setCustomerID(userData?.ID);
-  //     console.log("CUSTOMER ID >>>>>>> ", userData?.ID);
-  //   })();
-  // }, [value]);
-
   const addAppointment = async () => {
     const { axiosClient } = await createAxiosClient();
     const {
@@ -44,9 +35,10 @@ const ConfirmAppointmentBusiness = () => {
       appointmentType,
       dateAndTime,
       isCustomer,
+      customerID,
     } = route.params;
     console.log("MACARENA", dateAndTime);
-    console.log("isCustomer:", isCustomer);
+    console.log("isCustomer >>>>>:", customerID);
     await axiosClient
       .post("/appointment", {
         customerID: route.params?.customerID || 1,
@@ -59,19 +51,6 @@ const ConfirmAppointmentBusiness = () => {
       })
       .then((response) => {
         console.log(response);
-        // if (route.params?.isCustomer) {
-        //   navigation.navigate("Home Customer");
-        // } else {
-        //   navigation.navigate("Home Business", {
-        //     ...route.params,
-        //     appointments,
-        //     setAppointments,
-        //     totalCost: tableData.reduce(
-        //       (acc: any, value: any) => acc + Number(value.price),
-        //       0
-        //     ),
-        //   });
-        // }
       })
       .catch((err) => {
         console.log("You have an error", err);
@@ -186,10 +165,6 @@ const ConfirmAppointmentBusiness = () => {
         </View>
       </ScrollView>
       <View style={styles.button}>
-        {/* <ButtonComponent
-          buttonText="Confirm Booking"
-          onPress={addAppointment}
-        /> */}
         <Message
           messageText={"Appointment successfully booked."}
           messageButtonText={"Done"}

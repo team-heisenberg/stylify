@@ -189,6 +189,7 @@ const HomeCustomer = () => {
                     rating: "4.6",
                     favState: false,
                     businessId: b["businessID"],
+                    customerID: customerID
                   });
                 }}
               />
