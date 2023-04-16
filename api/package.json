@@ -15,6 +15,7 @@
     "prisma:deploy": "dotenv -e ../.env npx prisma migrate deploy",
     "prisma:resolve": "dotenv -e ../.env npx prisma migrate resolve",
     "prisma:seed": "dotenv -e ../.env ts-node seeds/seed.ts",
+    "prisma:seed:prod": "dotenv -e ../.env ts-node seeds/seed-prod.ts",
     "prisma:reset": "dotenv -e ../.env npx prisma migrate reset",
     "prisma:generate": "dotenv -e ../.env npx prisma generate",
     "test": "dotenv -e ../.env -- jest",

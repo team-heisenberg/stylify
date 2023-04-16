@@ -70,7 +70,7 @@ const MoreBusiness: React.FC<NativeStackScreenProps<any>> = ({
               acc + Number(value.appointmentRating),
             0
           ) / res.data.length;
-        setRatings(rating === NaN ? 3 : rating);
+        setRatings((rating === NaN ? 3 : rating).toFixed(1));
       })
       .catch((error) => {
         console.log(JSON.stringify(error));
@@ -79,6 +79,11 @@ const MoreBusiness: React.FC<NativeStackScreenProps<any>> = ({
 
   useEffect(() => {
     getBusinessData();
+    getBusinessDetails();
+    getReviews();
+  }, []);
+
+  useEffect(() => {
     getBusinessDetails();
     getReviews();
   }, [businessData]);

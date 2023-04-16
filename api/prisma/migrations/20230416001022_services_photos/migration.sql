@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Service` ADD COLUMN `photoURL` VARCHAR(191) NULL;

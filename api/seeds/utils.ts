@@ -129,6 +129,18 @@ export const genAppointments = (n: number, professionals: number, businesses: nu
   const c = Array.from({ length: customers }, (_, i) => i + 1)
   const aType = ['ONLINE', 'CALL', 'WALKIN']
   const arr: any[] = []
+  const reviewsText = [
+    'Amazing haircuts and friendly service! Love the trendy vibe of this salon!',
+    'My go-to salon for hair color! Always satisfied with the results and the staff is so welcoming.',
+    'Great salon experience from start to finish. Talented stylists, relaxing ambiance, and impeccable service.',
+    'Finally found a salon that understands my curly hair! Perfect cut and styling every time.',
+    'Highly recommend this salon! Skilled stylists, top-notch products, and a fantastic atmosphere.',
+    'Best salon in town! The attention to detail and personalized service are unbeatable.',
+    'Loved my balayage at this salon! The color is exactly what I wanted. Will be coming back for sure!',
+    'Excellent salon with a modern touch. The stylists are knowledgeable and make you feel pampered.',
+    'Impressed with the professionalism and creativity of the stylists. Left with a gorgeous haircut!',
+    'A gem of a salon! The staff is skilled and friendly, and the salon has a chic and relaxing ambiance.',
+  ]
 
   for (let i = 1; i <= n; i++) {
     const bId = b[Math.floor(Math.random() * b.length)]
@@ -143,7 +155,7 @@ export const genAppointments = (n: number, professionals: number, businesses: nu
       appointmentType: AppointmentType[aType[Math.floor(Math.random() * aType.length)]],
       reviews: {
         create: {
-          reviewDetails: `Review ${i}`,
+          reviewDetails: reviewsText[Math.floor(Math.random() * (reviewsText.length - 0 + 1)) + 0],
           appointmentRating: Math.floor(Math.random() * (5 - 1 + 1) + 1),
         },
       },
@@ -156,6 +168,85 @@ export const genAppointments = (n: number, professionals: number, businesses: nu
             serviceID:
               bId <= 5 ? Math.floor(Math.random() * (5 - 1 + 1) + 1) : Math.floor(Math.random() * (10 - 5 + 1) + 5),
             price: 0.5 * Math.floor(Math.random() * (100 - 1 + 1) + 1),
+          },
+        },
+      },
+    })
+  }
+
+  return arr
+}
+
+export const genAppointmentsProd = (n: number, professionals: number, businesses: number, customers: number) => {
+  const p = Array.from({ length: professionals }, (_, i) => i + 1)
+  const c = Array.from({ length: customers }, (_, i) => i + 1)
+  const aType = ['ONLINE', 'CALL', 'WALKIN']
+  const arr: any[] = []
+  const reviewsText = [
+    'Amazing haircuts and friendly service! Love the trendy vibe of this salon!',
+    'My go-to salon for hair color! Always satisfied with the results and the staff is so welcoming.',
+    'Great salon experience from start to finish. Talented stylists, relaxing ambiance, and impeccable service.',
+    'Finally found a salon that understands my curly hair! Perfect cut and styling every time.',
+    'Highly recommend this salon! Skilled stylists, top-notch products, and a fantastic atmosphere.',
+    'Best salon in town! The attention to detail and personalized service are unbeatable.',
+    'Loved my balayage at this salon! The color is exactly what I wanted. Will be coming back for sure!',
+    'Excellent salon with a modern touch. The stylists are knowledgeable and make you feel pampered.',
+    'Impressed with the professionalism and creativity of the stylists. Left with a gorgeous haircut!',
+    'A gem of a salon! The staff is skilled and friendly, and the salon has a chic and relaxing ambiance.',
+  ]
+
+  for (let i = 1; i <= n; i++) {
+    const bId = 1
+    const dte = new Date().toDateString()
+    const slots = [
+      '8:00 AM',
+      '9:00 AM',
+      '10:00 AM',
+      '11:00 AM',
+      '1:00 PM',
+      '2:00 PM',
+      '3:00 PM',
+      '4:00 PM',
+      '5:00 PM',
+      '6:00 PM',
+      '7:00 PM',
+      '8:00 PM',
+    ]
+    
+    arr.push({
+      customerID: c[Math.floor(Math.random() * c.length)],
+      businessID: bId,
+      professionalID: p[Math.floor(Math.random() * p.length)],
+      isConfirmed: true,
+      dateAndTime: `${dte} ${slots[Math.floor(Math.random() * slots.length)]}`,
+      appointmentDateTime: new Date(
+        new Date(2023, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(2023, 0, 1).getTime())
+      ),
+      appointmentType: AppointmentType[aType[Math.floor(Math.random() * aType.length)]],
+      reviews: {
+        connectOrCreate: {
+          where: {
+            reviewID: i + 1,
+          },
+          create: {
+            reviewDetails: reviewsText[Math.floor(Math.random() * reviewsText.length)],
+            appointmentRating: Math.floor(Math.random() * (5 - 1 + 1) + 1),
+            business: {
+              connect: {
+                businessID: 1,
+              },
+            },
+          },
+        },
+      },
+      appointmentDetails: {
+        connectOrCreate: {
+          where: {
+            appointmentDetailsID: i,
+          },
+          create: {
+            serviceID: Math.floor(Math.random() * (5 - 1 + 1) + 1),
+            price: 0.5 * Math.floor(Math.random() * (100 - 30 + 1) + 30),
           },
         },
       },

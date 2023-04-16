@@ -125,6 +125,7 @@ const SelectServicesBusiness = () => {
                 serviceDuration={parseInt(service.durationInMinutes)}
                 servicePrice={parseFloat(service.servicePrice)}
                 addService={addService}
+                photoURL={service?.photoURL}
                 removeService={removeService}
               />
             </View>

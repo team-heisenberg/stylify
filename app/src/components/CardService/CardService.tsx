@@ -12,6 +12,7 @@ interface CardServiceProps {
   serviceName: string;
   serviceDuration: number;
   servicePrice: number;
+  photoURL?: string;
   addService: (service: {
     serviceID: number;
     name: string;
@@ -30,6 +31,7 @@ const CardService = ({
   serviceName,
   serviceDuration,
   servicePrice,
+  photoURL,
   addService,
   removeService,
 }: CardServiceProps) => {
@@ -43,7 +45,7 @@ const CardService = ({
             width={69}
             height={69}
             borderRadius={4}
-            imageURL="https://picsum.photos/200/300"
+            imageURL={photoURL || "https://picsum.photos/200/300"}
           />
         </View>
         <View style={styles.textContainer}>

@@ -44,7 +44,7 @@ const Booking = ({ route }: any) => {
         //     serviceName.push(a["serviceName"]);
         //   }
         // });
-        console.log(res.data)
+        console.log(res.data);
         // console.log(serviceTypeIds);
         // console.log(serviceName);
       })
@@ -127,17 +127,21 @@ const Booking = ({ route }: any) => {
           {
             key: "first",
             title: "Services",
-            Component: () => <BookingServices businessID={route.params.businessId}/>,
+            Component: () => (
+              <BookingServices businessID={route.params.businessId} />
+            ),
           },
           {
             key: "second",
             title: "Specialists",
-            Component: () => <BookingSpecialists />,
+            Component: () => (
+              <BookingSpecialists businessID={route.params.businessId} />
+            ),
           },
           {
             key: "third",
             title: "About",
-            Component: () => <About />,
+            Component: () => <About details={route.params?.description} />,
           },
         ]}
       />
