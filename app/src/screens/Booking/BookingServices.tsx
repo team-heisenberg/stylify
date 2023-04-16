@@ -67,14 +67,9 @@ const BookingServices = ({ businessID }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-<<<<<<< HEAD
     flex: 1,
     backgroundColor: "#F9F5EE",
     marginTop: 4,
-=======
-    // flex: 1,
-    // backgroundColor: "#F9F5EE",
->>>>>>> d083339 (feature/HB-235-Create-Appointment-Details-Screen)
   },
   button: {
     flex: 1,
