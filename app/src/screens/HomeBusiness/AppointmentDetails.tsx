@@ -115,12 +115,12 @@ const AppointmentDetails = () => {
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
-              {/* <ImageComponent
+              <ImageComponent
                 width={40}
                 height={40}
-                imageURL={appointment.professional.photoURL}
+                imageURL={appointment.professionalImage}
                 borderRadius={20}
-              /> */}
+              />
               <NormalText
                 normalText={appointment.professionalName}
                 fontType={Heading6}
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   card: {
-    height: 345,
+    height: 360,
     marginTop: 15,
     justifyContent: "space-between",
   },
