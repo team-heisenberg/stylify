@@ -3,29 +3,34 @@ import React, { useState } from "react";
 import NormalText from "../NormalText/NormalText";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import { Heading3 } from "../NormalText/FontTypes";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 interface MessageInterface {
   messageText: string;
   messageButtonText: string;
   buttonText: string;
-  navigateTitle: string;
-  navigateParams?: {};
+  // navigateTitle: string;
+  // navigateParams?: {};
+  onPressFunction: () => void;
+  onCloseFunction: () => void;
 }
 
 const Message = ({
   messageText,
   messageButtonText,
   buttonText,
-  navigateTitle,
-  navigateParams,
+  // navigateTitle,
+  // navigateParams,
+  onPressFunction,
+  onCloseFunction,
 }: MessageInterface) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation<any>();
+  // const navigation = useNavigation<any>();
 
   const onPressCloseMessage = () => {
+    onCloseFunction();
     setModalVisible(!modalVisible);
-    navigation.navigate(navigateTitle, navigateParams);
+    // navigation.navigate(navigateTitle, navigateParams);
   };
 
   return (
@@ -57,7 +62,10 @@ const Message = ({
       </Modal>
       <ButtonComponent
         buttonText={buttonText}
-        onPress={() => setModalVisible(true)}
+        onPress={() => {
+          onPressFunction();
+          setModalVisible(true);
+        }}
       />
     </View>
   );
