@@ -34,7 +34,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/hair.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Hair cuts" fontType={Heading4} />
@@ -48,7 +48,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/hair2.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Hair color" fontType={Heading4} />
@@ -62,7 +62,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/beard.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Beard" fontType={Heading4} />
@@ -76,7 +76,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/facial.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Facial" fontType={Heading4} />
@@ -90,7 +90,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/nails.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Nails" fontType={Heading4} />
@@ -104,7 +104,7 @@ const Browse = () => {
             <ImageComponent
               width={100}
               height={100}
-              imageURL="https://picsum.photos/500/350"
+              imageURL="https://stylify.ca/cdn/feet.jpeg"
               borderRadius={4}
             />
             <NormalText normalText="Feet" fontType={Heading4} />

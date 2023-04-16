@@ -72,6 +72,7 @@ const BookingServiceContainer = ({
         <View style={{ marginTop: 10 }}>
           {services?.map((s) => (
             <CardService
+              photoURL={s["photoURL"]}
               serviceDuration={s?.durationInMinutes}
               serviceName={s["serviceName"]}
               servicePrice={s["servicePrice"]}

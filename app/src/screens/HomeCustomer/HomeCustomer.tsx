@@ -153,8 +153,8 @@ const HomeCustomer = () => {
         <View>
           <View style={styles.cards}>
             <CardRecentAppointment
-              salonImage="https://picsum.photos/200/300"
-              salonName="Daniel Salon"
+              salonImage="https://stylify.ca/cdn/salon.jpeg"
+              salonName="Sarah Salon"
               services="Haircut, Beard Styling"
               duration="45min"
               price="$27.90"
@@ -189,7 +189,7 @@ const HomeCustomer = () => {
           {business?.map((b) => (
             <View style={styles.cards}>
               <CardSalon
-                salonImage="https://picsum.photos/200/300"
+                salonImage="https://stylify.ca/cdn/salon.jpeg"
                 salonName={b["businessName"]}
                 salonLocation={b["location"]}
                 rating={4.6}

@@ -78,7 +78,7 @@ const Booking = ({ route }: any) => {
         <ImageComponent
           width="100%"
           height={260}
-          imageURL="https://picsum.photos/500/500"
+          imageURL="https://stylify.ca/cdn/salon2.jpeg"
           borderRadius={0}
           linearGradient={true}
           positionLinearGradient="bottom"

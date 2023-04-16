@@ -126,10 +126,10 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
             <ScrollView style={styles.cardAppointment}>
               <View style={styles.cardContainer}>
                 <FlatList
-                  data={appointments.filter(
-                    (a) =>
-                      a.businessName.includes(value) ||
-                      a.services.includes(value)
+                  data={appointments?.filter(
+                    (a: any) =>
+                      a?.businessName?.includes(value) ||
+                      a?.services?.includes(value)
                   )}
                   renderItem={({ item }: any) => {
                     return (
