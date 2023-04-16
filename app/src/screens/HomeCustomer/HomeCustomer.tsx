@@ -9,7 +9,11 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Heading3, Heading5 } from "../../components/NormalText/FontTypes";
+import {
+  Heading3,
+  Heading5,
+  Heading7,
+} from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import CardSalon from "../../components/CardSalon/CardSalon";
 import CardAppointment from "../../components/CardAppointment/CardAppointment";
@@ -53,6 +57,13 @@ const HomeCustomer = () => {
       });
   };
 
+  // Navigate to Appointment Detail
+  const onPress = (appointment: {}) => {
+    navigation.navigate("Appointment Details", {
+      appointment: appointment,
+    });
+  };
+
   useEffect(() => {
     (async () => {
       const rawUserData = await AsyncStorage.getItem("@stylify:user");
@@ -63,8 +74,6 @@ const HomeCustomer = () => {
       searchBusiness();
     })();
   }, [value]);
-
-  // useEffect(() => {}, []);
 
   console.log("appointment >>>>>>>>>>", appointments);
 
@@ -100,6 +109,10 @@ const HomeCustomer = () => {
                 salonName={a["businessName"]}
                 services={a["services"]}
                 professional={a["professionalName"]}
+                onPress={() => {
+                  console.log("-----------", a);
+                  onPress(a);
+                }}
               />
             </View>
           ))
@@ -121,7 +134,7 @@ const HomeCustomer = () => {
         <View style={styles.containerText}>
           <NormalText
             normalText="Recent Appointments"
-            fontType={Heading5}
+            fontType={Heading7}
             textColor="#24313A"
             textAlign="left"
           />
@@ -140,8 +153,8 @@ const HomeCustomer = () => {
         <View>
           <View style={styles.cards}>
             <CardRecentAppointment
-              salonImage="https://picsum.photos/200/300"
-              salonName="Daniel Salon"
+              salonImage="https://stylify.ca/cdn/salon.jpeg"
+              salonName="Sarah Salon"
               services="Haircut, Beard Styling"
               duration="45min"
               price="$27.90"
@@ -152,11 +165,11 @@ const HomeCustomer = () => {
       </View>
 
       {/* IF THERE ARE NO FAVORITE SALONS VVVVV */}
-      <View>
+      <View style={{ marginBottom: 30 }}>
         <View style={styles.containerText}>
           <NormalText
             normalText="Salons near me"
-            fontType={Heading5}
+            fontType={Heading7}
             textColor="#24313A"
             textAlign="left"
           />
@@ -176,17 +189,17 @@ const HomeCustomer = () => {
           {business?.map((b) => (
             <View style={styles.cards}>
               <CardSalon
-                salonImage="https://picsum.photos/200/300"
+                salonImage="https://stylify.ca/cdn/salon.jpeg"
                 salonName={b["businessName"]}
                 salonLocation={b["location"]}
-                rating="4.6"
+                rating={4.6}
                 favState={false}
                 onPress={() => {
                   navigation.navigate("Booking", {
                     salonName: b["businessName"],
                     description: b["description"],
                     salonLocation: b["location"],
-                    rating: "4.6",
+                    rating: 4.6,
                     favState: false,
                     businessId: b["businessID"],
                     customerID: customerID,
@@ -252,7 +265,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 30,
   },
 });
 

@@ -1,24 +1,22 @@
 import { View } from "react-native";
 import NormalText from "../../components/NormalText/NormalText";
 import CardService from "../../components/CardService/CardService";
-import { Heading5 } from "../../components/NormalText/FontTypes";
+import { Heading5, Heading7 } from "../../components/NormalText/FontTypes";
 import { useState } from "react";
-
 
 interface BookingServiceContainer {
   serviceCategory: string;
   services: any[];
-  servicesSelected: any[],
-  setServicesSelected: Function
+  servicesSelected: any[];
+  setServicesSelected: Function;
 }
 
 const BookingServiceContainer = ({
   serviceCategory,
   services,
-  servicesSelected, 
-  setServicesSelected
+  servicesSelected,
+  setServicesSelected,
 }: BookingServiceContainer) => {
-  
   const addService = (selectedService: any) => {
     let arr = Array.from(servicesSelected || []);
     const itemIndex = arr.findIndex((a) => selectedService.name === a.name);
@@ -61,27 +59,29 @@ const BookingServiceContainer = ({
     }
   };
 
-  console.log('AQUAMAN', servicesSelected);
+  console.log("AQUAMAN", servicesSelected);
 
   return (
-    <View style={{ margin: 16 }}>
-      <NormalText
-        normalText={serviceCategory}
-        textAlign="left"
-        fontType={Heading5}
-      />
-      <View style={{ marginTop: 12 }}>
-        {services?.map((s) => (
-          <CardService
-            serviceDuration={s?.durationInMinutes}
-            serviceName={s["serviceName"]}
-            servicePrice={s["servicePrice"]}
-            serviceID={s["serviceID"]}
-            photoURL={s?.photoURL}
-            addService={addService}
-            removeService={removeService}
-          />
-        ))}
+    <View style={{ marginTop: 15, width: "100%" }}>
+      <View style={{ width: "93%", alignSelf: "center" }}>
+        <NormalText
+          normalText={serviceCategory}
+          textAlign="left"
+          fontType={Heading7}
+        />
+        <View style={{ marginTop: 10 }}>
+          {services?.map((s) => (
+            <CardService
+              photoURL={s["photoURL"]}
+              serviceDuration={s?.durationInMinutes}
+              serviceName={s["serviceName"]}
+              servicePrice={s["servicePrice"]}
+              serviceID={s["serviceID"]}
+              addService={addService}
+              removeService={removeService}
+            />
+          ))}
+        </View>
       </View>
     </View>
   );

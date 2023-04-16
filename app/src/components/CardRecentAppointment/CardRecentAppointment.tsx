@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import ImageComponent from "../ImageComponent/ImageComponent";
-import { BodyBold2, Heading5, captions } from "../NormalText/FontTypes";
+import { BodyBold2, Heading5, captions, Heading7 } from "../NormalText/FontTypes";
 import { RedDot } from "../IconsComponent/IconsComponent";
 
 interface CardInterface {
@@ -39,7 +39,7 @@ const CardRecentAppointment = ({
         <View style={styles.textContainer}>
           <NormalText
             normalText={salonName}
-            fontType={Heading5}
+            fontType={Heading7}
             textColor="#822848"
             textAlign="left"
           />
@@ -48,7 +48,6 @@ const CardRecentAppointment = ({
             fontType={captions}
             textColor="#24313A"
             textAlign="left"
-            marginTop={4}
           />
           <View style={styles.informationContainer}>
             <NormalText

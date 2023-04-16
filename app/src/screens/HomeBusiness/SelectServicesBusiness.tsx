@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     justifyContent: "flex-end",
-    marginLeft: 45,
-    marginRight: 45,
+    width: "86%",
+    alignSelf: "center",
     marginTop: 16,
-    marginBottom: 64,
+    marginBottom: 30,
   },
 });
 

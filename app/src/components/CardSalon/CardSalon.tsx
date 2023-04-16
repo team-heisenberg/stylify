@@ -1,11 +1,18 @@
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
-import { BodyBold2, Heading2, Heading5, captions } from "../NormalText/FontTypes";
+import {
+  BodyBold2,
+  Heading2,
+  Heading5,
+  captions,
+  Heading7,
+} from "../NormalText/FontTypes";
 import { Navigate } from "../IconsComponent/IconsComponent";
 import ImageComponent from "../ImageComponent/ImageComponent";
 import { Star } from "../IconsComponent/IconsComponent";
 import FavButton from "../FavButton/FavButton";
+import StarComponent from "../StarComponent/StarComponent";
 
 interface CardInterface {
   onPress?: () => void;
@@ -13,11 +20,19 @@ interface CardInterface {
   salonImage: string;
   salonName: string;
   salonLocation: string;
-  rating: string;
+  rating: number;
   favState: boolean;
 }
 
-const CardSalon = ({ onPress, onClick, salonImage, salonName, salonLocation, rating, favState }: CardInterface) => {
+const CardSalon = ({
+  onPress,
+  onClick,
+  salonImage,
+  salonName,
+  salonLocation,
+  rating,
+  favState,
+}: CardInterface) => {
   return (
     <Card height={96} padding={0} width="98%" onPress={onPress}>
       <View style={styles.wrapper}>
@@ -32,7 +47,7 @@ const CardSalon = ({ onPress, onClick, salonImage, salonName, salonLocation, rat
         <View style={styles.textContainer}>
           <NormalText
             normalText={salonName}
-            fontType={Heading5}
+            fontType={Heading7}
             textColor="#822848"
             textAlign="left"
           />
@@ -41,18 +56,18 @@ const CardSalon = ({ onPress, onClick, salonImage, salonName, salonLocation, rat
             fontType={captions}
             textColor="#24313A"
             textAlign="left"
-            marginTop={4}
+            // marginTop={4}
           />
           <View style={styles.ratingContainer}>
-            <NormalText
+            {/* <NormalText
               normalText={rating}
               fontType={BodyBold2}
               textColor="#24313A"
               textAlign="left"
               marginTop={4}
               marginRight={5}
-            />
-            <Star width={21} height={19} />
+            /> */}
+            <StarComponent ratings={rating} fontType={Heading7} />
           </View>
         </View>
         {/* <View style={styles.favContainer}>
@@ -75,11 +90,11 @@ const styles = StyleSheet.create({
   ratingContainer: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   textContainer: {
     marginLeft: 12,
-    width: 225
+    width: 225,
   },
   favContainer: {
     position: "absolute",
@@ -88,8 +103,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-end",
     height: 70,
-    width: 40
-  }
+    width: 40,
+  },
 });
 
 export default CardSalon;

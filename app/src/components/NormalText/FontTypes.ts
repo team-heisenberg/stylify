@@ -48,6 +48,20 @@ export const Heading5 = {
   fontFamily: "PlayfairDisplay_400Regular",
 };
 
+export const Heading6 = {
+  fontSize: 15,
+  lineHeight: 19,
+  fontWeight: "normal",
+  fontFamily: "PlayfairDisplay_400Regular",
+};
+
+export const Heading7 = {
+  fontSize: 15,
+  lineHeight: 19,
+  fontWeight: "bold",
+  fontFamily: "PlayfairDisplay_700Bold",
+};
+
 export const SubHeading1 = {
   fontSize: 20,
   lineHeight: 31,

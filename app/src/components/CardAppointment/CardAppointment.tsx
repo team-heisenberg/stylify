@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import Card from "../Card/Card";
 import NormalText from "../NormalText/NormalText";
-import { captions, Heading5 } from "../NormalText/FontTypes";
+import { captions, Heading6, Heading7 } from "../NormalText/FontTypes";
 import { Navigate } from "../IconsComponent/IconsComponent";
 
 interface CardInterface {
@@ -27,13 +27,13 @@ const CardAppointment = ({
         <View style={styles.clock}>
           <NormalText
             normalText={time}
-            fontType={Heading5}
+            fontType={Heading6}
             textColor="white"
             textAlign="center"
           />
           <NormalText
             normalText={ampm}
-            fontType={Heading5}
+            fontType={Heading6}
             textColor="white"
             textAlign="center"
           />
@@ -41,7 +41,7 @@ const CardAppointment = ({
         <View style={styles.information}>
           <NormalText
             normalText={salonName}
-            fontType={Heading5}
+            fontType={Heading7}
             textColor="#822848"
             textAlign="left"
           />
@@ -50,14 +50,12 @@ const CardAppointment = ({
             fontType={captions}
             textColor="#24313A"
             textAlign="left"
-            marginTop={4}
           />
           <NormalText
             normalText={professional}
             fontType={captions}
             textColor="#24313A"
             textAlign="left"
-            marginTop={4}
           />
         </View>
         <View style={styles.navigator}>
@@ -70,23 +68,22 @@ const CardAppointment = ({
 
 const styles = StyleSheet.create({
   card: {
-    display: "flex",
     flexDirection: "row",
   },
   clock: {
     backgroundColor: "#822848",
     height: 96,
     width: 94,
-    display: "flex",
     flexDirection: "column",
     textAlign: "center",
     justifyContent: "center",
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
+    alignItems: "center",
   },
   information: {
     marginLeft: 8,
-    marginTop: 10,
+    justifyContent: "center",
     width: "60%",
   },
   navigator: {

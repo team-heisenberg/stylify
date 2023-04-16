@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { createAxiosClient } from "../../api";
 import Card from "../../components/Card/Card";
-import { Heading1, Heading1Bold, Heading3, Heading4 } from "../../components/NormalText/FontTypes";
+import {
+  Heading1,
+  Heading1Bold,
+  Heading3,
+  Heading4,
+} from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 
 const Deals = () => {
@@ -39,7 +44,7 @@ const Deals = () => {
       />
 
       {deals?.map((deal, i) => (
-        <View style={{marginLeft: 10, marginRight: 10}}>
+        <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 20 }}>
           <Card
             width="100%"
             height={100}

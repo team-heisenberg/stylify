@@ -6,6 +6,8 @@ import {
   Heading3,
   Heading4,
   Heading5,
+  Heading6,
+  Heading7,
 } from "../../components/NormalText/FontTypes";
 import {
   ArrowLeftBig,
@@ -103,11 +105,11 @@ const SelectProfessionalBusiness = () => {
         </View>
         <CalendarComponent onDateSelect={handleDateSelection} />
 
-        <View style={{ paddingLeft: 16 }}>
+        <View style={{ paddingLeft: 16, marginVertical: 10 }}>
           <NormalText
             normalText={"Select Specialist"}
             textAlign="left"
-            fontType={Heading5}
+            fontType={Heading6}
           />
         </View>
         <ScrollView
@@ -140,6 +142,7 @@ const SelectProfessionalBusiness = () => {
                 <NormalText
                   normalText={`${specialist.firstName} ${specialist.lastName}`}
                   textAlign="center"
+                  fontType={Heading6}
                 />
               </View>
             </TouchableOpacity>
@@ -177,11 +180,11 @@ const SelectProfessionalBusiness = () => {
           </Actionsheet.Content>
         </Actionsheet>
 
-        <View style={{ paddingLeft: 16 }}>
+        <View style={{ paddingLeft: 16, marginTop: 20, marginBottom: 10 }}>
           <NormalText
             normalText={"Available Slots"}
             textAlign="left"
-            fontType={Heading5}
+            fontType={Heading6}
           />
         </View>
 
@@ -246,7 +249,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 30,
-    marginBottom: 16,
+    marginBottom: 10,
     paddingLeft: 16,
     paddingRight: 16,
   },

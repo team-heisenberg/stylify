@@ -70,7 +70,7 @@ Card.defaultProps = {
   height: 89,
   borderWidth: 2,
   borderColor: "#822848",
-  backgroundColor: "#FDF6E9",
+  backgroundColor: "#F9F5EE",
   flexDirection: "row",
   padding: 10,
   alignItems: "center",
