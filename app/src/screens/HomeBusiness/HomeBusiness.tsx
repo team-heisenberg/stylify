@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import {
   BodyBold,
@@ -89,11 +96,33 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
           />
         </View>
         <View style={styles.appointments}>
-          <NormalText
-            normalText="Appointments"
-            fontType={Heading3}
-            textAlign="left"
-          />
+          <View
+            style={{
+              alignItems: "flex-end",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginBottom: 8
+            }}
+          >
+            <NormalText
+              normalText="Appointments"
+              fontType={Heading3}
+              textAlign="left"
+            />
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                marginRight: 8,
+              }}
+              onPress={() => getAppointments(businessID)}
+            >
+              <Text
+                style={{ textDecorationLine: "underline", color: "#24313A" }}
+              >
+                View All
+              </Text>
+            </TouchableOpacity>
+          </View>
           {appointments !== [] ? (
             <ScrollView style={styles.cardAppointment}>
               <View style={styles.cardContainer}>

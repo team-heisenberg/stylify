@@ -103,6 +103,7 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
       b.businessName,
       CONCAT(p.firstName, ' ', p.lastName) as professionalName,
       a.dateAndTime,
+      p.photoURL as professionalImage,
       SUM(ad.price) as total
       FROM Appointment a 
       JOIN Customer c ON c.customerID = a.customerID 
@@ -111,8 +112,9 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
       JOIN AppointmentDetails ad ON ad.appointmentID  = a.appointmentID 
       WHERE  a.businessID = ?
       
-      GROUP BY 1,2,3,4,5
-       LIMIT 10
+      GROUP BY 1,2,3,4,5,6
+      ORDER BY a.appointmentID DESC
+      LIMIT 10
       `,
     businessID
   )
@@ -158,6 +160,7 @@ router.get('/upcomingByCustomer/:customerID', async (req, res) => {
       b.businessName,
       CONCAT(p.firstName, ' ', p.lastName) as professionalName,
       a.dateAndTime,
+      p.photoURL as professionalImage,
       SUM(ad.price) as total
       FROM Appointment a 
       JOIN Customer c ON c.customerID = a.customerID 
@@ -166,7 +169,9 @@ router.get('/upcomingByCustomer/:customerID', async (req, res) => {
       JOIN AppointmentDetails ad ON ad.appointmentID  = a.appointmentID 
       WHERE  a.customerID = ?
       
-      GROUP BY 1,2,3,4,5`,
+      GROUP BY 1,2,3,4,5,6
+      ORDER BY a.appointmentID DESC
+      LIMIT 10`,
     customerID
   )
 
