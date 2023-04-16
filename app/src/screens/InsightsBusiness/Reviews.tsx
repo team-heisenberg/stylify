@@ -36,7 +36,7 @@ const Reviews = () => {
     const rating =
       reviews.reduce((acc, value) => acc + Number(value.appointmentRating), 0) /
       reviews.length;
-    setOverallRatings(rating === NaN ? 3 : rating);
+    setOverallRatings((rating === NaN ? 3 : rating).toFixed(1));
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Reviews = () => {
   }, []);
 
   useEffect(() => {
-    if (reviews && reviews.length > 0) {
+    if (reviews && reviews.length > 0 && overallRatings === 0) {
       getOverallRatings();
     }
   }, [reviews]);

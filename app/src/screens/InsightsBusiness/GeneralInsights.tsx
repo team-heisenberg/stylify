@@ -198,7 +198,7 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             />
           </View>
           <View style={styles.cardViewStyles}>
-            <NormalText normalText={`$ ${totalEarnings}`} fontType={Heading4} />
+            <NormalText normalText={`$ ${totalEarnings.toFixed(2)}`} fontType={Heading4} />
             <NormalText
               normalText={EarningsPercentage}
               fontType={captions}
@@ -216,11 +216,11 @@ const GeneralInsights = ({ insightsType }: GeneralInsightsInterface) => {
             !showProfessionals
               ? topProfessionals.slice(0, 3).map((pro: any) => ({
                   professional: `${pro.firstName} ${pro.lastName}`,
-                  sale: pro.Total,
+                  sale: pro.Total.toFixed(2),
                 }))
               : topProfessionals.map((pro: any) => ({
                   professional: `${pro.firstName} ${pro.lastName}`,
-                  sale: pro.Total,
+                  sale: pro.Total.toFixed(2),
                 }))
           }
           headerBackgroundColor="#822848"

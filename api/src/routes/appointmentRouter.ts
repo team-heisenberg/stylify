@@ -111,7 +111,9 @@ router.get('/upcomingByBusiness/:businessID', async (req, res) => {
       JOIN AppointmentDetails ad ON ad.appointmentID  = a.appointmentID 
       WHERE  a.businessID = ?
       
-      GROUP BY 1,2,3,4,5`,
+      GROUP BY 1,2,3,4,5
+       LIMIT 10
+      `,
     businessID
   )
 

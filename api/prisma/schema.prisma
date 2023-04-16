@@ -54,6 +54,7 @@ model Service {
   serviceID           Int                    @id @default(autoincrement())
   business            Business               @relation(fields: [businessID], references: [businessID])
   serviceName         String
+  photoURL            String
   serviceTypeID       Int
   servicePrice        Float
   businessID          Int

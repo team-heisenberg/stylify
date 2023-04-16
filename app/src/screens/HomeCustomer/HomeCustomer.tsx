@@ -45,7 +45,7 @@ const HomeCustomer = () => {
     await axiosClient
       .get("/business")
       .then((res) => {
-        console.log(res);
+        console.log('MIRANHA',res.data);
         setBusiness(res.data);
       })
       .catch((error) => {
@@ -184,6 +184,7 @@ const HomeCustomer = () => {
                 onPress={() => {
                   navigation.navigate("Booking", {
                     salonName: b["businessName"],
+                    description: b["description"],
                     salonLocation: b["location"],
                     rating: "4.6",
                     favState: false,

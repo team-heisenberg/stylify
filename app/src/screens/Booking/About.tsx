@@ -1,10 +1,10 @@
 import { View } from "react-native";
 import NormalText from "../../components/NormalText/NormalText";
 
-const About = () => {
+const About = ({ details }: any) => {
   return (
-    <View>
-      <NormalText normalText="Test" />
+    <View style={{ margin: 16 }}>
+      <NormalText normalText={details} />
     </View>
   );
 };

@@ -77,6 +77,7 @@ const BookingServiceContainer = ({
             serviceName={s["serviceName"]}
             servicePrice={s["servicePrice"]}
             serviceID={s["serviceID"]}
+            photoURL={s?.photoURL}
             addService={addService}
             removeService={removeService}
           />

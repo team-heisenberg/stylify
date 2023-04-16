@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F9F5EE",
+    marginTop: 4,
   },
   button: {
     flex: 1,
