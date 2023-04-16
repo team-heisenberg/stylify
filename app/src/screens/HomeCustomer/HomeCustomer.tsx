@@ -210,42 +210,6 @@ const HomeCustomer = () => {
           ))}
         </View>
       </View>
-
-      {/* IF THEY HAVE FAVORITE SALONS VVVVV */}
-      {/* <View style={{ marginBottom: 40 }}>
-        <View style={styles.containerText}>
-          <NormalText
-            normalText="Favourite salons"
-            fontType={Heading5}
-            textColor="#24313A"
-            textAlign="left"
-          />
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Client Favourites", {
-                title: "Favourite Salons",
-              })
-            }
-          >
-            <Text style={{ textDecorationLine: "underline", color: "#24313A" }}>
-              Explore more
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <View style={styles.cards}>
-            <CardSalon
-              salonImage="https://picsum.photos/200/300"
-              salonName="Diego Salon"
-              salonLocation="Langara 49th, Vancouver"
-              rating="2.5"
-              favState={true}
-            />
-          </View>
-        </View>
-      </View> */}
-
-      {/* END OF CODE */}
     </ScrollView>
   );
 };
