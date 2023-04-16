@@ -106,7 +106,7 @@ const ConfirmAppointmentBusiness = () => {
         <TableComponent tableHeader={tableHeader} tableData={tableData} />
         <TouchableOpacity
           style={styles.coupon}
-          onPress={() => navigation.navigate("Select Services Business")}
+          onPress={() => navigation.goBack()}
         >
           <View style={styles.textIcon}>
             <Plus fill="black" />
