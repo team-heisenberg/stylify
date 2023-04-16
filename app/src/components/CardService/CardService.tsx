@@ -1,7 +1,7 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import Card from "../Card/Card";
 import ImageComponent from "../ImageComponent/ImageComponent";
-import { Heading5, BodyBold2 } from "../NormalText/FontTypes";
+import { Heading5, BodyBold2, Heading7 } from "../NormalText/FontTypes";
 import NormalText from "../NormalText/NormalText";
 import { RedDot } from "../IconsComponent/IconsComponent";
 import { useState } from "react";
@@ -52,7 +52,7 @@ const CardService = ({
           <View>
             <NormalText
               normalText={serviceName}
-              fontType={BodyBold2}
+              fontType={Heading7}
               textColor="#822848"
               textAlign="left"
             />
@@ -65,13 +65,14 @@ const CardService = ({
               marginTop={4}
               marginRight={5}
             />
-            <RedDot style={{ marginRight: 5, top: 2 }} />
+            <RedDot style={{ marginRight: 5, marginLeft: 5, top: 2 }} />
             <NormalText
               normalText={`$${servicePrice}`}
               fontType={Heading5}
               textAlign="left"
               marginTop={4}
               marginRight={5}
+              marginLeft={5}
             />
           </View>
         </View>

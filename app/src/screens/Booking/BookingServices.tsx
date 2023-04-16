@@ -12,8 +12,7 @@ const BookingServices = ({ businessID }: any) => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
 
-  const [servicesSelected, setServicesSelected] = useState<any[]>([])
- 
+  const [servicesSelected, setServicesSelected] = useState<any[]>([]);
 
   const searchServices = async () => {
     const { axiosClient } = await createAxiosClient();
@@ -35,47 +34,54 @@ const BookingServices = ({ businessID }: any) => {
   return (
     <View style={styles.container}>
       <ScrollView
-        style={{ backgroundColor: "#F9F5EE", height: "100%", marginTop: 5 }}
+        style={{ backgroundColor: "#F9F5EE", marginTop: 5, height: "100%" }}
       >
         {serviceTypes?.map((s) => (
           <BookingServiceContainer
             serviceCategory={s["serviceType"]}
             services={s?.services}
-            servicesSelected={servicesSelected} 
+            servicesSelected={servicesSelected}
             setServicesSelected={setServicesSelected}
           />
         ))}
-      </ScrollView>
 
-      <View style={styles.button}>
-        <ButtonComponent
-          buttonText="Select Professional"
-          onPress={() => navigation.navigate("Select Professional Business", {
-            titleProfessional: "Select Professional",
-            servicesSelected: servicesSelected,
-            appointmentDetails: servicesSelected,
-            businessID: businessID,
-            isCustomer: true,
-            ...route.params,
-          })}
-        />
-      </View>
+        <View style={styles.button}>
+          <ButtonComponent
+            buttonText="Select Professional"
+            onPress={() =>
+              navigation.navigate("Select Professional Business", {
+                titleProfessional: "Select Professional",
+                servicesSelected: servicesSelected,
+                appointmentDetails: servicesSelected,
+                businessID: businessID,
+                isCustomer: true,
+                ...route.params,
+              })
+            }
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     flex: 1,
     backgroundColor: "#F9F5EE",
     marginTop: 4,
+=======
+    // flex: 1,
+    // backgroundColor: "#F9F5EE",
+>>>>>>> d083339 (feature/HB-235-Create-Appointment-Details-Screen)
   },
   button: {
     flex: 1,
     justifyContent: "flex-end",
     marginLeft: 29,
     marginRight: 29,
-    marginBottom: 70,
+    marginBottom: 50,
     marginTop: 16,
     backgroundColor: "#F9F5EE",
   },

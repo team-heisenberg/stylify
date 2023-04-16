@@ -25,6 +25,7 @@ import BookingSpecialists from "./BookingSpecialists";
 import About from "./About";
 import { createAxiosClient } from "../../api";
 import { background } from "native-base/lib/typescript/theme/styled-system";
+import StarComponent from "../../components/StarComponent/StarComponent";
 
 const Booking = ({ route }: any) => {
   const navigation = useNavigation<any>();
@@ -72,7 +73,7 @@ const Booking = ({ route }: any) => {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "#F9F5EE", height: "100%" }}>
+    <View style={{ backgroundColor: "#F9F5EE", height: "100%", gap: 15 }}>
       <View>
         <ImageComponent
           width="100%"
@@ -98,28 +99,22 @@ const Booking = ({ route }: any) => {
             />
           </View>
           <View style={styles.ratingContainer}>
-            <NormalText
-              normalText={route.params?.rating}
-              fontType={Heading5}
-              textColor="white"
-              textAlign="left"
-            />
-            <Star style={{ marginLeft: 5 }} />
+            <StarComponent ratings={route.params?.rating} textColor="white" />
           </View>
-          <View style={styles.buttonTopContainer}>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.buttonTopLeft}
-            >
-              <ArrowLeftBig width={24} height={17.54} fill="white" />
-            </TouchableOpacity>
-            {/* <TouchableOpacity
+        </View>
+        <View style={styles.buttonTopContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.buttonTopLeft}
+          >
+            <ArrowLeftBig width={24} height={17.54} fill="white" />
+          </TouchableOpacity>
+          {/* <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={styles.buttonTopLeft}
             >
               <FavButton colorFill="#822848" height={18.23} width={22} />
             </TouchableOpacity> */}
-          </View>
         </View>
       </View>
       <TabViewComponent
@@ -151,19 +146,27 @@ const Booking = ({ route }: any) => {
 
 const styles = StyleSheet.create({
   businessInfo: {
-    bottom: 70,
+    // bottom: 70,
   },
   textContainer: {
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: -100,
+    // marginLeft: 16,
+    // marginRight: 16,
+    // marginBottom: -100,
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "space-between",
+    width: "90%",
+    // zIndex: 100,
+    // backgroundColor: "red",
+    position: "absolute",
+    bottom: 10,
   },
   ratingContainer: {
-    bottom: 120,
-    left: 330,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    // bottom: 120,
+    // left: 330,
+    // display: "flex",
+    // flexDirection: "row",
+    // alignItems: "center",
   },
   buttonTopLeft: {
     backgroundColor: "black",
@@ -172,12 +175,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
-    bottom: 320,
+    // bottom: 320,
   },
   buttonTopContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+    // width: "90%",
+    alignSelf: "center",
+    position: "absolute",
+    top: 15,
+    left: 15,
+    // backgroundColor: "red",
   },
 });
 

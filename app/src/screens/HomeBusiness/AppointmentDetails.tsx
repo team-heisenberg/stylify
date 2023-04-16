@@ -43,7 +43,7 @@ const AppointmentDetails = () => {
         }}
       >
         <View style={styles.card}>
-          <Card height={270} width="100%">
+          <Card height={260} width="100%">
             <View style={styles.cardContentContainer}>
               <View style={styles.cardSection}>
                 <NormalText
@@ -53,7 +53,7 @@ const AppointmentDetails = () => {
                 />
                 <View style={styles.cardSectionContent}>
                   <NormalText
-                    normalText={`${appointment.customer.firstName} ${appointment.customer.lastName}`}
+                    normalText={`${appointment.customerName}`}
                     fontType={Heading4}
                     textAlign="left"
                   />
@@ -82,17 +82,11 @@ const AppointmentDetails = () => {
                   fontType={captions}
                 />
                 <View style={styles.cardSectionContent}>
-                  {appointment.appointmentDetails.map(
-                    (a: { service: { serviceName: string } }) => {
-                      return (
-                        <NormalText
-                          normalText={a.service.serviceName}
-                          fontType={Heading6}
-                          textAlign="left"
-                        />
-                      );
-                    }
-                  )}
+                  <NormalText
+                    normalText={appointment.services}
+                    fontType={Heading6}
+                    textAlign="left"
+                  />
                 </View>
               </View>
               <Divider />
@@ -103,17 +97,11 @@ const AppointmentDetails = () => {
                   fontType={captions}
                 />
                 <View style={styles.cardSectionContent}>
-                  {appointment.appointmentDetails.map(
-                    (a: { price: { price: number } }) => {
-                      return (
-                        <NormalText
-                          normalText={`$${a.price}`}
-                          fontType={Heading6}
-                          textAlign="left"
-                        />
-                      );
-                    }
-                  )}
+                  <NormalText
+                    normalText={`$${appointment.total}`}
+                    fontType={Heading6}
+                    textAlign="left"
+                  />
                 </View>
               </View>
             </View>
@@ -127,14 +115,14 @@ const AppointmentDetails = () => {
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
-              <ImageComponent
+              {/* <ImageComponent
                 width={40}
                 height={40}
                 imageURL={appointment.professional.photoURL}
                 borderRadius={20}
-              />
+              /> */}
               <NormalText
-                normalText={`${appointment.professional.firstName} ${appointment.professional.lastName}`}
+                normalText={appointment.professionalName}
                 fontType={Heading6}
                 textAlign="left"
               />
@@ -174,7 +162,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   card: {
-    height: 380,
+    height: 345,
     marginTop: 15,
     justifyContent: "space-between",
   },
