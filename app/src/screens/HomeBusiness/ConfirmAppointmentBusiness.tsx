@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import NormalText from "../../components/NormalText/NormalText";
 import { Heading3, Heading4 } from "../../components/NormalText/FontTypes";
@@ -16,10 +16,14 @@ import Card from "../../components/Card/Card";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import { Divider, ScrollView } from "native-base";
 import { createAxiosClient } from "../../api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Message from "../../components/Message/Message";
 
 const ConfirmAppointmentBusiness = () => {
   const navigation = useNavigation<any>();
   const route = useRoute<any>();
+  const [value, setValue] = useState("");
+  const [customerID, setCustomerID] = useState("");
 
   const addAppointment = async () => {
     const { axiosClient } = await createAxiosClient();
@@ -30,11 +34,14 @@ const ConfirmAppointmentBusiness = () => {
       appointmentDetails,
       appointmentType,
       dateAndTime,
+      isCustomer,
+      customerID,
     } = route.params;
     console.log("MACARENA", dateAndTime);
+    console.log("isCustomer >>>>>:", customerID);
     await axiosClient
       .post("/appointment", {
-        customerID: 1,
+        customerID: route.params?.customerID || 1,
         businessID: businessID,
         professionalID: professionalID,
         appointmentDateTime: new Date(appointmentDateTime),
@@ -44,25 +51,29 @@ const ConfirmAppointmentBusiness = () => {
       })
       .then((response) => {
         console.log(response);
-        if (route.params?.isCustomer) {
-          navigation.navigate("Home Customer");
-        } else {
-          navigation.navigate("Home Business", {
-            ...route.params,
-            appointments,
-            setAppointments,
-            totalCost: tableData.reduce(
-              (acc: any, value: any) => acc + Number(value.price),
-              0
-            ),
-          });
-        }
       })
       .catch((err) => {
         console.log("You have an error", err);
       });
   };
 
+  const onCloseFunction = () => {
+    if (route.params?.isCustomer) {
+      navigation.navigate("Home Customer");
+    } else {
+      navigation.navigate("Home Business", {
+        ...route.params,
+        appointments,
+        setAppointments,
+        totalCost: tableData.reduce(
+          (acc: any, value: any) => acc + Number(value.price),
+          0
+        ),
+      });
+    }
+  };
+
+  console.log("CUSTOMER ID FROM BUSINESS >>>>>>>>>>>>>", customerID);
   console.log(route.params);
 
   const tableHeader = [
@@ -154,9 +165,12 @@ const ConfirmAppointmentBusiness = () => {
         </View>
       </ScrollView>
       <View style={styles.button}>
-        <ButtonComponent
-          buttonText="Confirm Booking"
-          onPress={addAppointment}
+        <Message
+          messageText={"Appointment successfully booked."}
+          messageButtonText={"Done"}
+          buttonText={"Confirm Booking"}
+          onPressFunction={addAppointment}
+          onCloseFunction={onCloseFunction}
         />
       </View>
     </View>

@@ -45,7 +45,7 @@ const HomeCustomer = () => {
     await axiosClient
       .get("/business")
       .then((res) => {
-        console.log('MIRANHA',res.data);
+        console.log("MIRANHA", res.data);
         setBusiness(res.data);
       })
       .catch((error) => {
@@ -80,11 +80,11 @@ const HomeCustomer = () => {
             marginTop={5}
           />
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Client Appointments", {
-                title: "Appointments",
-              })
-            }
+            style={{
+              alignItems: "flex-end",
+              marginRight: 8,
+            }}
+            onPress={() => getAppointments(customerID)}
           >
             <Text style={{ textDecorationLine: "underline", color: "#24313A" }}>
               View All
@@ -189,6 +189,7 @@ const HomeCustomer = () => {
                     rating: "4.6",
                     favState: false,
                     businessId: b["businessID"],
+                    customerID: customerID,
                   });
                 }}
               />

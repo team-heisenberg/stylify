@@ -21,12 +21,12 @@ app.get('/', (_, res) => {
 // Set Cache
 const cacheMiddleware: Prisma.Middleware = createPrismaRedisCache({
   models: [
-    { model: "User", excludeMethods: ["findMany"] },
+    { model: "Appointment", excludeMethods: ["$queryRawUnsafe"] },
     { model: "Post", cacheTime: 180, cacheKey: "article" },
   ],
   storage: { type: "redis", options: { client: redis, invalidation: { referencesTTL: 300 }, log: console } },
-  cacheTime: 300,
-  excludeMethods: ["count", "groupBy"],
+  cacheTime: 20,
+  excludeMethods: ["count", "groupBy", "$queryRawUnsafe"],
   onHit: (key) => {
     console.log("hit", key);
   },

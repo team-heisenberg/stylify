@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import {
   BodyBold,
@@ -10,13 +17,16 @@ import {
 } from "../../components/NormalText/FontTypes";
 import NormalText from "../../components/NormalText/NormalText";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ScrollView } from "native-base";
+import { Fab, ScrollView } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { createAxiosClient } from "../../api";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Card from "../../components/Card/Card";
-import { ArrowRightBig } from "../../components/IconsComponent/IconsComponent";
+import {
+  ArrowRightBig,
+  Plus,
+} from "../../components/IconsComponent/IconsComponent";
 import CalendarComponent from "../../components/CalendarComponent/CalendarComponent";
 import { removeYear } from "../../utils";
 
@@ -48,7 +58,7 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
       const userData = JSON.parse(rawUserData || "{}");
       getAppointments(userData?.ID, value);
       setBusinessID(userData?.ID);
-      console.log(userData?.ID)
+      console.log(userData?.ID);
       setbusinessName(userData?.Name);
     })();
   }, [value]);
@@ -86,11 +96,33 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
           />
         </View>
         <View style={styles.appointments}>
-          <NormalText
-            normalText="Appointments"
-            fontType={Heading3}
-            textAlign="left"
-          />
+          <View
+            style={{
+              alignItems: "flex-end",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginBottom: 8
+            }}
+          >
+            <NormalText
+              normalText="Appointments"
+              fontType={Heading3}
+              textAlign="left"
+            />
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                marginRight: 8,
+              }}
+              onPress={() => getAppointments(businessID)}
+            >
+              <Text
+                style={{ textDecorationLine: "underline", color: "#24313A" }}
+              >
+                View All
+              </Text>
+            </TouchableOpacity>
+          </View>
           {appointments !== [] ? (
             <ScrollView style={styles.cardAppointment}>
               <View style={styles.cardContainer}>
@@ -173,17 +205,30 @@ const HomeBusiness: React.FC<NativeStackScreenProps<any>> = () => {
           )}
         </View>
       </ScrollView>
-      <View style={styles.button}>
-        <ButtonComponent
-          buttonText="Create New Appointment"
-          rightIcon={<ArrowRightBig fill="white" />}
+      {appointments == [] ? (
+        <View style={styles.button}>
+          <ButtonComponent
+            buttonText="Create New Appointment"
+            rightIcon={<ArrowRightBig fill="white" />}
+            onPress={() =>
+              navigation.navigate("Create Appointment Business", {
+                titleCreateAppointment: "Create Appointment",
+              })
+            }
+          />
+        </View>
+      ) : (
+        <Fab
+          renderInPortal={false}
+          bg={"#24313a"}
+          icon={<Plus fill="white" height={21} width={21} />}
           onPress={() =>
             navigation.navigate("Create Appointment Business", {
               titleCreateAppointment: "Create Appointment",
             })
           }
         />
-      </View>
+      )}
     </View>
   );
 };
